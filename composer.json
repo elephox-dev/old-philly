@@ -23,5 +23,13 @@
     "psr-4": {
       "Philly\\": "src/Philly"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "test\\Philly\\": "test"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
   }
 }

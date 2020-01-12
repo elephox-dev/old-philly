@@ -13,7 +13,7 @@ class App extends Container\BindingContainer implements Contracts\App
      */
     public function __construct()
     {
-        // bind the class instance to its class
+        // bind this app instance to its own class
         $this[App::class] = $this;
     }
 }

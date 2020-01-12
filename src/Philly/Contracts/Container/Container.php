@@ -15,6 +15,11 @@ use Traversable;
 interface Container extends ContainerInterface, ArrayAccess, Traversable, IteratorAggregate, JsonSerializable
 {
     /**
+     * Store a value with an associated key.
+     */
+    function put($key, $value): void;
+
+    /**
      * Get all keys available in the container.
      */
     function getKeys(): array;

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Philly\Container;
 
+use InvalidArgumentException;
 use Philly\Contracts\Container\BindingContainer as BaseBindingContainer;
 use Philly\Contracts\Container\BindingContract as BaseBindingContract;
 
@@ -31,9 +32,20 @@ class BindingContainer extends Container implements BaseBindingContainer
         } else
             $contract = new BindingContract($interface, $builder, $singleton);
 
-        $this[] = $contract;
+        parent::offsetSet($interface, $contract);
 
         return $contract;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($offset === null)
+            throw new InvalidArgumentException("Offset cannot be null!");
+
+        return $this->bind($offset, $value, true);
     }
 
     /**
@@ -42,7 +54,7 @@ class BindingContainer extends Container implements BaseBindingContainer
     public function offsetGet($offset)
     {
         /** @var BindingContract $contract */
-        $contract = $this[$offset];
+        $contract = parent::offsetGet($offset);
         $builder = $contract->getBuilder();
 
         if (!$contract->isSingleton())

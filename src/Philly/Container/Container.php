@@ -60,6 +60,9 @@ abstract class Container implements BaseContainer
      */
     public function offsetSet($offset, $value)
     {
+        if (!$this->accepts($value))
+            throw new UnacceptableTypeException("Cannot accept objects of type '" . get_class($value) . "'");
+
         $this->storage[$offset] = $value;
     }
 
@@ -111,5 +114,23 @@ abstract class Container implements BaseContainer
     public function has($id)
     {
         return $this->offsetExists($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function put($key, $value): void
+    {
+        $this->offsetSet($key, $value);
+    }
+
+    /**
+     * Check whether this container accepts the given value.
+     *
+     * @param mixed $value
+     */
+    public function accepts($value): bool
+    {
+        return true;
     }
 }

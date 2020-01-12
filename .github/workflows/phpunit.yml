@@ -1,0 +1,32 @@
+name: PHPUnit Tests
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Cache composer dependencies
+      uses: actions/cache@v1.1.0
+      with:
+        path: vendor
+        key: composer@${{ hashFiles('**/composer.lock') }}
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+
+  test:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Run test suite
+      run: composer run-script test

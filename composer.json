@@ -1,0 +1,26 @@
+{
+  "name": "ricardoboss/philly",
+  "description": "A PHP web server framework",
+  "type": "library",
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ricardo Boss",
+      "email": "contact@ricardoboss.de"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^7.4",
+    "ext-json": "*",
+    "psr/container": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Philly\\": "src/Philly"
+    }
+  }
+}

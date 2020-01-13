@@ -8,5 +8,5 @@ namespace test\Philly\Unit\Container;
  */
 class TestClass implements TestInterface
 {
-
+    public string $field = "value";
 }

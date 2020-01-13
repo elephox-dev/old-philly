@@ -56,4 +56,46 @@ class BindingContainerTest extends TestCase
         static::assertTrue($instance_a === $instance_b);
         static::assertTrue($instance_b === $instance_c);
     }
+
+    public function testOffsetSet()
+    {
+        $instance_a = new TestClass();
+        $container = new BindingContainer();
+        $container->offsetSet(TestInterface::class, $instance_a);
+
+        $instance_b = $container[TestInterface::class];
+
+        static::assertTrue($instance_a === $instance_b);
+    }
+
+    public function testOffsetGet()
+    {
+        $instance_a = new TestClass();
+        $container = new BindingContainer();
+        $container[TestInterface::class] = $instance_a;
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $instance_b = $container->offsetGet(TestInterface::class);
+
+        static::assertTrue($instance_a === $instance_b);
+    }
+
+    public function testMakeSingleton()
+    {
+        $container = new BindingContainer();
+        $contract = $container->bind(TestInterface::class, function () {
+            return new TestClass();
+        }, false);
+
+        $pre_singleton = $container[TestInterface::class];
+
+        $contract->makeSingleton();
+        static::assertTrue($contract->isSingleton());
+
+        $post_singleton_a = $container[TestInterface::class];
+        $post_singleton_b = $container[TestInterface::class];
+
+        static::assertFalse($pre_singleton === $post_singleton_a);
+        static::assertTrue($post_singleton_a === $post_singleton_b);
+    }
 }

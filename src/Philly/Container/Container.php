@@ -15,7 +15,7 @@ abstract class Container implements BaseContainer
      * The default json options for serialization
      * @var int
      */
-    protected int $json_options = JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_QUOT | JSON_THROW_ON_ERROR;
+    protected int $json_options = JSON_THROW_ON_ERROR;
 
     /**
      * The internal storage for this container
@@ -49,9 +49,13 @@ abstract class Container implements BaseContainer
 
     /**
      * @inheritDoc
+     * @throws OffsetNotFoundException
      */
     public function offsetGet($offset)
     {
+        if (!$this->offsetExists($offset))
+            throw new OffsetNotFoundException("Offset '$offset' does not exist!");
+
         return $this->storage[$offset];
     }
 
@@ -89,7 +93,7 @@ abstract class Container implements BaseContainer
      */
     public function jsonSerialize()
     {
-        return json_encode($this->storage, $this->jsonOptions());
+        return $this->storage;
     }
 
     /**

@@ -1,0 +1,18 @@
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd">
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/Philly/</directory>
+            <exclude>
+                <file>src/Philly/App.php</file>
+                <file>src/Philly/Contracts/App.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+    <testsuites>
+        <testsuite name="Unit Tests">
+            <directory>test/Unit/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Philly\Container;
 
 use InvalidArgumentException;
-use Philly\Contracts\Container\BindingContainer as BaseBindingContainer;
+use Philly\Contracts\Container\BindingContainer as BindingContainerContract;
 use Philly\Contracts\Container\BindingContract as BaseBindingContract;
 
 /**
  * Class BindingContainer
  */
-class BindingContainer extends Container implements BaseBindingContainer
+class BindingContainer extends Container implements BindingContainerContract
 {
     /**
      * This array contains the singleton instances which were already built
@@ -53,8 +53,10 @@ class BindingContainer extends Container implements BaseBindingContainer
      */
     public function offsetGet($offset)
     {
-        /** @var BindingContract $contract */
         $contract = parent::offsetGet($offset);
+
+        assert($contract instanceof BaseBindingContract, "Invalid binding contract!");
+
         $builder = $contract->getBuilder();
 
         if (!$contract->isSingleton())

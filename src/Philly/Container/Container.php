@@ -122,4 +122,18 @@ abstract class Container implements ContainerContract
     {
         return true;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLazy($key, $default)
+    {
+        if ($this->has($key))
+            /** @noinspection PhpUnhandledExceptionInspection */
+            return $this->offsetGet($key);
+
+        $this->offsetSet($key, $default);
+
+        return $default;
+    }
 }

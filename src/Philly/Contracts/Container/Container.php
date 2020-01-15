@@ -16,6 +16,8 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
 {
     /**
      * Store a value with an associated key.
+     * @param int|string|bool|float $key
+     * @param mixed $value
      */
     function put($key, $value): void;
 
@@ -28,4 +30,15 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
      * Get all values available in the container.
      */
     function getValues(): array;
+
+    /**
+     * Get a value from the container or a default value if the key doesn't exist.
+     * Implementations should store the default value with the given key if it didn't exist yet, hence the "lazy" term.
+     *
+     * Multiple calls to this method with the same(!) arguments should result in the same outputs.
+     * @param int|string|bool|float $key
+     * @param mixed $default
+     * @return mixed
+     */
+    function getLazy($key, $default);
 }

@@ -3,20 +3,14 @@ declare(strict_types=1);
 
 namespace Philly\Container;
 
-use Philly\Contracts\Container\Container as BaseContainer;
+use Philly\Contracts\Container\Container as ContainerContract;
 use Philly\Contracts\Container\ContainerIterator as ContainerIteratorContract;
 
 /**
  * Class Container
  */
-abstract class Container implements BaseContainer
+abstract class Container implements ContainerContract
 {
-    /**
-     * The default json options for serialization
-     * @var int
-     */
-    protected int $json_options = JSON_THROW_ON_ERROR;
-
     /**
      * The internal storage for this container
      * @var array
@@ -88,20 +82,10 @@ abstract class Container implements BaseContainer
 
     /**
      * Returns this container as a json object.
-     *
-     * @return false|mixed|string
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->storage;
-    }
-
-    /**
-     * Returns the json encode/decode options for serializing.
-     */
-    public function jsonOptions(): int
-    {
-        return $this->json_options;
     }
 
     /**
@@ -129,7 +113,8 @@ abstract class Container implements BaseContainer
     }
 
     /**
-     * Check whether this container accepts the given value.
+     * Check whether this container accepts the given value. This method should be overridden for implementations that
+     * check the types of values added to this container.
      *
      * @param mixed $value
      */

@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Interface Linker
+ * Interface Pipe
  */
-interface Linker
+interface Pipe
 {
     /**
      * Handle a request and modify it.
      */
-    function handle(App $app, Request $request, Closure $next): Response;
+    function handle(App $app, Request $request, Closure $next);
 }

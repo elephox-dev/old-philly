@@ -5,14 +5,14 @@ namespace test\Philly\Unit\Routing;
 
 use Closure;
 use Philly\Contracts\App;
-use Philly\Contracts\Routing\Linker;
+use Philly\Contracts\Routing\Pipe;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class TestLinker
+ * Class TestPipe
  */
-class TestLinker implements Linker
+class TestPipe implements Pipe
 {
     /**
      * @inheritDoc

@@ -5,18 +5,18 @@ namespace Philly\Contracts\Routing;
 
 use Philly\Contracts\App;
 use Philly\Contracts\Container\Container;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Interface LinkerChain
  */
-interface LinkerChain extends Container
+interface Pipeline extends Container
 {
     /**
      * @param App $app
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
-    function pass(App $app, Request $request): Response;
+    public function pass(App $app, Request $request): JsonResponse;
 }

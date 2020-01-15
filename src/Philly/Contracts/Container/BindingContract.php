@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Philly\Contracts\Container;
 
+use Closure;
+
 /**
  * Interface BindingContract
  */
@@ -16,7 +18,7 @@ interface BindingContract
     /**
      * Get the builder for this contract.
      */
-    function getBuilder(): callable;
+    function getBuilder(): Closure;
 
     /**
      * Turn a binding contract into a singleton contract.

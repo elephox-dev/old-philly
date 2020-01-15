@@ -12,6 +12,7 @@ class BindingContract extends Container implements BaseBindingContract
 {
     /**
      * BindingContract constructor.
+     * @param callable $builder A builder function which returns an implementation of the given interface.
      */
     public function __construct(string $interface, callable $builder, bool $singleton)
     {

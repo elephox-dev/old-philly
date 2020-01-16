@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace test\Philly\Unit\Routing;
+namespace test\Philly\Unit\Pipeline;
 
 use Philly\Container\UnacceptableTypeException;
-use Philly\Routing\Pipeline;
+use Philly\Pipeline\Pipeline;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 

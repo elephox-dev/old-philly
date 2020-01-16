@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace test\Philly\Unit\Routing;
+namespace test\Philly\Unit\Pipeline;
 
 use Closure;
 use Philly\Contracts\App;
-use Philly\Contracts\Routing\Pipe;
+use Philly\Contracts\Pipeline\Pipe;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

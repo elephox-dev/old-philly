@@ -19,6 +19,15 @@ class BindingContainer extends Container implements BindingContainerContract
     protected array $singletons = [];
 
     /**
+     * Container constructor.
+     * @param array $items
+     */
+    public function __construct(array $items = [])
+    {
+        parent::__construct($items);
+    }
+
+    /**
      * @inheritDoc
      */
     public function bind(string $interface, $builder, bool $singleton = false): BaseBindingContract

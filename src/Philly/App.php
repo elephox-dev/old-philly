@@ -5,10 +5,9 @@ namespace Philly;
 
 use Philly\Contracts\App as AppContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
-use Philly\Contracts\Routing\Pipeline as PipelineContract;
+use Philly\Contracts\Pipeline\Pipeline as PipelineContract;
 use Philly\Exceptions\ExceptionHandler;
-use Philly\Routing\Pipeline;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Philly\Pipeline\Pipeline;
 use Symfony\Component\HttpFoundation\Request;
 use Throwable;
 
@@ -27,6 +26,8 @@ class App extends Container\BindingContainer implements AppContract
      */
     public function __construct()
     {
+        parent::__construct();
+
         // bind this app instance to its own class
         $this[AppContract::class] = $this;
     }
@@ -83,7 +84,7 @@ class App extends Container\BindingContainer implements AppContract
     /**
      * @inheritDoc
      */
-    public function handle(Request $request): JsonResponse
+    public function handle(Request $request): Response
     {
         $this[Request::class] = $request;
 
@@ -93,7 +94,7 @@ class App extends Container\BindingContainer implements AppContract
         {
             $pipeline = $this->getPipeline();
 
-            $response = $pipeline->pass($this, $request);
+            $response = $pipeline->handle($this, $request);
         }
         catch (Throwable $throwable)
         {

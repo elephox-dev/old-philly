@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Philly\Contracts\Routing;
+namespace Philly\Contracts\Pipeline;
 
 use Closure;
 use Philly\Contracts\App;
@@ -13,8 +13,4 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface Pipe
 {
-    /**
-     * Handle a request and modify it.
-     */
-    function handle(App $app, Request $request, Closure $next);
 }

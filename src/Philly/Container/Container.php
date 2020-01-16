@@ -18,6 +18,15 @@ abstract class Container implements ContainerContract
     protected array $storage = [];
 
     /**
+     * Container constructor.
+     * @param array $items
+     */
+    public function __construct(array $items = [])
+    {
+        $this->storage = $items;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getKeys(): array

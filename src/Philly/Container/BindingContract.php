@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Philly\Container;
 
+use Closure;
 use Philly\Contracts\Container\BindingContract as BaseBindingContract;
 
 /**
@@ -32,7 +33,7 @@ class BindingContract extends Container implements BaseBindingContract
     /**
      * @inheritDoc
      */
-    function getBuilder(): callable
+    function getBuilder(): Closure
     {
         return $this["builder"];
     }

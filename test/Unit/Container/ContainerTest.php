@@ -7,6 +7,9 @@ use Philly\Container\OffsetNotFoundException;
 use Philly\Container\UnacceptableTypeException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use test\Philly\TestClass;
+use test\Philly\TestContainer;
+use test\Philly\TestInterface;
 
 /**
  * Class ContainerTest.
@@ -92,9 +95,12 @@ class ContainerTest extends TestCase
         $instance = new TestClass();
         $container = new TestContainer();
         $container[TestInterface::class] = $instance;
-        $json = json_encode($container, $container->jsonOptions());
 
-        static::assertEquals("{\"test\\\\Philly\\\\Unit\\\\Container\\\\TestInterface\":{\"field\":\"value\"}}", $json);
+        $json_enc = json_encode($container, $container->jsonOptions());
+        $json_as = $container->asJson();
+
+        static::assertEquals("{\"test\\\\Philly\\\\TestInterface\":{\"field\":\"value\"}}", $json_enc);
+        static::assertEquals($json_enc, $json_as);
     }
 
     public function testGet()

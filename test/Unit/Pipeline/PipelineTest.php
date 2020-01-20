@@ -7,6 +7,7 @@ use Philly\Container\UnacceptableTypeException;
 use Philly\Pipeline\Pipeline;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use test\Philly\TestPipe;
 
 /**
  * Class PipelineTest

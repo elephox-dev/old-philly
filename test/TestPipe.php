@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace test\Philly\Unit\Pipeline;
+namespace test\Philly;
 
 use Closure;
 use Philly\Contracts\App;

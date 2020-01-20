@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace test\Philly\Unit\Container;
+namespace test\Philly;
 
 
 use Philly\Container\Container;
@@ -11,8 +11,11 @@ use Philly\Container\Container;
  */
 class TestContainer extends Container
 {
+    /**
+     * @inheritDoc
+     */
     public function accepts($value): bool
     {
-        return $value instanceof TestClass;
+        return $value instanceof TestInterface;
     }
 }

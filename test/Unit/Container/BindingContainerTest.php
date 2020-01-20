@@ -5,6 +5,8 @@ namespace test\Philly\Unit\Container;
 
 use Philly\Container\BindingContainer;
 use PHPUnit\Framework\TestCase;
+use test\Philly\TestClass;
+use test\Philly\TestInterface;
 
 /**
  * Class BindingContainerTest

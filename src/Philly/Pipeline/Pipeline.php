@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Philly\Pipeline;
 
-use Philly\Collection\Collection;
+use Philly\Container\Collection;
 use Philly\Container\FiltersTypes;
 use Philly\Contracts\App;
 use Philly\Contracts\Pipeline\Pipe as PipeContract;

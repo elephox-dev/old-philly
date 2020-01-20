@@ -57,7 +57,7 @@ abstract class Container implements ContainerContract
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset))
-            throw new OffsetNotFoundException("Offset '$offset' does not exist!");
+            throw new OffsetNotFoundException($offset);
 
         return $this->storage[$offset];
     }
@@ -68,7 +68,7 @@ abstract class Container implements ContainerContract
     public function offsetSet($offset, $value)
     {
         if (!$this->accepts($value))
-            throw new UnacceptableTypeException("Cannot accept objects of type '" . get_class($value) . "'");
+            throw new UnacceptableTypeException(get_class($value));
 
         $this->storage[$offset] = $value;
     }
@@ -142,6 +142,7 @@ abstract class Container implements ContainerContract
      * check the types of values added to this container.
      *
      * @param mixed $value
+     * @noinspection PhpUnusedParameterInspection
      */
     public function accepts($value): bool
     {

@@ -60,9 +60,9 @@ class Collection extends Container implements CollectionContract
     /**
      * @inheritDoc
      */
-    public function where(callable $callback): self
+    public function where(callable $callback, bool $preserve_keys = true): self
     {
-        $items = array_filter($this->storage, $callback);
+        $items = array_filter($this->storage, $callback, ARRAY_FILTER_USE_BOTH);
 
         return new Collection($items);
     }
@@ -72,12 +72,19 @@ class Collection extends Container implements CollectionContract
      */
     public function first(callable $callback)
     {
-        foreach ($this as $key => $value)
-        {
+        foreach ($this as $key => $value) {
             if ($callback($value, $key))
                 return $value;
         }
 
         return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function count(): int
+    {
+        return count($this->storage);
     }
 }

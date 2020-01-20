@@ -48,10 +48,10 @@ class ContainerIterator implements BaseContainerIterator
      */
     public function current()
     {
-        if ($this->current_offset != null)
-            return $this->container[$this->current_offset];
+        if ($this->key() !== null)
+            return $this->container[$this->key()];
 
-        throw new OutOfBoundsException("Container does not contains any elements.");
+        throw new OutOfBoundsException("No more keys available!");
     }
 
     /**

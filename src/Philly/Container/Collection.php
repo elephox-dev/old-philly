@@ -1,11 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Philly\Collection;
+namespace Philly\Container;
 
 
-use Philly\Container\Container;
-use Philly\Contracts\Collection\Collection as CollectionContract;
+use Philly\Contracts\Container\Collection as CollectionContract;
 
 /**
  * Class Collection

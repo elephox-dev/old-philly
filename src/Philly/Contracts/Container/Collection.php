@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
 
-namespace Philly\Contracts\Collection;
+namespace Philly\Contracts\Container;
 
-
-use Philly\Contracts\Container\Container;
 
 /**
  * Interface Collection.

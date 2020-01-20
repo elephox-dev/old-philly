@@ -100,6 +100,22 @@ abstract class Container implements ContainerContract
     /**
      * @inheritDoc
      */
+    public function jsonOptions(): int
+    {
+        return JSON_THROW_ON_ERROR;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function asJson(): string
+    {
+        return json_encode($this->jsonSerialize(), $this->jsonOptions());
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function get($id)
     {
         return $this->offsetGet($id);

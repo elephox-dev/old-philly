@@ -5,14 +5,14 @@ namespace Philly\Contracts\Container;
 
 use ArrayAccess;
 use IteratorAggregate;
-use JsonSerializable;
+use Philly\Contracts\Support\JsonCompatible;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
 /**
  * Interface Container
  */
-interface Container extends ContainerInterface, ArrayAccess, Traversable, IteratorAggregate, JsonSerializable
+interface Container extends ContainerInterface, ArrayAccess, Traversable, IteratorAggregate, JsonCompatible
 {
     /**
      * Store a value with an associated key.

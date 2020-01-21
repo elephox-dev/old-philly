@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Philly\Pipeline;
 
 use Philly\Container\Collection;
+use Philly\Contracts\Container\Collection as CollectionContract;
 use Philly\Container\FiltersTypes;
 use Philly\Contracts\App;
 use Philly\Contracts\Pipeline\Pipe as PipeContract;
@@ -55,6 +56,8 @@ class Pipeline extends Collection implements PipelineContract
     public function handlePrePipes(App $app, Request $request)
     {
         $prePipes = $this->getPrePipes();
+
+        /** @var PrePipeContract $pipe */
         foreach ($prePipes as $pipe) {
             $output = $pipe->handle($app, $request);
 
@@ -85,6 +88,8 @@ class Pipeline extends Collection implements PipelineContract
     public function handlePostPipes(App $app, Response $response): Response
     {
         $postPipes = $this->getPostPipes();
+
+        /** @var PostPipeContract $pipe */
         foreach ($postPipes as $pipe) {
             $output = $pipe->handle($app, $response);
             $result = $output->getResult();
@@ -108,8 +113,7 @@ class Pipeline extends Collection implements PipelineContract
      */
     public function getPump(Request $request): PumpContract
     {
-        return $this->getInstancesOf(PumpContract::class)
-            ->first(function (PumpContract $pump) use ($request) {
+        return $this->getPumps()->first(function (PumpContract $pump) use ($request) {
                 $pump->accepts($request);
             });
     }
@@ -139,25 +143,25 @@ class Pipeline extends Collection implements PipelineContract
     }
 
     /**
-     * @return PrePipeContract[]
+     * @return CollectionContract
      */
-    public function getPrePipes(): array
+    public function getPrePipes(): CollectionContract
     {
         return $this->getInstancesOf(PrePipeContract::class);
     }
 
     /**
-     * @return PostPipeContract[]
+     * @return CollectionContract
      */
-    public function getPostPipes(): array
+    public function getPostPipes(): CollectionContract
     {
         return $this->getInstancesOf(PostPipeContract::class);
     }
 
     /**
-     * @return PumpContract[]
+     * @return CollectionContract
      */
-    public function getPumps(): array
+    public function getPumps(): CollectionContract
     {
         return $this->getInstancesOf(PumpContract::class);
     }

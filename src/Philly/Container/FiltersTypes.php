@@ -4,8 +4,7 @@ declare(strict_types=1);
 namespace Philly\Container;
 
 
-use Philly\Collection\Collection;
-use Philly\Contracts\Collection\Collection as CollectionContract;
+use Philly\Contracts\Container\Collection as CollectionContract;
 
 /**
  * Trait FiltersTypes
@@ -15,9 +14,9 @@ use Philly\Contracts\Collection\Collection as CollectionContract;
 trait FiltersTypes
 {
     /**
-     * @param string $interface
+     * @param string|object $interface
      */
-    public function getInstancesOf(string $interface): CollectionContract
+    public function getInstancesOf($interface): CollectionContract
     {
         $result = new Collection();
         foreach ($this->getValues() as $value)

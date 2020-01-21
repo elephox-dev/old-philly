@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace test\Philly\Unit\Container;
 
-use Philly\Container\ContainerIterator;
 use PHPUnit\Framework\TestCase;
 use test\Philly\SecondTestClass;
 use test\Philly\TestClass;
@@ -26,7 +25,7 @@ class ContainerIteratorTest extends TestCase
         $it = $container->getIterator();
 
         while ($it->valid()) {
-            static::assertTrue($it->current() instanceof TestClass);
+            static::assertTrue($it->current() instanceof TestInterface);
             static::assertContains($it->key(), [TestInterface::class, TestClass::class, SecondTestClass::class]);
 
             $it->next();

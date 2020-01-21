@@ -17,11 +17,6 @@ class ContainerIterator implements BaseContainerIterator
     protected Container $container;
 
     /**
-     * @var string|float|int|bool|null
-     */
-    protected $current_offset;
-
-    /**
      * @var array
      */
     protected array $keys;
@@ -38,9 +33,6 @@ class ContainerIterator implements BaseContainerIterator
     {
         $this->container = $container;
         $this->keys = $container->getKeys();
-
-        if (count($this->keys) > 0)
-            $this->current_offset = $this->keys[0];
     }
 
     /**
@@ -48,8 +40,9 @@ class ContainerIterator implements BaseContainerIterator
      */
     public function current()
     {
-        if ($this->key() !== null)
-            return $this->container[$this->key()];
+        $offset = $this->key();
+        if ($offset !== null)
+            return $this->container[$offset];
 
         throw new OutOfBoundsException("No more keys available!");
     }
@@ -59,7 +52,7 @@ class ContainerIterator implements BaseContainerIterator
      */
     public function next()
     {
-        ++$this->current_key;
+        $this->current_key++;
     }
 
     /**
@@ -68,7 +61,7 @@ class ContainerIterator implements BaseContainerIterator
     public function key()
     {
         if ($this->current_key < count($this->keys))
-            return $this->current_offset;
+            return $this->keys[$this->current_key];
 
         return null;
     }

@@ -51,7 +51,6 @@ class CollectionTest extends TestCase
         ]);
 
         $first = $collection->first(function ($val) {
-            var_dump($val, strpos($val, 'e'));
             return strpos($val, 'e') !== false;
         });
 

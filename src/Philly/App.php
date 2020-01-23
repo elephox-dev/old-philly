@@ -9,6 +9,7 @@ use Philly\Contracts\Pipeline\Pipeline as PipelineContract;
 use Philly\Exceptions\ExceptionHandler;
 use Philly\Pipeline\Pipeline;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 /**

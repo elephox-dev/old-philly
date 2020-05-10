@@ -30,6 +30,6 @@
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit --coverage-text test/"
+    "test": "phpunit -c ./phpunit.xml --coverage-text ./test/"
   }
 }

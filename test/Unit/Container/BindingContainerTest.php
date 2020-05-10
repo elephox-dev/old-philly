@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace test\Philly\Unit\Container;
 
+use InvalidArgumentException;
 use Philly\Container\BindingContainer;
 use PHPUnit\Framework\TestCase;
 use test\Philly\TestClass;
@@ -36,12 +37,11 @@ class BindingContainerTest extends TestCase
             return new TestClass();
         }, true);
 
-        static::assertTrue($container[TestInterface::class] instanceof TestClass);
-
         $instance_a = $container[TestInterface::class];
         $instance_b = $container[TestInterface::class];
 
-        static::assertTrue($instance_a === $instance_b);
+	    static::assertTrue($instance_a instanceof TestClass);
+	    static::assertTrue($instance_a === $instance_b);
     }
 
     public function testBindSingletonInstance()
@@ -50,12 +50,10 @@ class BindingContainerTest extends TestCase
         $container = new BindingContainer();
         $container->bind(TestInterface::class, $instance_a, true);
 
-        static::assertTrue($container[TestInterface::class] instanceof TestClass);
-
         $instance_b = $container[TestInterface::class];
         $instance_c = $container[TestInterface::class];
 
-        static::assertTrue($instance_a === $instance_b);
+	    static::assertTrue($instance_a === $instance_b);
         static::assertTrue($instance_b === $instance_c);
     }
 
@@ -68,6 +66,15 @@ class BindingContainerTest extends TestCase
         $instance_b = $container[TestInterface::class];
 
         static::assertTrue($instance_a === $instance_b);
+    }
+
+    public function testOffsetSetNull()
+    {
+    	$container = new BindingContainer();
+
+    	static::expectException(InvalidArgumentException::class);
+
+    	$container->offsetSet(null, null);
     }
 
     public function testOffsetGet()

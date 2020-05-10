@@ -20,7 +20,6 @@ class BindingContainer extends Container implements BindingContainerContract
 
     /**
      * Container constructor.
-     * @param array $items
      */
     public function __construct(array $items = [])
     {

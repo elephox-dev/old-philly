@@ -49,8 +49,6 @@ class Pipeline extends Collection implements PipelineContract
     }
 
     /**
-     * @param App $app
-     * @param Request $request
      * @return Request|Response
      */
     public function handlePrePipes(App $app, Request $request)
@@ -80,11 +78,6 @@ class Pipeline extends Collection implements PipelineContract
         return $request;
     }
 
-    /**
-     * @param App $app
-     * @param Response $response
-     * @return Response
-     */
     public function handlePostPipes(App $app, Response $response): Response
     {
         $postPipes = $this->getPostPipes();
@@ -93,8 +86,6 @@ class Pipeline extends Collection implements PipelineContract
         foreach ($postPipes as $pipe) {
             $output = $pipe->handle($app, $response);
             $result = $output->getResult();
-
-            assert($result instanceof Response, "Pipe output has invalid result!");
 
             // check if we have to abort
             if (!$output->isSuccessful()) {
@@ -107,10 +98,6 @@ class Pipeline extends Collection implements PipelineContract
         return $response;
     }
 
-    /**
-     * @param Request $request
-     * @return PumpContract
-     */
     public function getPump(Request $request): PumpContract
     {
         return $this->getPumps()->first(function (PumpContract $pump) use ($request) {
@@ -142,25 +129,16 @@ class Pipeline extends Collection implements PipelineContract
         $this->add($pump);
     }
 
-    /**
-     * @return CollectionContract
-     */
     public function getPrePipes(): CollectionContract
     {
         return $this->getInstancesOf(PrePipeContract::class);
     }
 
-    /**
-     * @return CollectionContract
-     */
     public function getPostPipes(): CollectionContract
     {
         return $this->getInstancesOf(PostPipeContract::class);
     }
 
-    /**
-     * @return CollectionContract
-     */
     public function getPumps(): CollectionContract
     {
         return $this->getInstancesOf(PumpContract::class);

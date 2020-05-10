@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface PipeOutput
 {
-    /**
-     * @return bool
-     */
     public function isSuccessful(): bool;
 
     /**

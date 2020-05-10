@@ -33,10 +33,7 @@ class App extends Container\BindingContainer implements AppContract
         $this[AppContract::class] = $this;
     }
 
-    /**
-     * @return PipelineContract
-     */
-    protected function getPipeline(): PipelineContract
+    public function getPipeline(): PipelineContract
     {
         if (!$this->has(PipelineContract::class))
             $this->bind(PipelineContract::class, new Pipeline(), true);
@@ -48,10 +45,7 @@ class App extends Container\BindingContainer implements AppContract
         return $pipeline;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function addPipes(): void
+	protected function addPipes(): void
     {
         $pipeline = $this->getPipeline();
 
@@ -59,17 +53,11 @@ class App extends Container\BindingContainer implements AppContract
             $pipeline->add($pipe);
     }
 
-    /**
-     * @return array
-     */
     protected function getPipes(): array
     {
         return $this->pipes;
     }
 
-    /**
-     * @return ExceptionHandlerContract
-     */
     protected function getExceptionHandler(): ExceptionHandlerContract
     {
         if (!$this->has(ExceptionHandlerContract::class))

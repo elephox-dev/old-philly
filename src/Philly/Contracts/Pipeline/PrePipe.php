@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 interface PrePipe extends Pipe
 {
     /**
-     * @param App $app
-     * @param Request $request
-     * @return PipeOutput
+     * Handle a request. The result may contain a response if the request was not successful.
      */
-    public function handle(App $app, Request $request): PipeOutput;
+    public function handle(App $app, Request $request): PrePipeOutput;
 }

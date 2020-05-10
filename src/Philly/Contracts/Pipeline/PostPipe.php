@@ -12,10 +12,5 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface PostPipe extends Pipe
 {
-    /**
-     * @param App $app
-     * @param Response $response
-     * @return PipeOutput
-     */
-    public function handle(App $app, Response $response): PipeOutput;
+    public function handle(App $app, Response $response): PostPipeOutput;
 }

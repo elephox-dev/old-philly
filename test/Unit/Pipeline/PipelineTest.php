@@ -16,21 +16,21 @@ class PipelineTest extends TestCase
 {
     public function testInvalidType()
     {
-        $linkerChain = new Pipeline();
+        $pipeline = new Pipeline();
 
         $this->expectException(UnacceptableTypeException::class);
 
-        $linkerChain["test"] = new stdClass();
+        $pipeline["test"] = new stdClass();
     }
 
     public function testCorrectType()
     {
-        $linkerChain = new Pipeline();
+        $pipeline = new Pipeline();
 
         $instance = new TestPipe();
-        $linkerChain[TestPipe::class] = $instance;
+        $pipeline[TestPipe::class] = $instance;
 
-        static::assertContains(TestPipe::class, $linkerChain->getKeys());
-        static::assertTrue($linkerChain[TestPipe::class] === $instance);
+        static::assertContains(TestPipe::class, $pipeline->getKeys());
+        static::assertTrue($pipeline[TestPipe::class] === $instance);
     }
 }

@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Philly\Contracts\Pipeline;
 
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Interface PipeOutput
+ * Interface PrePipeOutput
  */
-interface PipeOutput
+interface PrePipeOutput extends PipeOutput
 {
-    public function isSuccessful(): bool;
+	/** @return Request|Response */
+	public function getResult();
 }

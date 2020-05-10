@@ -1,8 +1,7 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Philly\Pipeline;
-
 
 use Philly\Contracts\Pipeline\Pipe as PipeContract;
 

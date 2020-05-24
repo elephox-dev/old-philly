@@ -8,9 +8,6 @@ use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Philly\Contracts\Pipeline\Pipeline as PipelineContract;
 use Philly\Exceptions\ExceptionHandler;
 use Philly\Pipeline\Pipeline;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 /**
  * Class App
@@ -33,6 +30,9 @@ class App extends Container\BindingContainer implements AppContract
         $this[AppContract::class] = $this;
     }
 
+	/**
+	 * @inheritDoc
+	 */
     public function getPipeline(): PipelineContract
     {
         if (!$this->has(PipelineContract::class))
@@ -45,20 +45,10 @@ class App extends Container\BindingContainer implements AppContract
         return $pipeline;
     }
 
-	protected function addPipes(): void
-    {
-        $pipeline = $this->getPipeline();
-
-        foreach ($this->getPipes() as $pipe)
-            $pipeline->add($pipe);
-    }
-
-    protected function getPipes(): array
-    {
-        return $this->pipes;
-    }
-
-    protected function getExceptionHandler(): ExceptionHandlerContract
+	/**
+	 * @inheritDoc
+	 */
+    public function getExceptionHandler(): ExceptionHandlerContract
     {
         if (!$this->has(ExceptionHandlerContract::class))
             $this->bind(ExceptionHandlerContract::class, new ExceptionHandler(), true);
@@ -68,30 +58,5 @@ class App extends Container\BindingContainer implements AppContract
         assert($handler instanceof ExceptionHandlerContract, "Invalid exception handler type!");
 
         return $handler;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function handle(Request $request): Response
-    {
-        $this[Request::class] = $request;
-
-        $this->addPipes();
-
-        try
-        {
-            $pipeline = $this->getPipeline();
-
-            $response = $pipeline->handle($this, $request);
-        }
-        catch (Throwable $throwable)
-        {
-            $handler = $this->getExceptionHandler();
-
-            $response = $handler->handle($throwable);
-        }
-
-        return $response;
     }
 }

@@ -5,12 +5,15 @@ namespace test\Philly;
 
 
 use Philly\Container\Container;
+use Philly\Container\FiltersTypes;
 
 /**
  * Class TestContainer.
  */
 class TestContainer extends Container
 {
+	use FiltersTypes;
+
     /**
      * @inheritDoc
      */

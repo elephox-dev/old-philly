@@ -15,5 +15,5 @@ interface PrePipe extends Pipe
     /**
      * Handle a request. The result may contain a response if the request was not successful.
      */
-    public function handle(App $app, Request $request): PrePipeOutput;
+    public function handle(App $app, Request $request, callable $next): PrePipeOutput;
 }

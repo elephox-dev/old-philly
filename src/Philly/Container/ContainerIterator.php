@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace Philly\Container;
 
 use OutOfBoundsException;
-use Philly\Contracts\Container\ContainerIterator as BaseContainerIterator;
+use Philly\Contracts\Container\ContainerIterator as ContainerIteratorContract;
 
 /**
  * Class ContainerIterator
  */
-class ContainerIterator implements BaseContainerIterator
+class ContainerIterator implements ContainerIteratorContract
 {
     /**
      * @var Container

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace test\Philly\Unit\Container;
 
+use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 use test\Philly\SecondTestClass;
 use test\Philly\TestClass;
@@ -34,5 +35,16 @@ class ContainerIteratorTest extends TestCase
         $it->rewind();
 
         static::assertTrue($it->valid());
+    }
+
+    public function testOutOfBounds()
+    {
+    	$container = new TestContainer();
+    	$it = $container->getIterator();
+
+    	static::assertFalse($it->valid());
+
+		static::expectException(OutOfBoundsException::class);
+		$it->current();
     }
 }

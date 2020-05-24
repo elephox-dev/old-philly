@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Philly\Container;
 
-
 use Philly\Contracts\Container\Collection as CollectionContract;
 
 /**
@@ -15,6 +14,7 @@ trait FiltersTypes
 {
     /**
      * @param string|object $interface
+     * @return CollectionContract A new collection containing the filtered items.
      */
     public function getInstancesOf($interface): CollectionContract
     {

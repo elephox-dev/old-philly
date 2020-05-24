@@ -154,7 +154,7 @@ abstract class Container implements ContainerContract
      */
     public function getLazy($key, $default)
     {
-        if ($this->has($key))
+        if ($this->offsetExists($key))
             /** @noinspection PhpUnhandledExceptionInspection */
             return $this->offsetGet($key);
 

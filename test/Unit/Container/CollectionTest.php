@@ -6,6 +6,7 @@ namespace test\Philly\Unit\Container;
 use Philly\Container\Collection;
 use Philly\Container\OffsetNotFoundException;
 use PHPUnit\Framework\TestCase;
+use test\Philly\TestCollection;
 
 /**
  * Class CollectionTest.
@@ -16,17 +17,16 @@ class CollectionTest extends TestCase
     {
         $collection = new Collection([1, 2, 3, 4, 5]);
 
-        $this->assertCount(5, $collection);
+        static::assertCount(5, $collection);
 
         $collection->offsetUnset(1);
 
         try {
-            $this->expectException(OffsetNotFoundException::class);
+	        static::expectException(OffsetNotFoundException::class);
 
-            /** @noinspection PhpUnhandledExceptionInspection */
             $collection->offsetGet(1);
         } finally {
-            $this->assertCount(4, $collection);
+	        static::assertCount(4, $collection);
         }
     }
 
@@ -34,12 +34,12 @@ class CollectionTest extends TestCase
     {
         $collection = new Collection();
 
-        $this->assertCount(0, $collection);
+	    static::assertCount(0, $collection);
 
         $collection->add('test');
 
-        $this->assertEquals('test', $collection[0]);
-        $this->assertCount(1, $collection);
+	    static::assertEquals('test', $collection[0]);
+	    static::assertCount(1, $collection);
     }
 
     public function testFirst()
@@ -54,7 +54,13 @@ class CollectionTest extends TestCase
             return strpos($val, 'e') !== false;
         });
 
-        $this->assertEquals('def', $first);
+	    static::assertEquals('def', $first);
+
+	    $none = $collection->first(function () {
+	    	return false;
+	    });
+
+	    static::assertNull($none);
     }
 
     public function testWhere()
@@ -71,8 +77,8 @@ class CollectionTest extends TestCase
             return strpos($val, 'b') !== false;
         });
 
-        $this->assertCount(3, $b_collection);
-        $this->assertEquals(['ab', 'bb', 'bc'], $b_collection->getValues());
+	    static::assertCount(3, $b_collection);
+	    static::assertEquals(['ab', 'bb', 'bc'], $b_collection->getValues());
     }
 
     public function testOffsetSet()
@@ -82,6 +88,46 @@ class CollectionTest extends TestCase
         $collection->offsetSet(0, 'anton');
 
         $val = $collection->getValues()[0];
-        $this->assertEquals('anton', $val);
+	    static::assertEquals('anton', $val);
+    }
+
+    public function testNextOffset()
+    {
+    	$collection = new TestCollection();
+
+    	static::assertEquals(0, $collection->getNextOffset());
+
+		$collection->add("test");
+
+	    static::assertEquals(1, $collection->getNextOffset());
+
+	    $collection->offsetSet(3, "far away");
+
+	    static::assertEquals(4, $collection->getNextOffset());
+
+	    $collection->offsetSet(2, "closer");
+
+	    static::assertEquals(4, $collection->getNextOffset());
+
+	    $collection->add("next");
+
+	    static::assertEquals(5, $collection->getNextOffset());
+
+	    $collection->offsetUnset(4);
+
+	    static::assertEquals(4, $collection->getNextOffset());
+
+	    $collection->offsetUnset(1);
+
+	    static::assertEquals(4, $collection->getNextOffset());
+    }
+
+    public function testAsArray()
+    {
+    	$collection = new Collection(["test", "moo", "ooo"]);
+
+    	$arr = $collection->asArray();
+
+    	static::assertEquals(["test", "moo", "ooo"], $arr);
     }
 }

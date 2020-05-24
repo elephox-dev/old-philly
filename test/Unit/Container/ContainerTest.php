@@ -39,7 +39,7 @@ class ContainerTest extends TestCase
         $keys = $container->getKeys();
 
         static::assertIsArray($keys);
-        static::assertContains($key, $keys);
+        static::assertContainsEquals($key, $keys);
     }
 
     public function testOffsetSet()
@@ -139,5 +139,19 @@ class ContainerTest extends TestCase
         $got = $container[TestInterface::class];
 
         static::assertTrue($instance === $got);
+    }
+
+    public function testGetLazy()
+    {
+    	$container = new TestContainer();
+    	$instance = new TestClass();
+
+    	$default = $container->getLazy("key", $instance);
+
+    	static::assertSame($instance, $default);
+
+    	$lazy = $container->getLazy("key", new TestClass());
+
+    	static::assertSame($instance, $lazy);
     }
 }

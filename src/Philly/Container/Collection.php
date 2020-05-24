@@ -17,8 +17,9 @@ class Collection extends Container implements CollectionContract
     private int $nextOffset = 0;
 
     /**
-     * Container constructor.
-     * @param array $items
+     * Collection constructor.
+     *
+     * @param array $items Items, which should be contained in the collection.
      */
     public function __construct(array $items = [])
     {
@@ -40,7 +41,7 @@ class Collection extends Container implements CollectionContract
      */
     public function offsetSet($offset, $value)
     {
-        if (is_numeric($offset) && $offset > $this->nextOffset)
+        if (is_int($offset) && $offset >= $this->nextOffset)
             $this->nextOffset = $offset + 1;
 
         parent::offsetSet($offset, $value);
@@ -51,10 +52,20 @@ class Collection extends Container implements CollectionContract
      */
     public function offsetUnset($offset)
     {
-        if (is_numeric($offset) && $offset === $this->nextOffset - 1)
+        if (is_numeric($offset) && $offset == $this->nextOffset - 1)
             $this->nextOffset = $offset;
 
         parent::offsetUnset($offset);
+    }
+
+	/**
+	 * Get the offset for the next element to be added.
+	 *
+	 * @return int
+	 */
+    protected function getNextOffset(): int
+    {
+    	return $this->nextOffset;
     }
 
     /**
@@ -73,7 +84,7 @@ class Collection extends Container implements CollectionContract
     public function first(callable $callback)
     {
         foreach ($this as $key => $value) {
-            if ($callback($value, $key))
+            if ($callback($value, $key) === true)
                 return $value;
         }
 
@@ -87,4 +98,12 @@ class Collection extends Container implements CollectionContract
     {
         return count($this->storage);
     }
+
+	/**
+	 * @inheritDoc
+	 */
+	public function asArray(): array
+	{
+		return $this->storage;
+	}
 }

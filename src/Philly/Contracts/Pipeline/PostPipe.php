@@ -12,5 +12,5 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface PostPipe extends Pipe
 {
-    public function handle(App $app, Response $response): PostPipeOutput;
+    public function handle(App $app, Response $response, callable $next): PostPipeOutput;
 }

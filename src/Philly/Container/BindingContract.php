@@ -17,6 +17,8 @@ class BindingContract extends Container implements BaseBindingContract
      */
     public function __construct(string $interface, callable $builder, bool $singleton)
     {
+    	parent::__construct();
+
         $this["interface"] = $interface;
         $this["builder"] = $builder;
         $this["singleton"] = $singleton;

@@ -15,22 +15,21 @@ use Symfony\Component\HttpFoundation\Response;
 interface Pipeline extends Collection
 {
     /**
-     * @return mixed
-     */
-    public function addPre(PrePipe $pipe);
-
-    /**
-     * @return mixed
-     */
-    public function addPost(PostPipe $pipe);
-
-    /**
-     * @return mixed
-     */
-    public function addPump(Pump $pump);
-
-    /**
      * @return JsonResponse
      */
     public function handle(App $app, Request $request): Response;
+
+	/**
+	 * @param Pump $pump The pump to be added to this pipeline.
+	 *
+	 * @return $this For method chaining.
+	 */
+    public function addPump(Pump $pump): self;
+
+	/**
+	 * @param PipeGroup $group The group of pipes to be added to this pipeline.
+	 *
+	 * @return $this For method chaining.
+	 */
+    public function addGlobal(PipeGroup $group): self;
 }

@@ -41,4 +41,9 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
      * @return mixed
      */
     function getLazy($key, $default);
+
+	/**
+	 * @inheritDoc
+	 */
+    function getIterator(): ContainerIterator;
 }

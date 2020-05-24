@@ -4,16 +4,21 @@ declare(strict_types=1);
 namespace Philly\Contracts;
 
 use Philly\Contracts\Container\BindingContainer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
+use Philly\Contracts\Pipeline\Pipeline as PipelineContract;
 
 /**
  * Interface App
  */
 interface App extends BindingContainer
 {
-    /**
-     * Handles a request in the app and returns a response.
-     */
-    public function handle(Request $request): Response;
+	/**
+	 * @return PipelineContract The pipeline for handling incoming requests.
+	 */
+	public function getPipeline(): PipelineContract;
+
+	/**
+	 * @return ExceptionHandlerContract The handler for exceptions in the application
+	 */
+	public function getExceptionHandler(): ExceptionHandlerContract;
 }

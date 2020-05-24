@@ -2,8 +2,15 @@
   "name": "ricardoboss/philly",
   "description": "Another PHP framework",
   "type": "library",
+  "require": {
+    "php": "^7.4",
+    "ext-json": "*",
+    "psr/container": "^1.0",
+    "symfony/http-foundation": "^5.0.7"
+  },
   "require-dev": {
-    "phpunit/phpunit": "^8.5"
+    "phpunit/phpunit": "^9.1",
+    "vimeo/psalm": "^3.11"
   },
   "license": "MIT",
   "authors": [
@@ -13,12 +20,6 @@
     }
   ],
   "minimum-stability": "stable",
-  "require": {
-    "php": "^7.4",
-    "ext-json": "*",
-    "psr/container": "^1.0",
-    "symfony/http-foundation": "^5.0.7"
-  },
   "autoload": {
     "psr-4": {
       "Philly\\": "src/Philly"

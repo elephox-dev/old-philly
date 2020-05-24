@@ -4,10 +4,11 @@ declare(strict_types=1);
 namespace Philly\Pipeline;
 
 use Philly\Container\Collection;
-use Philly\Contracts\Container\Collection as CollectionContract;
 use Philly\Container\FiltersTypes;
 use Philly\Contracts\App;
+use Philly\Contracts\Container\Collection as CollectionContract;
 use Philly\Contracts\Pipeline\Pipe as PipeContract;
+use Philly\Contracts\Pipeline\PipeGroup as PipeGroupContract;
 use Philly\Contracts\Pipeline\Pipeline as PipelineContract;
 use Philly\Contracts\Pipeline\PostPipe as PostPipeContract;
 use Philly\Contracts\Pipeline\PrePipe as PrePipeContract;
@@ -27,7 +28,7 @@ class Pipeline extends Collection implements PipelineContract
      */
     public function accepts($value): bool
     {
-        return $value instanceof PipeContract;
+        return $value instanceof PipeContract || $value instanceof PipeGroupContract;
     }
 
     /**
@@ -35,112 +36,84 @@ class Pipeline extends Collection implements PipelineContract
      */
     public function handle(App $app, Request $request): Response
     {
-        $request = $this->handlePrePipes($app, $request);
-        if ($request instanceof Response)
-            return $request;
+    	$app[Request::class] = $request;
 
-        $pump = $this->getPump($request);
-        assert($pump != null, "No pump was found to handle the request!");
+	    $pump = $this->getHandlerPump($request);
 
-        $response = $pump->handle($app, $request);
-        $response = $this->handlePostPipes($app, $response);
+	    $app[PumpContract::class] = $pump;
 
-        return $response;
-    }
+	    $globalPrePipes = $this->getGlobalPrePipes();
+	    foreach ($pump->getPre() as $prePumpPipes)
+	    	$globalPrePipes->add($prePumpPipes);
 
-    /**
-     * @return Request|Response
-     */
-    public function handlePrePipes(App $app, Request $request)
-    {
-        $prePipes = $this->getPrePipes();
+	    $globalPostPipes = $this->getGlobalPostPipes();
+	    foreach ($pump->getPost() as $postPumpPipe)
+	    	$globalPostPipes->add($postPumpPipe);
 
-        /** @var PrePipeContract $pipe */
-        foreach ($prePipes as $pipe) {
-            $output = $pipe->handle($app, $request);
+	    $result = $globalPrePipes[0]->handle($app, $request, function ($app, $innerRequest) use ($globalPrePipes, $globalPostPipes, $pump) {
+			return $pump->handle($app, $innerRequest, function ($app, $innerResponse) use ($globalPostPipes) {
+				return $globalPostPipes[0]->handle($app, $innerResponse, function ($app, $innerResponse2) {
+					$app[Response::class] = $innerResponse2;
 
-            // check if we have to abort
-            if (!$output->isSuccessful()) {
-                $result = $output->getResult();
-
-                assert($result instanceof Response, "Pipe output has invalid result!");
-
-                return $result;
-            }
-
-            $result = $output->getResult();
-
-            assert($result instanceof Request, "Pipe output has invalid result!");
-
-            $request = $result;
-        }
-
-        return $request;
-    }
-
-    public function handlePostPipes(App $app, Response $response): Response
-    {
-        $postPipes = $this->getPostPipes();
-
-        /** @var PostPipeContract $pipe */
-        foreach ($postPipes as $pipe) {
-            $output = $pipe->handle($app, $response);
-            $result = $output->getResult();
-
-            // check if we have to abort
-            if (!$output->isSuccessful()) {
-                return $result;
-            }
-
-            $response = $result;
-        }
-
-        return $response;
-    }
-
-    public function getPump(Request $request): PumpContract
-    {
-        return $this->getPumps()->first(function (PumpContract $pump) use ($request) {
-                $pump->accepts($request);
+					return $innerResponse2;
+				});
             });
+	    });
+
+	    return $result->getResult();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function addPre(PrePipeContract $pipe): void
-    {
-        $this->add($pipe);
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function addPump(PumpContract $pump): PipelineContract
+	{
+		$this->add($pump);
 
-    /**
-     * @inheritDoc
-     */
-    public function addPost(PostPipeContract $pipe): void
-    {
-        $this->add($pipe);
-    }
+		return $this;
+	}
 
-    /**
-     * @inheritDoc
-     */
-    public function addPump(PumpContract $pump): void
-    {
-        $this->add($pump);
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function addGlobal(PipeGroupContract $group): PipelineContract
+	{
+		foreach ($group->getPre() as $pre)
+			$this->add($pre);
 
-    public function getPrePipes(): CollectionContract
-    {
-        return $this->getInstancesOf(PrePipeContract::class);
-    }
+		foreach ($group->getPost() as $post)
+			$this->add($post);
 
-    public function getPostPipes(): CollectionContract
-    {
-        return $this->getInstancesOf(PostPipeContract::class);
-    }
+		return $this;
+	}
 
-    public function getPumps(): CollectionContract
-    {
-        return $this->getInstancesOf(PumpContract::class);
-    }
+	/**
+	 * @param Request $request The request to filter by.
+	 *
+	 * @return PumpContract|null The first pump which accepted the request or null if none accepted.
+	 */
+	private function getHandlerPump(Request $request): ?PumpContract
+	{
+		return $this
+			->getInstancesOf(PumpContract::class)
+			->first(function (PumpContract $pump) use ($request) {
+				return $pump->accepts($request);
+			});
+	}
+
+	/**
+	 * @return PrePipeContract[] All registered pre-pump pipes in this pipeline.
+	 */
+	private function getGlobalPrePipes(): CollectionContract
+	{
+		return $this->getInstancesOf(PrePipeContract::class);
+	}
+
+	/**
+	 * @return PostPipeContract[] All registered post-pump pipes in this pipeline.
+	 */
+	private function getGlobalPostPipes(): CollectionContract
+	{
+		return $this->getInstancesOf(PostPipeContract::class);
+	}
 }

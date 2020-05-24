@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Philly\Container;
 
+use Closure;
 use InvalidArgumentException;
 use Philly\Contracts\Container\BindingContainer as BindingContainerContract;
 use Philly\Contracts\Container\BindingContract as BaseBindingContract;
@@ -31,14 +32,15 @@ class BindingContainer extends Container implements BindingContainerContract
      */
     public function bind(string $interface, $builder, bool $singleton = false): BaseBindingContract
     {
-        if (!is_callable($builder)) {
-            $this->singletons[$interface] = $builder;
+    	if ($builder === null)
+    		throw new InvalidArgumentException("Builder cannot be null!");
 
-            $contract = new BindingContract($interface, function () use ($builder) {
-                return $builder;
-            }, true);
-        } else
-            $contract = new BindingContract($interface, $builder, $singleton);
+	    if ($builder instanceof Closure)
+		    $contract_builder = $builder;
+	    else
+		    $contract_builder = /** @return mixed */ fn() => $builder;
+
+	    $contract = new BindingContract($interface, $contract_builder, $singleton);
 
         parent::offsetSet($interface, $contract);
 
@@ -53,7 +55,7 @@ class BindingContainer extends Container implements BindingContainerContract
         if ($offset === null)
             throw new InvalidArgumentException("Offset cannot be null!");
 
-        return $this->bind($offset, $value, true);
+        $this->bind($offset, $value, true);
     }
 
     /**

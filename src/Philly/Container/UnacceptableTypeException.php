@@ -13,9 +13,8 @@ class UnacceptableTypeException extends InvalidArgumentException implements Cont
 {
     /**
      * UnacceptableTypeException constructor.
-     * @param $type
      */
-    public function __construct($type)
+    public function __construct(string $type)
     {
         parent::__construct("Cannot accept objects of type '$type'");
     }

@@ -3,14 +3,15 @@ declare(strict_types=1);
 
 namespace Philly\Contracts\Support;
 
+use JsonSerializable;
 
 /**
  * Interface JsonCompatible
  */
-interface JsonCompatible extends \JsonSerializable
+interface JsonCompatible extends JsonSerializable
 {
     /**
-     * @return string Returns this object in it's JSON representation. This is the result of passing this object to
+     * @return string Returns this object in its JSON representation. This is the result of passing this object to
      * `json_encode` with the options returned from `jsonOptions`.
      */
     public function asJson(): string;

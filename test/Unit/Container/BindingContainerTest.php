@@ -28,6 +28,9 @@ class BindingContainerTest extends TestCase
         $instance_b = $container[TestInterface::class];
 
         static::assertFalse($instance_a === $instance_b);
+
+        static::expectException(InvalidArgumentException::class);
+        $container->bind(TestInterface::class, null);
     }
 
     public function testBindSingletonBuilder()
@@ -48,8 +51,8 @@ class BindingContainerTest extends TestCase
     {
         $instance_a = new TestClass();
         $container = new BindingContainer();
-        $container->bind(TestInterface::class, $instance_a, true);
 
+        $container->bind(TestInterface::class, $instance_a, true);
         $instance_b = $container[TestInterface::class];
         $instance_c = $container[TestInterface::class];
 

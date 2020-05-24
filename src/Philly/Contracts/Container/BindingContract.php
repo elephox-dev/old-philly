@@ -23,7 +23,7 @@ interface BindingContract
     /**
      * Turn a binding contract into a singleton contract.
      */
-    function makeSingleton(): BindingContract;
+    function makeSingleton(): self;
 
     /**
      * Whether or not this binding is a singleton.

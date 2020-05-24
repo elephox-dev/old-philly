@@ -18,7 +18,7 @@ class ExceptionHandler implements ExceptionHandlerContract
      */
     function handle(Throwable $throwable): JsonResponse
     {
-        $response = new JsonResponse();
+        $response = new JsonResponse(null, 500);
 
         $json = [];
         $json['class'] = get_class($throwable);
@@ -34,7 +34,7 @@ class ExceptionHandler implements ExceptionHandlerContract
             $json['trace'][] = $item;
         }
 
-        $response->setContent(json_encode($json));
+        $response->setData($json);
 
         return $response;
     }

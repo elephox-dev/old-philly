@@ -18,19 +18,22 @@ interface Collection extends Container, Countable
     public function add($value): self;
 
     /**
-     * @param callable $callback
      * @return Collection
      */
     public function where(callable $callback, bool $preserve_keys = true): self;
 
     /**
-     * @param callable $callback
-     * @return mixed
+     * @return mixed|null
      */
     public function first(callable $callback);
 
-    /**
-     * @return int
-     */
+	/**
+	 * @inheritDoc
+	 */
     public function count(): int;
+
+	/**
+	 * @return array Returns a copy of the underlying storage for this collection.
+	 */
+    public function asArray(): array;
 }

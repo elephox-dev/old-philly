@@ -63,7 +63,7 @@ class ContainerIterator implements ContainerIteratorContract
         if ($this->current_key < count($this->keys))
             return $this->keys[$this->current_key];
 
-        return null;
+        throw new OutOfBoundsException("Current key has not been captured.");
     }
 
     /**

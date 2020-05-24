@@ -19,7 +19,9 @@ jobs:
         key: composer@${{ hashFiles('**/composer.lock') }}
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+      run: composer install --prefer-dist --no-progress --no-suggest
+      env:
+        COMPOSER_ROOT_VERSION: dev-master
 
     - name: Run test suite
       run: composer run-script test

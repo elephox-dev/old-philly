@@ -31,6 +31,7 @@
     }
   },
   "scripts": {
-    "test": "phpunit -c ./phpunit.xml --coverage-text ./test/"
+    "test": "phpunit --configuration ./phpunit.xml",
+    "stan": "psalm --output-format=github --shepherd"
   }
 }

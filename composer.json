@@ -22,7 +22,7 @@
   "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
-      "Philly\\": "src/Philly"
+      "Philly\\": "src"
     }
   },
   "autoload-dev": {

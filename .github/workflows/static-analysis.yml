@@ -1,9 +1,15 @@
-name: PHPUnit Tests
+name: Static Analysis
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - 'docs/**'
+  pull-request:
+    paths-ignore:
+      - 'docs/**'
 
 jobs:
-  test:
+  Psalm:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,5 +29,5 @@ jobs:
       env:
         COMPOSER_ROOT_VERSION: dev-master
 
-    - name: Run test suite
-      run: composer run-script test
+    - name: Run Psalm (& publish to shepherd)
+      run: composer run-script stan

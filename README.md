@@ -3,7 +3,7 @@
 [![PHPUnit Tests](https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg)](https://github.com/ricardoboss/Philly/actions)
 [![Coverage](https://shepherd.dev/github/ricardoboss/philly/coverage.svg)](https://shepherd.dev/github/ricardoboss/philly)
 
-![Philly](https://raw.githubusercontent.com/ricardoboss/Philly/master/docs/logo.svg)
+![Philly](https://raw.githubusercontent.com/ricardoboss/Philly/master/docs/assets/img/logo.svg)
 
 Yet another PHP framework.
 

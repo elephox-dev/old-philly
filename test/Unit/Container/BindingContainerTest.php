@@ -80,6 +80,15 @@ class BindingContainerTest extends TestCase
     	$container->offsetSet(null, null);
     }
 
+    public function testOffsetSetNonString()
+    {
+    	$container = new BindingContainer();
+
+    	static::expectException(InvalidArgumentException::class);
+
+    	$container->offsetSet(12, null);
+    }
+
     public function testOffsetGet()
     {
         $instance_a = new TestClass();

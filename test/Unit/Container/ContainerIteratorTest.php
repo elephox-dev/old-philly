@@ -40,7 +40,9 @@ class ContainerIteratorTest extends TestCase
     public function testOutOfBounds()
     {
     	$container = new TestContainer();
-    	$it = $container->getIterator();
+
+	    /** @noinspection PhpUnhandledExceptionInspection */
+	    $it = $container->getIterator();
 
     	static::assertFalse($it->valid());
 

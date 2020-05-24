@@ -9,19 +9,31 @@ use Philly\Contracts\Container\BindingContract as BaseBindingContract;
 /**
  * Class BindingContract
  */
-class BindingContract extends Container implements BaseBindingContract
+class BindingContract implements BaseBindingContract
 {
+	/**
+	 * The interface which this contract binds.
+	 */
+	protected string $interface;
+
+	/**
+	 * The builder for the interface bound.
+	 */
+	protected Closure $builder;
+
+	/**
+	 * Whether this contract is a singleton.
+	 */
+	protected bool $singleton;
+
     /**
      * BindingContract constructor.
-     * @param callable $builder A builder function which returns an implementation of the given interface.
      */
-    public function __construct(string $interface, callable $builder, bool $singleton)
+    public function __construct(string $interface, Closure $builder, bool $singleton)
     {
-    	parent::__construct();
-
-        $this["interface"] = $interface;
-        $this["builder"] = $builder;
-        $this["singleton"] = $singleton;
+    	$this->interface = $interface;
+    	$this->builder = $builder;
+    	$this->singleton = $singleton;
     }
 
     /**
@@ -29,7 +41,7 @@ class BindingContract extends Container implements BaseBindingContract
      */
     function getInterface(): string
     {
-        return $this["interface"];
+    	return $this->interface;
     }
 
     /**
@@ -37,7 +49,7 @@ class BindingContract extends Container implements BaseBindingContract
      */
     function getBuilder(): Closure
     {
-        return $this["builder"];
+    	return $this->builder;
     }
 
     /**
@@ -45,7 +57,7 @@ class BindingContract extends Container implements BaseBindingContract
      */
     function makeSingleton(): BaseBindingContract
     {
-        $this["singleton"] = true;
+        $this->singleton = true;
 
         return $this;
     }
@@ -55,6 +67,6 @@ class BindingContract extends Container implements BaseBindingContract
      */
     function isSingleton(): bool
     {
-        return $this["singleton"];
+    	return $this->singleton;
     }
 }

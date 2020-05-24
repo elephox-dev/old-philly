@@ -13,12 +13,11 @@ interface Collection extends Container, Countable
 {
     /**
      * @param mixed $value
-     * @return Collection
      */
     public function add($value): self;
 
     /**
-     * @return Collection
+     * @param callable $callback
      */
     public function where(callable $callback, bool $preserve_keys = true): self;
 

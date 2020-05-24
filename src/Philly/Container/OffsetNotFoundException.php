@@ -14,7 +14,7 @@ class OffsetNotFoundException extends Exception implements ContainerExceptionInt
 {
     /**
      * OffsetNotFoundException constructor.
-     * @param int|string|bool|float $offset
+     * @param mixed $offset
      */
     public function __construct($offset)
     {

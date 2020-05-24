@@ -41,10 +41,8 @@ class ContainerIterator implements ContainerIteratorContract
     public function current()
     {
         $offset = $this->key();
-        if ($offset !== null)
-            return $this->container[$offset];
 
-        throw new OutOfBoundsException("No more keys available!");
+        return $this->container[$offset];
     }
 
     /**

@@ -55,6 +55,9 @@ class BindingContainer extends Container implements BindingContainerContract
         if ($offset === null)
             throw new InvalidArgumentException("Offset cannot be null!");
 
+        if (!is_string($offset))
+        	throw new InvalidArgumentException("Offset must be a string!");
+
         $this->bind($offset, $value, true);
     }
 

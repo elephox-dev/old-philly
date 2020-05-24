@@ -10,4 +10,4 @@ permalink: /home
 
 GitHub Source code: [github.com/ricardoboss/Philly](https://github.com/ricardoboss/Philly)
 
-See [Getting Started](getting-started)
+See [Getting Started](/) to get started with using Philly.

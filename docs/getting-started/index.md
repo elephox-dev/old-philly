@@ -11,4 +11,5 @@ permalink: /
 
 You should start by reading the documentation in this order:
 
-1. [Installation](getting-started/installation)
+1. [Project Overview](/getting-started/project-overview)
+1. [Installation](/getting-started/installation)

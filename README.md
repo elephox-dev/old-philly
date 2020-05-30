@@ -9,4 +9,10 @@ Yet another PHP framework.
 
 ---
 
-Pronunciation: /fɪl.i/
+## TODO
+
+- [ ] Implement ORM
+- [ ] Choose templating engine (Twig?)
+- [ ] Extend static analysis
+- [ ] Add mail driver
+- [ ] (Add cli support?)

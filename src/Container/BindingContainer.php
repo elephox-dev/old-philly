@@ -84,4 +84,23 @@ class BindingContainer extends Container implements BindingContainerContract
 
         return $instance;
     }
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getLazy($key, $default, bool $singleton = false)
+	{
+		if (!$this->offsetExists($key)) {
+			if (!is_string($key)) {
+				$type = gettype($key);
+
+				throw new InvalidArgumentException("Key has invalid type: $type. Only strings can be used as keys.");
+			}
+
+			$this->bind($key, $default, $singleton);
+		}
+
+		/** @noinspection PhpUnhandledExceptionInspection */
+		return $this->offsetGet($key);
+	}
 }

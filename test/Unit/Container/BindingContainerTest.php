@@ -119,4 +119,18 @@ class BindingContainerTest extends TestCase
         static::assertFalse($pre_singleton === $post_singleton_a);
         static::assertTrue($post_singleton_a === $post_singleton_b);
     }
+
+    public function testGetLazy()
+    {
+    	$container = new BindingContainer();
+    	$instance_a  = new TestClass();
+
+    	$instance_b = $container->getLazy(TestInterface::class, $instance_a, true);
+
+    	static::assertSame($instance_a, $instance_b);
+
+    	$instance_c = $container->getLazy(TestInterface::class, new TestClass(), true);
+
+    	static::assertSame($instance_a, $instance_c);
+    }
 }

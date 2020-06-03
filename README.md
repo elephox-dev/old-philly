@@ -3,11 +3,21 @@
 [![PHPUnit Tests](https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg)](https://github.com/ricardoboss/Philly/actions)
 [![Coverage](https://shepherd.dev/github/ricardoboss/philly/coverage.svg)](https://shepherd.dev/github/ricardoboss/philly)
 
-![Philly](https://raw.githubusercontent.com/ricardoboss/Philly/master/docs/assets/img/logo.svg)
+# 
+
+<div style="text-align: center">
+    <a href="https://philly.ricardoboss.de" target="_blank">
+        <img src="https://raw.githubusercontent.com/ricardoboss/Philly/master/docs/assets/img/logo.svg" alt="Philly Logo" height="150">
+    </a>
+</div>
 
 Yet another PHP framework.
 
----
+# 
+
+## Documentation
+
+The documentation for this framework can be seen at [philly.ricardoboss.de](https://philly.ricardoboss.de/home).
 
 ## TODO
 

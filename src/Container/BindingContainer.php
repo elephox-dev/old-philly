@@ -27,7 +27,15 @@ class BindingContainer extends Container implements BindingContainerContract
         parent::__construct($items);
     }
 
-    /**
+	/**
+	 * @inheritDoc
+	 */
+    public function accepts($value): bool
+    {
+    	return $value instanceof BaseBindingContract;
+    }
+
+	/**
      * @inheritDoc
      */
     public function bind(string $interface, $builder, bool $singleton = false): BaseBindingContract
@@ -50,7 +58,7 @@ class BindingContainer extends Container implements BindingContainerContract
     /**
      * @inheritDoc
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $contract)
     {
         if ($offset === null)
             throw new InvalidArgumentException("Offset cannot be null!");
@@ -58,7 +66,7 @@ class BindingContainer extends Container implements BindingContainerContract
         if (!is_string($offset))
         	throw new InvalidArgumentException("Offset must be a string!");
 
-        $this->bind($offset, $value, true);
+        $this->bind($offset, $contract, true);
     }
 
     /**

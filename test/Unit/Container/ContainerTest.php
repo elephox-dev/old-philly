@@ -53,6 +53,15 @@ class ContainerTest extends TestCase
         static::assertTrue($instance === $got);
     }
 
+    public function testOffsetSetNative()
+    {
+    	$container = new TestContainer();
+
+    	static::expectException(UnacceptableTypeException::class);
+
+    	$container->offsetSet(TestInterface::class, "test");
+    }
+
     public function testOffsetGet()
     {
         $instance = new TestClass();

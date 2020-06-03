@@ -5,9 +5,11 @@
 
 # 
 
-<a href="https://philly.ricardoboss.de" target="_blank" style="text-align: center">
-    <img src="https://raw.githubusercontent.com/ricardoboss/Philly/master/docs/assets/img/logo.svg" alt="Philly Logo" height="150">
-</a>
+<p align="center">
+    <a href="https://philly.ricardoboss.de" target="_blank">
+        <img src="https://raw.githubusercontent.com/ricardoboss/Philly/master/docs/assets/img/logo.svg" alt="Philly Logo" height="150">
+    </a>
+</p>
 
 Yet another PHP framework.
 

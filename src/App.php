@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Philly;
 
+use Philly\Container\ServiceProviderContainer;
 use Philly\Contracts\App as AppContract;
+use Philly\Contracts\Container\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Philly\Exceptions\ExceptionHandler;
 
@@ -12,11 +14,6 @@ use Philly\Exceptions\ExceptionHandler;
  */
 class App extends Container\BindingContainer implements AppContract
 {
-	/**
-	 * @var array
-	 */
-	protected array $pipes = [];
-
 	/**
 	 * App constructor.
 	 */
@@ -33,13 +30,36 @@ class App extends Container\BindingContainer implements AppContract
 	 */
 	public function getExceptionHandler(): ExceptionHandlerContract
 	{
-		if (!$this->has(ExceptionHandlerContract::class))
-			$this->bind(ExceptionHandlerContract::class, new ExceptionHandler(), true);
+		$handler = $this->getLazy(
+			ExceptionHandlerContract::class,
+			fn() => new ExceptionHandler(),
+			true
+		);
 
-		$handler = $this[ExceptionHandlerContract::class];
-
-		assert($handler instanceof ExceptionHandlerContract, "Invalid exception handler type!");
+		assert(
+			$handler instanceof ExceptionHandlerContract,
+			"Invalid exception handler type!"
+		);
 
 		return $handler;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getServices(): ServiceProviderContainerContract
+	{
+		$serviceContainer = $this->getLazy(
+			ServiceProviderContainerContract::class,
+			fn () => new ServiceProviderContainer(),
+			true
+		);
+
+		assert(
+			$serviceContainer instanceof ServiceProviderContainerContract,
+			"Invalid service provider container type!"
+		);
+
+		return $serviceContainer;
 	}
 }

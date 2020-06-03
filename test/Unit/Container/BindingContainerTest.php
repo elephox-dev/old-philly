@@ -5,6 +5,7 @@ namespace test\Philly\Unit\Container;
 
 use InvalidArgumentException;
 use Philly\Container\BindingContainer;
+use Philly\Container\BindingContract;
 use PHPUnit\Framework\TestCase;
 use test\Philly\TestClass;
 use test\Philly\TestInterface;
@@ -60,15 +61,16 @@ class BindingContainerTest extends TestCase
         static::assertTrue($instance_b === $instance_c);
     }
 
-    public function testOffsetSet()
+    public function testOffsetSetBindingContract()
     {
-        $instance_a = new TestClass();
-        $container = new BindingContainer();
-        $container->offsetSet(TestInterface::class, $instance_a);
+    	$contract = new BindingContract(TestInterface::class, fn() => new TestClass(), true);
+    	$container = new BindingContainer();
 
-        $instance_b = $container[TestInterface::class];
+    	$container->offsetSet(TestInterface::class, $contract);
 
-        static::assertTrue($instance_a === $instance_b);
+		$instance = $container[TestInterface::class];
+
+		static::assertInstanceOf(BindingContract::class, $instance);
     }
 
     public function testOffsetSetNull()
@@ -91,7 +93,7 @@ class BindingContainerTest extends TestCase
 
     public function testOffsetGet()
     {
-        $instance_a = new TestClass();
+        $instance_a = new BindingContract(TestInterface::class, fn() => new TestClass(), true);
         $container = new BindingContainer();
         $container[TestInterface::class] = $instance_a;
 

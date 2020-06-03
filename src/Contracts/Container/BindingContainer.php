@@ -10,11 +10,12 @@ use Closure;
  */
 interface BindingContainer extends Container
 {
-    /**
-     * Bind a builder callback to a contract.
-     *
-     * @param Closure|mixed $builder Can be a callable or an instance which implements the given interface.
-     */
+	/**
+	 * Bind a builder callback to a contract.
+	 *
+	 * @param Closure|mixed $builder Can be a callable or an instance which implements the given interface.
+	 * @return BindingContract The contract which binds a builder/instance to an interface.
+	 */
     public function bind(string $interface, $builder, bool $singleton = false): BindingContract;
 
 	/**

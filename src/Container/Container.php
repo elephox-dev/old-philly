@@ -67,8 +67,14 @@ abstract class Container implements ContainerContract
      */
     public function offsetSet($offset, $value)
     {
-        if (!$this->accepts($value))
-            throw new UnacceptableTypeException(get_class($value));
+        if (!$this->accepts($value)) {
+        	if (is_object($value))
+        		$type = get_class($value);
+        	else
+        		$type = gettype($value);
+
+	        throw new UnacceptableTypeException($type);
+        }
 
         $this->storage[$offset] = $value;
     }

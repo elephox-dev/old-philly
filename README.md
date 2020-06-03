@@ -1,9 +1,5 @@
-[![Version](https://poser.pugx.org/ricardoboss/philly/version)](https://packagist.org/packages/ricardoboss/philly)
-[![License](https://poser.pugx.org/ricardoboss/philly/license)](https://packagist.org/packages/ricardoboss/philly)
-[![Coverage](https://shepherd.dev/github/ricardoboss/philly/coverage.svg)](https://shepherd.dev/github/ricardoboss/philly)
-[![PHPUnit Tests](https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg)](https://github.com/ricardoboss/Philly/actions)
+# [![Version](https://poser.pugx.org/ricardoboss/philly/version)](https://packagist.org/packages/ricardoboss/philly) [![License](https://poser.pugx.org/ricardoboss/philly/license)](https://packagist.org/packages/ricardoboss/philly) [![Coverage](https://shepherd.dev/github/ricardoboss/philly/coverage.svg)](https://shepherd.dev/github/ricardoboss/philly) [![PHPUnit Tests](https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg)](https://github.com/ricardoboss/Philly/actions)
 
-# 
 
 <p align="center">
     <a href="https://philly.ricardoboss.de" target="_blank">

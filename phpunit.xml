@@ -3,11 +3,7 @@
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd">
     <filter>
         <whitelist>
-            <directory suffix=".php">src/Philly/</directory>
-            <exclude>
-                <file>src/Philly/App.php</file>
-                <file>src/Philly/Contracts/App.php</file>
-            </exclude>
+            <directory suffix=".php">src/</directory>
         </whitelist>
     </filter>
     <testsuites>

@@ -42,6 +42,17 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
      */
     function getLazy($key, $default);
 
+
+	/**
+	 * Check whether this container accepts the given value. This method should be overridden for implementations that
+	 * check the types of values added to this container.
+	 *
+	 * @param mixed $value The value to check.
+	 *
+	 * @return bool
+	 */
+	function accepts($value): bool;
+
 	/**
 	 * @inheritDoc
 	 */

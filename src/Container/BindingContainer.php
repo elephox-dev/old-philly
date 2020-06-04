@@ -36,6 +36,14 @@ class BindingContainer extends Container implements BindingContainerContract
     }
 
 	/**
+	 * @inheritDoc
+	 */
+    public function acceptsBinding($value): bool
+    {
+	    return is_object($value);
+    }
+
+	/**
      * @inheritDoc
      */
     public function bind(string $interface, $builder, bool $singleton = false): BaseBindingContract
@@ -46,7 +54,11 @@ class BindingContainer extends Container implements BindingContainerContract
 	    if ($builder instanceof Closure)
 		    $contract_builder = $builder;
 	    else
+        {
+	        $this->verifyAcceptable($builder);
+
 		    $contract_builder = /** @return mixed */ fn() => $builder;
+	    }
 
 	    $contract = new BindingContract($interface, $contract_builder, $singleton);
 
@@ -81,16 +93,30 @@ class BindingContainer extends Container implements BindingContainerContract
         $builder = $contract->getBuilder();
 
         if (!$contract->isSingleton())
-            return $builder();
+	        return $this->verifyAcceptable($builder());
 
         if (array_key_exists($contract->getInterface(), $this->singletons))
             return $this->singletons[$contract->getInterface()];
 
-        $instance = $builder();
+        $instance = $this->verifyAcceptable($builder());
 
-        $this->singletons[$contract->getInterface()] = $instance;
+	    $this->singletons[$contract->getInterface()] = $instance;
 
         return $instance;
+    }
+
+    private function verifyAcceptable($instance): object
+    {
+	    if (!$this->acceptsBinding($instance)) {
+	    	if (is_object($instance))
+	    		$type = get_class($instance);
+	    	else
+	    		$type = gettype($instance);
+
+		    throw new UnacceptableBindingException($type);
+	    }
+
+	    return $instance;
     }
 
 	/**

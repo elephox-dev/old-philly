@@ -144,11 +144,7 @@ abstract class Container implements ContainerContract
     }
 
     /**
-     * Check whether this container accepts the given value. This method should be overridden for implementations that
-     * check the types of values added to this container.
-     *
-     * @param mixed $value
-     * @noinspection PhpUnusedParameterInspection
+     * @inheritDoc
      */
     public function accepts($value): bool
     {

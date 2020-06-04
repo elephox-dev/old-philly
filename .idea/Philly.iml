@@ -5,9 +5,5 @@
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" packagePrefix="test\Philly\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="Philly\" />
     </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="inspire-api" />
-    <orderEntry type="module" module-name="PhillyFramework" />
   </component>
 </module>

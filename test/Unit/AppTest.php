@@ -7,6 +7,7 @@ namespace test\Philly\Unit;
 use Philly\App;
 use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
+use Philly\Contracts\Routing\RouteContainer as RouteContainerContract;
 use PHPUnit\Framework\TestCase;
 
 class AppTest extends TestCase
@@ -29,6 +30,12 @@ class AppTest extends TestCase
 		static::assertInstanceOf(ServiceProviderContainerContract::class, $services);
 	}
 
-		static::assertInstanceOf(ServiceProviderContainerContract::class, $handler);
+	public function testGetRoutes()
+	{
+		$app = new App();
+
+		$routes = $app->getRoutes();
+
+		static::assertInstanceOf(RouteContainerContract::class, $routes);
 	}
 }

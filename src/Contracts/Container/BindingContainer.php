@@ -24,7 +24,7 @@ interface BindingContainer extends Container
 	 *
 	 * Multiple calls to this method with the same(!) arguments should result in the same outputs.
 	 *
-	 * @param int|string|bool|float $key
+	 * @param int|string|float $key
 	 * @param Closure|mixed $default A builder or the default instance. The builder will only be called if the key does
 	 *                               not exist in the container.
 	 * @param bool $singleton

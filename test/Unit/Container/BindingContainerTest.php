@@ -135,4 +135,13 @@ class BindingContainerTest extends TestCase
 
     	static::assertSame($instance_a, $instance_c);
     }
+
+    public function testGetLazyInvalidKey()
+    {
+    	$container = new BindingContainer();
+
+    	static::expectException(InvalidArgumentException::class);
+
+    	$container->getLazy(0, null);
+    }
 }

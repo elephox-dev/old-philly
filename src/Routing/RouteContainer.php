@@ -13,8 +13,8 @@ use Philly\Contracts\Routing\RouteContainer as RouteContainerContract;
  */
 class RouteContainer extends BindingContainer implements RouteContainerContract
 {
-	/** @var RouteContract This is the fallback route used if no route matches. */
-	protected RouteContract $fallbackRoute;
+	/** @var RouteContract|null This is the fallback route used if no route matches. */
+	protected ?RouteContract $fallbackRoute = null;
 
 	/**
 	 * @inheritDoc

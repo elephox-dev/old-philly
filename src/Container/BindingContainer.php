@@ -105,6 +105,16 @@ class BindingContainer extends Container implements BindingContainerContract
         return $instance;
     }
 
+	/**
+	 * Checks if this container accepts the provided instance as a binding. Throws an exception if the given type is not
+	 * acceptable.
+	 *
+	 * @param mixed $instance The instance to check.
+	 *
+	 * @throws UnacceptableBindingException If the given type is not acceptable for binding.
+	 *
+	 * @return object The given instance.
+	 */
     private function verifyAcceptable($instance): object
     {
 	    if (!$this->acceptsBinding($instance)) {

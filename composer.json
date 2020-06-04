@@ -10,7 +10,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9.1",
-    "vimeo/psalm": "^3.11"
+    "vimeo/psalm": "^3.11",
+    "nunomaduro/collision": "^4.2"
   },
   "license": "MIT",
   "authors": [

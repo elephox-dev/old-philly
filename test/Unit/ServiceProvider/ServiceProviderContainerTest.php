@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace test\Philly\Unit\Container;
+namespace test\Philly\Unit\ServiceProvider;
 
 
-use Philly\Container\ServiceProviderContainer;
-use Philly\Container\UnacceptableTypeException;
+use Philly\ServiceProvider\ServiceProviderContainer;
+use Philly\Container\UnacceptableBindingException;
 use PHPUnit\Framework\TestCase;
 use test\Philly\TestClass;
 use test\Philly\TestInterface;
@@ -17,7 +17,7 @@ class ServiceProviderContainerTest extends TestCase
 	{
 		$container = new ServiceProviderContainer();
 
-		static::expectException(UnacceptableTypeException::class);
+		static::expectException(UnacceptableBindingException::class);
 
 		$container->offsetSet(TestInterface::class, "test");
 	}
@@ -26,7 +26,7 @@ class ServiceProviderContainerTest extends TestCase
 	{
 		$container = new ServiceProviderContainer();
 
-		static::expectException(UnacceptableTypeException::class);
+		static::expectException(UnacceptableBindingException::class);
 
 		$container->offsetSet(TestInterface::class, new TestClass());
 	}

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Philly\Container;
+namespace Philly\ServiceProvider;
 
-use Philly\Contracts\Container\ServiceProviderContainer as ServiceProviderContainerContract;
-use Philly\Contracts\ServiceProvider\ServiceProvider;
+use Philly\Container\BindingContainer;
+use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Contracts\ServiceProvider\ServiceProvider as ServiceProviderContract;
 
 /**

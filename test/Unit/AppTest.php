@@ -5,7 +5,7 @@ namespace test\Philly\Unit;
 
 
 use Philly\App;
-use Philly\Contracts\Container\ServiceProviderContainer as ServiceProviderContainerContract;
+use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +24,10 @@ class AppTest extends TestCase
 	{
 		$app = new App();
 
-		$handler = $app->getServices();
+		$services = $app->getServices();
+
+		static::assertInstanceOf(ServiceProviderContainerContract::class, $services);
+	}
 
 		static::assertInstanceOf(ServiceProviderContainerContract::class, $handler);
 	}

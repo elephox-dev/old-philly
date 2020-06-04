@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use Psr\Container\ContainerExceptionInterface;
 
 /**
- * Class UnacceptableTypeException
+ * Class UnacceptableTypeException.
  */
 class UnacceptableTypeException extends InvalidArgumentException implements ContainerExceptionInterface
 {

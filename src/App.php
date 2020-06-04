@@ -3,16 +3,17 @@ declare(strict_types=1);
 
 namespace Philly;
 
-use Philly\Container\ServiceProviderContainer;
+use Philly\Container\BindingContainer;
+use Philly\ServiceProvider\ServiceProviderContainer;
 use Philly\Contracts\App as AppContract;
-use Philly\Contracts\Container\ServiceProviderContainer as ServiceProviderContainerContract;
+use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Philly\Exceptions\ExceptionHandler;
 
 /**
  * Class App
  */
-class App extends Container\BindingContainer implements AppContract
+class App extends BindingContainer implements AppContract
 {
 	/**
 	 * App constructor.

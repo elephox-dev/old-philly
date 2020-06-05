@@ -67,6 +67,15 @@ abstract class Container implements ContainerContract
      */
     public function offsetSet($offset, $value)
     {
+    	if (!$this->acceptsKey($offset)) {
+		    if (is_object($offset))
+			    $type = get_class($offset);
+		    else
+			    $type = gettype($offset);
+
+		    throw new UnacceptableKeyException($type);
+	    }
+
         if (!$this->accepts($value)) {
         	if (is_object($value))
         		$type = get_class($value);
@@ -151,7 +160,15 @@ abstract class Container implements ContainerContract
         return true;
     }
 
-    /**
+	/**
+	 * @inheritDoc
+	 */
+    public function acceptsKey($offset): bool
+    {
+    	return $offset === null || is_string($offset) || is_numeric($offset);
+    }
+
+	/**
      * @inheritDoc
      */
     public function getLazy($key, $default)

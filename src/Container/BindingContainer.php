@@ -38,6 +38,14 @@ class BindingContainer extends Container implements BindingContainerContract
 	/**
 	 * @inheritDoc
 	 */
+    public function acceptsKey($offset): bool
+    {
+    	return is_string($offset);
+    }
+
+	/**
+	 * @inheritDoc
+	 */
     public function acceptsBinding($value): bool
     {
 	    return is_object($value);

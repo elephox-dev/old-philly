@@ -44,7 +44,7 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
 
 
 	/**
-	 * Check whether this container accepts the given value. This method should be overridden for implementations that
+	 * Check whether this container accepts the given value. This method should be overridden by implementations that
 	 * check the types of values added to this container.
 	 *
 	 * @param mixed $value The value to check.
@@ -52,6 +52,15 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
 	 * @return bool
 	 */
 	function accepts($value): bool;
+
+	/**
+	 * Check whether this contains accepts the given value as a key. This method should be overridden by implementations
+	 * that restrict the types of keys for this container.
+	 *
+	 * @param string|int|float|null $offset
+	 * @return bool
+	 */
+	function acceptsKey($offset): bool;
 
 	/**
 	 * @inheritDoc

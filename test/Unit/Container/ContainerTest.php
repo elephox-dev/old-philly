@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace test\Philly\Unit\Container;
 
 use Philly\Container\OffsetNotFoundException;
+use Philly\Container\UnacceptableKeyException;
 use Philly\Container\UnacceptableTypeException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -162,5 +163,23 @@ class ContainerTest extends TestCase
     	$lazy = $container->getLazy("key", new TestClass());
 
     	static::assertSame($instance, $lazy);
+    }
+
+    public function testUnacceptableKeyObject()
+    {
+    	$container = new TestContainer();
+
+    	static::expectException(UnacceptableKeyException::class);
+
+    	$container->offsetSet(new TestClass(), new TestClass());
+    }
+
+    public function testUnacceptableKeyNative()
+    {
+    	$container = new TestContainer();
+
+    	static::expectException(UnacceptableKeyException::class);
+
+    	$container->offsetSet(true, new TestClass());
     }
 }

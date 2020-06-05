@@ -8,14 +8,14 @@
 
 #
 
+<br>
 <p align="center">
-    <img alt="License" src="https://img.shields.io/github/license/ricardoboss/Philly">
     <img alt="Packagist PHP Version Support" src="https://img.shields.io/packagist/php-v/ricardoboss/Philly">
-    <a href="https://github.com/ricardoboss/Philly/milestones">
-        <img alt="Github Milestone Progress" src="https://img.shields.io/github/milestones/progress/ricardoboss/Philly/1">
-    </a>
     <a href="https://packagist.org/packages/ricardoboss/philly">
         <img alt="Packagist Version (including pre-releases)" src="https://img.shields.io/packagist/v/ricardoboss/Philly">
+    </a>
+    <a href="https://github.com/ricardoboss/Philly/milestones">
+        <img alt="Github Milestone Progress" src="https://img.shields.io/github/milestones/progress/ricardoboss/Philly/1">
     </a>
     <br>
     <a href="https://shepherd.dev/github/ricardoboss/philly">

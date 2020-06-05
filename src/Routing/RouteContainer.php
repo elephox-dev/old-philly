@@ -13,7 +13,7 @@ use Philly\Contracts\Routing\RouteContainer as RouteContainerContract;
  */
 class RouteContainer extends BindingContainer implements RouteContainerContract
 {
-	/** @var RouteContract|null This is the fallback route used if no route matches. */
+	/** @var RouteContract|null $fallbackRoute This is the fallback route used if no route matches. */
 	protected ?RouteContract $fallbackRoute = null;
 
 	/**
@@ -22,5 +22,24 @@ class RouteContainer extends BindingContainer implements RouteContainerContract
 	public function acceptsBinding($value): bool
 	{
 		return $value instanceof RouteContract;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function setFallback(RouteContract $fallbackRoute): void
+	{
+		$this->fallbackRoute = $fallbackRoute;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getHandler(string $uri): RouteContract
+	{
+		if ($this->fallbackRoute == null)
+			throw new RoutingException("Cannot route URI \"$uri\": no fallback defined");
+
+		return $this->fallbackRoute;
 	}
 }

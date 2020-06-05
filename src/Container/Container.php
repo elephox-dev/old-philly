@@ -184,4 +184,13 @@ abstract class Container implements ContainerContract
 
         return $default;
     }
+
+	/**
+	 * @inheritDoc
+	 */
+	public function count(): int
+	{
+		return count($this->storage);
+	}
+
 }

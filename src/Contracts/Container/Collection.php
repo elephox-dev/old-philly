@@ -4,35 +4,28 @@ declare(strict_types=1);
 namespace Philly\Contracts\Container;
 
 
-use Countable;
-
 /**
  * Interface Collection.
  */
-interface Collection extends Container, Countable
+interface Collection extends Container
 {
     /**
      * @param mixed $value
      */
-    public function add($value): self;
+    function add($value): self;
 
     /**
      * @param callable $callback
      */
-    public function where(callable $callback, bool $preserve_keys = true): self;
+    function where(callable $callback, bool $preserve_keys = true): self;
 
     /**
      * @return mixed|null
      */
-    public function first(callable $callback);
-
-	/**
-	 * @inheritDoc
-	 */
-    public function count(): int;
+    function first(callable $callback);
 
 	/**
 	 * @return array Returns a copy of the underlying storage for this collection.
 	 */
-    public function asArray(): array;
+    function asArray(): array;
 }

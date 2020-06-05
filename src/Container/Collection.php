@@ -94,14 +94,6 @@ class Collection extends Container implements CollectionContract
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function count(): int
-    {
-        return count($this->storage);
-    }
-
 	/**
 	 * @inheritDoc
 	 */

@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Philly\Container;
 
 
-use Exception;
+use InvalidArgumentException;
 use Psr\Container\ContainerExceptionInterface;
 
 /**
  * Class OffsetNotFoundException.
  */
-class OffsetNotFoundException extends Exception implements ContainerExceptionInterface
+class OffsetNotFoundException extends InvalidArgumentException implements ContainerExceptionInterface
 {
     /**
      * OffsetNotFoundException constructor.

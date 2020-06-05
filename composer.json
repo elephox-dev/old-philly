@@ -5,6 +5,7 @@
   "require": {
     "php": "^7.4",
     "ext-json": "*",
+    "ext-mbstring": "*",
     "psr/container": "^1.0",
     "symfony/http-foundation": "^5.0.7"
   },

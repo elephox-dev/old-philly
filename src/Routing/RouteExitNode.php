@@ -22,11 +22,15 @@ class RouteExitNode extends RouteNode implements RouteExitNodeContract
 	/**
 	 * RouteExitNode constructor.
 	 *
+	 * @param string $pattern The pattern used to check whether this node handles a uri part.
 	 * @param Controller $controller The controller which handles the request.
 	 * @param ReflectionMethod $method The method in the controller which handles the request.
+	 * @param string|null $options The options to use when matching. Defaults to mb_regex_set_options().
 	 */
-	public function __construct(Controller $controller, ReflectionMethod $method)
+	public function __construct(string $pattern, Controller $controller, ReflectionMethod $method, ?string $options = null)
 	{
+		parent::__construct($pattern, $options);
+
 		$this->controller = $controller;
 		$this->method = $method;
 	}

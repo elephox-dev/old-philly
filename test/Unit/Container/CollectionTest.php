@@ -50,6 +50,10 @@ class CollectionTest extends TestCase
             'ghi',
         ]);
 
+        $first = $collection->first();
+
+        static::assertEquals('abc', $first);
+
         $first = $collection->first(function ($val) {
             return strpos($val, 'e') !== false;
         });
@@ -147,5 +151,18 @@ class CollectionTest extends TestCase
     	$arr = $collection->asArray();
 
     	static::assertEquals(["test", "moo", "ooo"], $arr);
+    }
+
+    public function testAny()
+    {
+	    $collection = new Collection(["foo", "bar", "faz", "baz"]);
+
+		static::assertTrue($collection->any());
+		static::assertTrue($collection->any(fn($v) => str_contains($v, "a")));
+		static::assertFalse($collection->any(fn($v) => str_contains($v, "e")));
+
+		$collection->clear();
+
+		static::assertFalse($collection->any());
     }
 }

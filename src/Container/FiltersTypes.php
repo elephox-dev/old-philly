@@ -9,12 +9,12 @@ use Philly\Contracts\Container\Collection as CollectionContract;
  * Trait FiltersTypes
  *
  * @mixin Container
+ * @mixin \Philly\Contracts\Container\FiltersTypes
  */
 trait FiltersTypes
 {
     /**
-     * @param string|object $interface
-     * @return CollectionContract A new collection containing the filtered items.
+     * @inheritDoc
      */
     public function getInstancesOf($interface): CollectionContract
     {

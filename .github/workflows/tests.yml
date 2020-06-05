@@ -49,6 +49,11 @@ jobs:
           path: vendor
           key: composer@${{ hashFiles('**/composer.lock') }}
 
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+        env:
+          COMPOSER_ROOT_VERSION: dev-master
+
       - name: Run Infection
         run: composer run-script infect
         env:

@@ -4,16 +4,15 @@ declare(strict_types=1);
 namespace Philly\Contracts\Stack;
 
 
-use Countable;
 use IteratorAggregate;
-use Philly\Contracts\Support\JsonCompatible;
+use Philly\Contracts\Support\Storage;
 use Philly\Stack\StackEmptyException;
 use Traversable;
 
 /**
  * Interface Stack.
  */
-interface Stack extends Traversable, IteratorAggregate, JsonCompatible, Countable
+interface Stack extends Traversable, IteratorAggregate, Storage
 {
 	/**
 	 * @param mixed|mixed[] $value The value(s) to push onto the stack. The first parameter gets pushed first, then the
@@ -36,12 +35,7 @@ interface Stack extends Traversable, IteratorAggregate, JsonCompatible, Countabl
 	function peek();
 
 	/**
-	 * @return bool Whether this stack is empty.
-	 */
-	function isEmpty(): bool;
-
-	/**
 	 * @inheritDoc
 	 */
-	function count(): int;
+	function getIterator(): StackIterator;
 }

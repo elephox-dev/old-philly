@@ -24,6 +24,8 @@ class BindingContainer extends Container implements BindingContainerContract
      */
     public function __construct(array $items = [])
     {
+    	parent::__construct();
+
     	/** @var BaseBindingContract $contract */
 	    foreach ($items as $contract)
 	    {
@@ -165,7 +167,6 @@ class BindingContainer extends Container implements BindingContainerContract
 			$this->bind($key, $default, $singleton);
 		}
 
-		/** @noinspection PhpUnhandledExceptionInspection */
 		return $this->offsetGet($key);
 	}
 }

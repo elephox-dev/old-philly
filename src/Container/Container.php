@@ -5,28 +5,20 @@ namespace Philly\Container;
 
 use Philly\Contracts\Container\Container as ContainerContract;
 use Philly\Contracts\Container\ContainerIterator as ContainerIteratorContract;
-use Philly\Support\JsonCompatible;
+use Philly\Support\Storage;
 
 /**
  * Class Container
  */
-abstract class Container implements ContainerContract
+abstract class Container extends Storage implements ContainerContract
 {
-	use JsonCompatible;
-
-    /**
-     * The internal storage for this container
-     * @var array
-     */
-    protected array $storage = [];
-
     /**
      * Container constructor.
      * @param array $items
      */
     public function __construct(array $items = [])
     {
-        $this->storage = $items;
+    	parent::__construct($items);
     }
 
     /**
@@ -110,14 +102,6 @@ abstract class Container implements ContainerContract
         return new ContainerIterator($this);
     }
 
-	/**
-	 * @inheritDoc
-	 */
-    public function jsonSerialize(): array
-    {
-        return $this->storage;
-    }
-
     /**
      * @inheritDoc
      */
@@ -170,13 +154,4 @@ abstract class Container implements ContainerContract
 
         return $default;
     }
-
-	/**
-	 * @inheritDoc
-	 */
-	public function count(): int
-	{
-		return count($this->storage);
-	}
-
 }

@@ -6,21 +6,16 @@ namespace Philly\Stack;
 
 use Philly\Contracts\Stack\Stack as StackContract;
 use Philly\Contracts\Stack\StackIterator as StackIteratorContract;
-use Philly\Support\JsonCompatible;
+use Philly\Support\Storage;
 
-class Stack implements StackContract
+class Stack extends Storage implements StackContract
 {
-	use JsonCompatible;
-
-	/** @var mixed[] The storage for this stack implementation. */
-	protected array $storage;
-
 	/**
 	 * Stack constructor.
 	 */
 	public function __construct(array $items = [])
 	{
-		$this->storage = $items;
+		parent::__construct($items);
 	}
 
 	/**
@@ -61,29 +56,5 @@ class Stack implements StackContract
 			throw new StackEmptyException();
 
 		return $value;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function isEmpty(): bool
-	{
-		return $this->count() == 0;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function jsonSerialize(): array
-	{
-		return $this->storage;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function count(): int
-	{
-		return count($this->storage);
 	}
 }

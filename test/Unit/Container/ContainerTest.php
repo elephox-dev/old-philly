@@ -181,4 +181,15 @@ class ContainerTest extends TestCase
 
     	$container->offsetSet(true, new TestClass());
     }
+
+    public function testClear()
+    {
+    	$container = new TestContainer([new TestClass()]);
+
+    	static::assertCount(1, $container);
+
+    	$container->clear();
+
+	    static::assertCount(0, $container);
+    }
 }

@@ -20,6 +20,8 @@ class App extends BindingContainer implements AppContract
 	 */
 	public function __construct()
 	{
+		parent::__construct();
+
 		// bind this app instance to its own class
 		$this[AppContract::class] = $this;
 	}

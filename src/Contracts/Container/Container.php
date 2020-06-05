@@ -4,16 +4,15 @@ declare(strict_types=1);
 namespace Philly\Contracts\Container;
 
 use ArrayAccess;
-use Countable;
 use IteratorAggregate;
-use Philly\Contracts\Support\JsonCompatible;
+use Philly\Contracts\Support\Storage;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
 /**
  * Interface Container
  */
-interface Container extends ContainerInterface, ArrayAccess, Traversable, IteratorAggregate, JsonCompatible, Countable
+interface Container extends ContainerInterface, ArrayAccess, Traversable, IteratorAggregate, Storage
 {
     /**
      * Store a value with an associated key.
@@ -67,9 +66,4 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
 	 * @inheritDoc
 	 */
     function getIterator(): ContainerIterator;
-
-	/**
-	 * @inheritDoc
-	 */
-	function count(): int;
 }

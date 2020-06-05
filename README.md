@@ -1,12 +1,22 @@
 <p align="center">
+    <a href="https://philly.ricardoboss.de" target="_blank">
+        <img src="https://raw.githubusercontent.com/ricardoboss/Philly/master/docs/assets/images/logo.svg" alt="Philly Logo" height="150">
+    </a>
+    <br>
+    Yet another PHP framework.
+</p>
+
+#
+
+<p align="center">
+    <img alt="License" src="https://img.shields.io/github/license/ricardoboss/Philly">
+    <img alt="Packagist PHP Version Support" src="https://img.shields.io/packagist/php-v/ricardoboss/Philly">
     <a href="https://github.com/ricardoboss/Philly/milestones">
         <img alt="Github Milestone Progress" src="https://img.shields.io/github/milestones/progress/ricardoboss/Philly/1">
     </a>
-    <img alt="Packagist PHP Version Support" src="https://img.shields.io/packagist/php-v/ricardoboss/Philly">
     <a href="https://packagist.org/packages/ricardoboss/philly">
         <img alt="Packagist Version (including pre-releases)" src="https://img.shields.io/packagist/v/ricardoboss/Philly">
     </a>
-    <img alt="License" src="https://img.shields.io/github/license/ricardoboss/Philly">
     <br>
     <a href="https://shepherd.dev/github/ricardoboss/philly">
         <img alt="Type Coverage" src="https://shepherd.dev/github/ricardoboss/philly/coverage.svg">
@@ -17,25 +27,9 @@
     <a href="https://github.com/ricardoboss/Philly/actions?query=workflow%3ATests">
         <img alt="PHPUnit Tests" src="https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg">
     </a>
-    <br>
-    <br>
-    <a href="https://philly.ricardoboss.de" target="_blank">
-        <img src="https://raw.githubusercontent.com/ricardoboss/Philly/master/docs/assets/images/logo.svg" alt="Philly Logo" height="150">
-    </a>
-    <br>
-    Yet another PHP framework.
 </p>
-
-#
 
 ## Documentation
 
 The documentation for this framework can be seen at [philly.ricardoboss.de](https://philly.ricardoboss.de/home).
 
-## TODO
-
-- [ ] Implement ORM
-- [ ] Choose templating engine (Twig?)
-- [ ] Extend static analysis
-- [ ] Add mail driver
-- [ ] (Add cli support?)

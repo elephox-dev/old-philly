@@ -13,7 +13,7 @@ class AppTest extends TestCase
 {
 	public function testGetExceptionHandler()
 	{
-		$app = new App();
+		$app = App::inst();
 
 		$handler = $app->getExceptionHandler();
 
@@ -26,7 +26,7 @@ class AppTest extends TestCase
 
 	public function testGetServices()
 	{
-		$app = new App();
+		$app = App::inst();
 
 		$services = $app->getServices();
 

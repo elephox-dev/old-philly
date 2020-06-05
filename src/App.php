@@ -15,10 +15,23 @@ use Philly\ServiceProvider\ServiceProviderContainer;
  */
 class App extends BindingContainer implements AppContract
 {
+	protected static ?AppContract $instance = null;
+
+	/**
+	 * @return AppContract The global app instance.
+	 */
+	public static function inst(): AppContract
+	{
+		if (static::$instance === null)
+			static::$instance = new App();
+
+		return static::$instance;
+	}
+
 	/**
 	 * App constructor.
 	 */
-	public function __construct()
+	private function __construct()
 	{
 		parent::__construct();
 

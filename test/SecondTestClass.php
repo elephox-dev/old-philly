@@ -6,7 +6,7 @@ namespace test\Philly;
 /**
  * Class TestClass
  */
-class SecondTestClass implements TestInterface
+class SecondTestClass implements TestInterface, SecondTestInterface
 {
     /**
      * @var string

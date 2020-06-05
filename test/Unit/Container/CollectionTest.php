@@ -81,6 +81,24 @@ class CollectionTest extends TestCase
 	    static::assertEquals(['ab', 'bb', 'bc'], $b_collection->getValues());
     }
 
+    public function testWherePreserveKeys()
+    {
+		$collection = new Collection([
+			0 => 'Apple',
+			1 => 'Bee',
+			2 => 'Citrus',
+			3 => 'Delta'
+		]);
+
+		$filter = fn($val) => strpos($val, 'e') !== false;
+		$filteredSameKeys = $collection->where($filter);
+		$filteredNewKeys = $collection->where($filter, false);
+
+		static::assertCount(3, $filteredSameKeys);
+		static::assertEquals([0, 1, 3], $filteredSameKeys->getKeys());
+		static::assertEquals([0, 1, 2], $filteredNewKeys->getKeys());
+    }
+
     public function testOffsetSet()
     {
         $collection = new Collection(['alice', 'bob', 'charlie']);

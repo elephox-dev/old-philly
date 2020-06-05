@@ -75,6 +75,9 @@ class Collection extends Container implements CollectionContract
     {
         $items = array_filter($this->storage, $callback, ARRAY_FILTER_USE_BOTH);
 
+        if (!$preserve_keys)
+        	$items = array_values($items);
+
         return new Collection($items);
     }
 

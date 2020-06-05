@@ -24,7 +24,19 @@ class BindingContainer extends Container implements BindingContainerContract
      */
     public function __construct(array $items = [])
     {
-        parent::__construct($items);
+    	/** @var BaseBindingContract $contract */
+	    foreach ($items as $contract)
+	    {
+		    $interface = $contract->getInterface();
+
+	    	if ($contract->getBuilder() === null || $interface === null || strlen($interface) == 0)
+	    		throw new InvalidArgumentException("Binding contract cannot contain null/empty values!");
+
+	    	if (parent::offsetExists($interface))
+	    		throw new InvalidArgumentException("A contract using this interface has already been bound: $interface");
+
+	    	parent::offsetSet($interface, $contract);
+	    }
     }
 
 	/**
@@ -75,9 +87,12 @@ class BindingContainer extends Container implements BindingContainerContract
         return $contract;
     }
 
-    /**
-     * @inheritDoc
-     */
+	/**
+	 * Offset to set
+	 *
+	 * @param mixed $offset The offset to assign the value to.
+	 * @param mixed|BaseBindingContract $contract The value to set or the contract to bind.
+	 */
     public function offsetSet($offset, $contract)
     {
         if ($offset === null)
@@ -86,7 +101,13 @@ class BindingContainer extends Container implements BindingContainerContract
         if (!is_string($offset))
         	throw new InvalidArgumentException("Offset must be a string!");
 
-        $this->bind($offset, $contract, true);
+        if (parent::offsetExists($offset))
+        	throw new InvalidArgumentException("Offset $offset already bound!");
+
+        if ($contract instanceof BaseBindingContract)
+        	parent::offsetSet($offset, $contract);
+        else
+            $this->bind($offset, $contract, true);
     }
 
     /**
@@ -103,14 +124,12 @@ class BindingContainer extends Container implements BindingContainerContract
         if (!$contract->isSingleton())
 	        return $this->verifyAcceptable($builder());
 
-        if (array_key_exists($contract->getInterface(), $this->singletons))
-            return $this->singletons[$contract->getInterface()];
+        $interface = $contract->getInterface();
 
-        $instance = $this->verifyAcceptable($builder());
+        if (array_key_exists($interface, $this->singletons))
+            return $this->singletons[$interface];
 
-	    $this->singletons[$contract->getInterface()] = $instance;
-
-        return $instance;
+        return $this->singletons[$interface] = $this->verifyAcceptable($builder());
     }
 
 	/**
@@ -143,7 +162,7 @@ class BindingContainer extends Container implements BindingContainerContract
 	public function getLazy($key, $default, bool $singleton = false)
 	{
 		if (!$this->offsetExists($key)) {
-			if (!is_string($key)) {
+			if (!$this->acceptsKey($key)) {
 				$type = gettype($key);
 
 				throw new InvalidArgumentException("Key has invalid type: $type. Only strings can be used as keys.");

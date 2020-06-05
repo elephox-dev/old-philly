@@ -20,7 +20,7 @@ class ExceptionHandlerTest extends TestCase
 
 		$response = $handler->handle($exception);
 
-		static::assertTrue($response->getStatusCode() >= 500);
+		static::assertTrue($response->getStatusCode() == 500);
 
 		static::assertEquals("application/json", $response->headers->get('Content-Type'));
 

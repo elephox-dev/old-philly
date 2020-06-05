@@ -19,6 +19,10 @@ class AppTest extends TestCase
 		$handler = $app->getExceptionHandler();
 
 		static::assertInstanceOf(ExceptionHandlerContract::class, $handler);
+
+		$handler2 = $app->getExceptionHandler();
+
+		static::assertSame($handler, $handler2);
 	}
 
 	public function testGetServices()
@@ -28,6 +32,10 @@ class AppTest extends TestCase
 		$services = $app->getServices();
 
 		static::assertInstanceOf(ServiceProviderContainerContract::class, $services);
+
+		$services2 = $app->getServices();
+
+		static::assertSame($services, $services2);
 	}
 
 	public function testGetRoutes()
@@ -37,5 +45,9 @@ class AppTest extends TestCase
 		$routes = $app->getRoutes();
 
 		static::assertInstanceOf(RouteContainerContract::class, $routes);
+
+		$routes2 = $app->getRoutes();
+
+		static::assertSame($routes, $routes2);
 	}
 }

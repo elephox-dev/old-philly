@@ -85,7 +85,10 @@ abstract class Container implements ContainerContract
 	        throw new UnacceptableTypeException($type);
         }
 
-        $this->storage[$offset] = $value;
+        if ($offset !== null)
+            $this->storage[$offset] = $value;
+        else
+        	$this->storage[] = $value;
     }
 
     /**

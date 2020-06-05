@@ -73,7 +73,7 @@ class Collection extends Container implements CollectionContract
      */
     public function where(callable $callback, bool $preserve_keys = true): self
     {
-        $items = array_filter($this->storage, fn($v, $k) => (bool)$callback($v, $k), ARRAY_FILTER_USE_BOTH);
+        $items = array_filter($this->storage, $callback, ARRAY_FILTER_USE_BOTH);
 
         if (!$preserve_keys)
         	$items = array_values($items);
@@ -91,7 +91,7 @@ class Collection extends Container implements CollectionContract
 			    return reset($this->storage);
 
 		    foreach ($this as $key => $value) {
-			    if (((bool)$callback($value, $key)) === true)
+			    if (($callback($value, $key)) === true)
 				    return $value;
 		    }
 	    }

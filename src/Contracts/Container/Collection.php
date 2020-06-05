@@ -21,8 +21,7 @@ interface Collection extends Container
 	 * Filters this collection via a callback and returns a new collection with the new items.
 	 *
 	 * @param callable $callback The callback will receive two arguments: the value and the key (in this order).
-	 *                           The of the callback result will be cast to a boolean and only if this result evaluates
-	 *                           to true, the item is added to the resulting collection.
+	 *                           If this result evaluates to true, the item is added to the resulting collection.
 	 * @return Collection A new collection containing the filtered items.
 	 */
     function where(callable $callback, bool $preserve_keys = true): self;
@@ -33,7 +32,7 @@ interface Collection extends Container
      * collection or null if this collection is empty.
      *
      * @param callable|null $callback The callback to use for filtering. The callback receives both the value and then the
-     *                           key as arguments. The result will be cast to a boolean.
+     *                           key as arguments.
      * @return mixed|null The first item that got matched by the callback or null if no item matched.
      */
     function first(?callable $callback = null);
@@ -43,7 +42,6 @@ interface Collection extends Container
 	 * method returns true if there are any elements in this collections.
 	 *
 	 * @param callable|null $callback The callback to use for checking. The callback receives both the value and the key.
-	 *                           The result is cast to a boolean.
 	 * @return bool Whether this collection contains an item which is matched by the callback or, if no callback is
 	 *              given, whether this collection contains any element.
 	 */

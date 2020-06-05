@@ -31,8 +31,7 @@ class QueueIteratorTest extends TestCase
 
             static::assertTrue($current instanceof TestInterface);
             static::assertIsInt($it->key());
-            static::assertGreaterThanOrEqual(0, $it->key());
-            static::assertLessThan(3, $it->key());
+            static::assertEquals(0, $it->key());
 
             $it->next();
         }

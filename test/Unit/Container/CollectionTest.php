@@ -50,21 +50,19 @@ class CollectionTest extends TestCase
             'ghi',
         ]);
 
-        $first = $collection->first();
+        static::assertEquals('abc', $collection->first());
 
-        static::assertEquals('abc', $first);
+	    static::assertEquals('def', $collection->first(function ($val) {
+		    return strpos($val, 'e') !== false;
+	    }));
 
-        $first = $collection->first(function ($val) {
-            return strpos($val, 'e') !== false;
-        });
+	    static::assertNull($collection->first(function () {
+		    return false;
+	    }));
 
-	    static::assertEquals('def', $first);
+	    $empty = new Collection();
 
-	    $none = $collection->first(function () {
-	    	return false;
-	    });
-
-	    static::assertNull($none);
+	    static::assertNull($empty->first());
     }
 
     public function testWhere()

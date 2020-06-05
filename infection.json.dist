@@ -9,7 +9,7 @@
 		]
 	},
 	"logs": {
-		"text": "php:\/\/stderr",
+		"text": "php:\/\/stdout",
 		"badge": {
 			"branch": "master"
 		}

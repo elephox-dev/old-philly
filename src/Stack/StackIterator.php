@@ -39,6 +39,9 @@ class StackIterator implements StackIteratorContract
 
 	/**
 	 * @inheritDoc
+	 *
+	 * Suppress error until this gets fixed: https://github.com/vimeo/psalm/issues/3531
+	 * @psalm-suppress NullableReturnStatement
 	 */
 	public function key()
 	{

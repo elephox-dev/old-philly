@@ -5,12 +5,15 @@ namespace Philly\Container;
 
 use Philly\Contracts\Container\Container as ContainerContract;
 use Philly\Contracts\Container\ContainerIterator as ContainerIteratorContract;
+use Philly\Support\JsonCompatible;
 
 /**
  * Class Container
  */
 abstract class Container implements ContainerContract
 {
+	use JsonCompatible;
+
     /**
      * The internal storage for this container
      * @var array
@@ -107,28 +110,12 @@ abstract class Container implements ContainerContract
         return new ContainerIterator($this);
     }
 
-    /**
-     * Returns this container as a json object.
-     */
+	/**
+	 * @inheritDoc
+	 */
     public function jsonSerialize(): array
     {
         return $this->storage;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function jsonOptions(): int
-    {
-        return JSON_THROW_ON_ERROR;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function asJson(): string
-    {
-        return json_encode($this->jsonSerialize(), $this->jsonOptions());
     }
 
     /**
@@ -177,7 +164,6 @@ abstract class Container implements ContainerContract
     public function getLazy($key, $default)
     {
         if ($this->offsetExists($key))
-            /** @noinspection PhpUnhandledExceptionInspection */
             return $this->offsetGet($key);
 
         $this->offsetSet($key, $default);

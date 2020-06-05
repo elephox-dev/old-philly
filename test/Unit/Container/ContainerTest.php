@@ -69,7 +69,6 @@ class ContainerTest extends TestCase
         $container = new TestContainer();
         $container[TestInterface::class] = $instance;
 
-        /** @noinspection PhpUnhandledExceptionInspection */
         $got = $container->offsetGet(TestInterface::class);
 
         static::assertTrue($instance === $got);

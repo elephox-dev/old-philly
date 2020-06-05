@@ -11,7 +11,8 @@
   "require-dev": {
     "phpunit/phpunit": "^9.1",
     "vimeo/psalm": "^3.11",
-    "nunomaduro/collision": "^4.2"
+    "nunomaduro/collision": "^4.2",
+    "infection/infection": "^0.16.3"
   },
   "license": "MIT",
   "authors": [
@@ -33,7 +34,8 @@
     }
   },
   "scripts": {
-    "test": "phpunit --configuration ./phpunit.xml --coverage-text",
-    "stan": "psalm --output-format=github --shepherd"
+    "test": "phpunit --configuration ./phpunit.xml.dist --coverage-text",
+    "stan": "psalm --config=psalm.xml.dist --output-format=github --shepherd",
+    "infect": "infection"
   }
 }

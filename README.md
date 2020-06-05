@@ -1,5 +1,4 @@
-# [![Version](https://poser.pugx.org/ricardoboss/philly/version)](https://packagist.org/packages/ricardoboss/philly) [![License](https://poser.pugx.org/ricardoboss/philly/license)](https://packagist.org/packages/ricardoboss/philly) [![Coverage](https://shepherd.dev/github/ricardoboss/philly/coverage.svg)](https://shepherd.dev/github/ricardoboss/philly) [![PHPUnit Tests](https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg)](https://github.com/ricardoboss/Philly/actions)
-
+[![Version](https://poser.pugx.org/ricardoboss/philly/version)](https://packagist.org/packages/ricardoboss/philly) [![License](https://poser.pugx.org/ricardoboss/philly/license)](https://packagist.org/packages/ricardoboss/philly) [![Coverage](https://shepherd.dev/github/ricardoboss/philly/coverage.svg)](https://shepherd.dev/github/ricardoboss/philly) [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fricardoboss%2FPhilly%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/ricardoboss/Philly/master) [![PHPUnit Tests](https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg)](https://github.com/ricardoboss/Philly/actions)
 
 <p align="center">
     <a href="https://philly.ricardoboss.de" target="_blank">

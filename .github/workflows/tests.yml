@@ -31,3 +31,25 @@ jobs:
 
     - name: Run PHPUnit test suite
       run: composer run-script test
+
+  mutation-tests:
+    name: "Mutation Tests"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1.1.0
+        with:
+          path: vendor
+          key: composer@${{ hashFiles('**/composer.lock') }}
+
+      - name: Run Infection
+        run: composer run-script infect
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}

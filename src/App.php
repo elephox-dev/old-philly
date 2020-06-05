@@ -4,13 +4,11 @@ declare(strict_types=1);
 namespace Philly;
 
 use Philly\Container\BindingContainer;
-use Philly\ServiceProvider\ServiceProviderContainer;
 use Philly\Contracts\App as AppContract;
-use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
-use Philly\Contracts\Routing\RouteContainer as RouteContainerContract;
+use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Exceptions\ExceptionHandler;
-use Philly\Routing\RouteContainer;
+use Philly\ServiceProvider\ServiceProviderContainer;
 
 /**
  * Class App
@@ -62,21 +60,5 @@ class App extends BindingContainer implements AppContract
 		);
 
 		return $serviceContainer;
-	}
-
-	public function getRoutes(): RouteContainerContract
-	{
-		$routeContainer = $this->getLazy(
-			RouteContainerContract::class,
-			fn () => new RouteContainer(),
-			true
-		);
-
-		assert(
-			$routeContainer instanceof RouteContainerContract,
-			"Invalid route container provider type!"
-		);
-
-		return $routeContainer;
 	}
 }

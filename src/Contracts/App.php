@@ -6,7 +6,6 @@ namespace Philly\Contracts;
 use Philly\Contracts\Container\BindingContainer;
 use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
-use Philly\Contracts\Routing\RouteContainer as RouteContainerContract;
 
 /**
  * Interface App
@@ -22,9 +21,4 @@ interface App extends BindingContainer
 	 * @return ServiceProviderContainerContract The container for all services.
 	 */
 	public function getServices(): ServiceProviderContainerContract;
-
-	/**
-	 * @return RouteContainerContract The container for all routes in the application.
-	 */
-	public function getRoutes(): RouteContainerContract;
 }

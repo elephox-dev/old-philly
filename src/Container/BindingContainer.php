@@ -29,8 +29,8 @@ class BindingContainer extends Container implements BindingContainerContract
 	    {
 		    $interface = $contract->getInterface();
 
-	    	if ($contract->getBuilder() === null || $interface === null || strlen($interface) == 0)
-	    		throw new InvalidArgumentException("Binding contract cannot contain null/empty values!");
+	    	if (strlen($interface) == 0)
+	    		throw new InvalidArgumentException("Binding contract interface must be set!");
 
 	    	if (parent::offsetExists($interface))
 	    		throw new InvalidArgumentException("A contract using this interface has already been bound: $interface");
@@ -68,9 +68,6 @@ class BindingContainer extends Container implements BindingContainerContract
      */
     public function bind(string $interface, $builder, bool $singleton = false): BaseBindingContract
     {
-    	if ($builder === null)
-    		throw new InvalidArgumentException("Builder cannot be null!");
-
 	    if ($builder instanceof Closure)
 		    $contract_builder = $builder;
 	    else
@@ -95,10 +92,7 @@ class BindingContainer extends Container implements BindingContainerContract
 	 */
     public function offsetSet($offset, $contract)
     {
-        if ($offset === null)
-            throw new InvalidArgumentException("Offset cannot be null!");
-
-        if (!is_string($offset))
+        if ($offset === null || !is_string($offset))
         	throw new InvalidArgumentException("Offset must be a string!");
 
         if (parent::offsetExists($offset))
@@ -162,7 +156,7 @@ class BindingContainer extends Container implements BindingContainerContract
 	public function getLazy($key, $default, bool $singleton = false)
 	{
 		if (!$this->offsetExists($key)) {
-			if (!$this->acceptsKey($key)) {
+			if (!is_string($key)) {
 				$type = gettype($key);
 
 				throw new InvalidArgumentException("Key has invalid type: $type. Only strings can be used as keys.");

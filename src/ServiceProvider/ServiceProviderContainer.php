@@ -21,7 +21,10 @@ class ServiceProviderContainer extends BindingContainer implements ServiceProvid
 	}
 
 	/**
-	 * @inheritDoc
+	 * Offset to set
+	 *
+	 * @param mixed $offset The offset to assign the value to.
+	 * @param mixed|ServiceProviderContract $value The value to set.
 	 */
 	public function offsetSet($offset, $value)
 	{

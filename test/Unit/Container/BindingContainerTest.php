@@ -8,6 +8,7 @@ use Philly\Container\BindingContainer;
 use Philly\Container\BindingContract;
 use PHPUnit\Framework\TestCase;
 use test\Philly\SecondTestClass;
+use test\Philly\SecondTestInterface;
 use test\Philly\TestClass;
 use test\Philly\TestInterface;
 
@@ -16,6 +17,15 @@ use test\Philly\TestInterface;
  */
 class BindingContainerTest extends TestCase
 {
+	public function testBindNullBuilder()
+	{
+		$container = new BindingContainer();
+
+		static::expectException(InvalidArgumentException::class);
+
+		$container->bind(TestInterface::class, null);
+	}
+
     public function testBindBuilder()
     {
         $container = new BindingContainer();
@@ -93,6 +103,23 @@ class BindingContainerTest extends TestCase
 	    new BindingContainer([$contract]);
     }
 
+    public function testOffsetSet()
+    {
+    	$container = new BindingContainer();
+
+    	$instance_a = new TestClass();
+    	$container->offsetSet(TestInterface::class, $instance_a);
+
+    	$instance_b = new SecondTestClass();
+    	$container->offsetSet(SecondTestInterface::class, $instance_b);
+
+	    static::assertSame($instance_a, $container[TestInterface::class]);
+	    static::assertSame($instance_b, $container[SecondTestInterface::class]);
+
+	    static::assertSame($instance_a, $container[TestInterface::class]);
+	    static::assertSame($instance_b, $container[SecondTestInterface::class]);
+    }
+
     public function testOffsetSetBindingContract()
     {
     	$contract = new BindingContract(TestInterface::class, fn() => new TestClass(), true);
@@ -143,8 +170,7 @@ class BindingContainerTest extends TestCase
         $container = new BindingContainer();
         $container[TestInterface::class] = $instance_a;
 
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $instance_b = $container->offsetGet(TestInterface::class);
+        $instance_b = $container[TestInterface::class];
 
         static::assertTrue($instance_a === $instance_b);
     }

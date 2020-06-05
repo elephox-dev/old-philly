@@ -27,8 +27,6 @@ class RouteExitNode extends RouteNode implements RouteExitNodeContract
 	 */
 	public function __construct(Controller $controller, ReflectionMethod $method)
 	{
-		parent::__construct();
-
 		$this->controller = $controller;
 		$this->method = $method;
 	}

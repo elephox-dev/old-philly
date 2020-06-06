@@ -1,0 +1,4 @@
+php:
+  preset: psr12
+
+  risky: false

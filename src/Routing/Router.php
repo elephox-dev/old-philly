@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Routing;
-
 
 use Philly\Contracts\Routing\RouteExitNode as RouteExitNodeContract;
 use Philly\Contracts\Routing\RouteNode as RouteNodeContract;
@@ -10,41 +10,43 @@ use Philly\Stack\Stack;
 
 class Router
 {
-	protected RouteNodeContract $entryNode;
+    protected RouteNodeContract $entryNode;
 
-	protected ?RouteExitNodeContract $fallbackNode = null;
+    protected ?RouteExitNodeContract $fallbackNode = null;
 
-	public function __construct(string $entryNode = "")
-	{
-		$this->entryNode = new RouteNode($entryNode);
-	}
+    public function __construct(string $entryNode = "")
+    {
+        $this->entryNode = new RouteNode($entryNode);
+    }
 
-	public function getEntryNode(): RouteNodeContract
-	{
-		return $this->entryNode;
-	}
+    public function getEntryNode(): RouteNodeContract
+    {
+        return $this->entryNode;
+    }
 
-	public function setFallbackNode(RouteExitNodeContract $fallbackNode): void
-	{
-		$this->fallbackNode = $fallbackNode;
-	}
+    public function setFallbackNode(RouteExitNodeContract $fallbackNode): void
+    {
+        $this->fallbackNode = $fallbackNode;
+    }
 
-	public function getExitNode(string $uri): ?RouteExitNodeContract
-	{
-		$routeStack = new Stack(preg_split("/\//", $uri));
-		$currentNode = $this->entryNode;
+    public function getExitNode(string $uri): ?RouteExitNodeContract
+    {
+        $routeStack = new Stack(preg_split("/\//", $uri));
+        $currentNode = $this->entryNode;
 
-		if ($routeStack->isEmpty())
-			return $this->fallbackNode;
+        if ($routeStack->isEmpty()) {
+            return $this->fallbackNode;
+        }
 
-		while (!($currentNode instanceof RouteExitNodeContract)) {
-			$nextPart = $routeStack->pop();
-			$currentNode = $currentNode->getNext($nextPart);
+        while (!($currentNode instanceof RouteExitNodeContract)) {
+            $nextPart = $routeStack->pop();
+            $currentNode = $currentNode->getNext($nextPart);
 
-			if ($currentNode === null)
-				return $this->fallbackNode;
-		}
+            if ($currentNode === null) {
+                return $this->fallbackNode;
+            }
+        }
 
-		return $currentNode;
-	}
+        return $currentNode;
+    }
 }

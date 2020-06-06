@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly\Unit\Container;
@@ -56,11 +57,11 @@ class ContainerTest extends TestCase
 
     public function testOffsetSetNative()
     {
-    	$container = new TestContainer();
+        $container = new TestContainer();
 
-    	static::expectException(UnacceptableTypeException::class);
+        static::expectException(UnacceptableTypeException::class);
 
-    	$container->offsetSet(TestInterface::class, "test");
+        $container->offsetSet(TestInterface::class, "test");
     }
 
     public function testOffsetGet()
@@ -152,44 +153,44 @@ class ContainerTest extends TestCase
 
     public function testGetLazy()
     {
-    	$container = new TestContainer();
-    	$instance = new TestClass();
+        $container = new TestContainer();
+        $instance = new TestClass();
 
-    	$default = $container->getLazy("key", $instance);
+        $default = $container->getLazy("key", $instance);
 
-    	static::assertSame($instance, $default);
+        static::assertSame($instance, $default);
 
-    	$lazy = $container->getLazy("key", new TestClass());
+        $lazy = $container->getLazy("key", new TestClass());
 
-    	static::assertSame($instance, $lazy);
+        static::assertSame($instance, $lazy);
     }
 
     public function testUnacceptableKeyObject()
     {
-    	$container = new TestContainer();
+        $container = new TestContainer();
 
-    	static::expectException(UnacceptableKeyException::class);
+        static::expectException(UnacceptableKeyException::class);
 
-    	$container->offsetSet(new TestClass(), new TestClass());
+        $container->offsetSet(new TestClass(), new TestClass());
     }
 
     public function testUnacceptableKeyNative()
     {
-    	$container = new TestContainer();
+        $container = new TestContainer();
 
-    	static::expectException(UnacceptableKeyException::class);
+        static::expectException(UnacceptableKeyException::class);
 
-    	$container->offsetSet(true, new TestClass());
+        $container->offsetSet(true, new TestClass());
     }
 
     public function testClear()
     {
-    	$container = new TestContainer([new TestClass()]);
+        $container = new TestContainer([new TestClass()]);
 
-    	static::assertCount(1, $container);
+        static::assertCount(1, $container);
 
-    	$container->clear();
+        $container->clear();
 
-	    static::assertCount(0, $container);
+        static::assertCount(0, $container);
     }
 }

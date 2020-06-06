@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly;
-
 
 use Philly\Container\Collection;
 
@@ -11,8 +11,8 @@ use Philly\Container\Collection;
  */
 class TestCollection extends Collection
 {
-	public function getNextOffset(): int
-	{
-		return parent::getNextOffset();
-	}
+    public function getNextOffset(): int
+    {
+        return parent::getNextOffset();
+    }
 }

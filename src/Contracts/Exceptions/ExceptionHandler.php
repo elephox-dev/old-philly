@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Contracts\Exceptions;
-
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Throwable;

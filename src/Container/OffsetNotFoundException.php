@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Container;
-
 
 use InvalidArgumentException;
 use Psr\Container\ContainerExceptionInterface;

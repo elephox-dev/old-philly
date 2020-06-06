@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Container;
@@ -19,9 +20,11 @@ trait FiltersTypes
     public function getInstancesOf($interface): CollectionContract
     {
         $result = new Collection();
-        foreach ($this->getValues() as $value)
-            if (is_object($value) && $value instanceof $interface)
+        foreach ($this->getValues() as $value) {
+            if (is_object($value) && $value instanceof $interface) {
                 $result->add($value);
+            }
+        }
 
         return $result;
     }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly;
@@ -15,65 +16,66 @@ use Philly\ServiceProvider\ServiceProviderContainer;
  */
 class App extends BindingContainer implements AppContract
 {
-	protected static ?AppContract $instance = null;
+    protected static ?AppContract $instance = null;
 
-	/**
-	 * @return AppContract The global app instance.
-	 */
-	public static function inst(): AppContract
-	{
-		if (static::$instance === null)
-			static::$instance = new App();
+    /**
+     * @return AppContract The global app instance.
+     */
+    public static function inst(): AppContract
+    {
+        if (static::$instance === null) {
+            static::$instance = new App();
+        }
 
-		return static::$instance;
-	}
+        return static::$instance;
+    }
 
-	/**
-	 * App constructor.
-	 */
-	private function __construct()
-	{
-		parent::__construct();
+    /**
+     * App constructor.
+     */
+    private function __construct()
+    {
+        parent::__construct();
 
-		// bind this app instance to its own class
-		$this[AppContract::class] = $this;
-	}
+        // bind this app instance to its own class
+        $this[AppContract::class] = $this;
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getExceptionHandler(): ExceptionHandlerContract
-	{
-		$handler = $this->getLazy(
-			ExceptionHandlerContract::class,
-			fn() => new ExceptionHandler(),
-			true
-		);
+    /**
+     * @inheritDoc
+     */
+    public function getExceptionHandler(): ExceptionHandlerContract
+    {
+        $handler = $this->getLazy(
+            ExceptionHandlerContract::class,
+            fn () => new ExceptionHandler(),
+            true
+        );
 
-		assert(
-			$handler instanceof ExceptionHandlerContract,
-			"Invalid exception handler type!"
-		);
+        assert(
+            $handler instanceof ExceptionHandlerContract,
+            "Invalid exception handler type!"
+        );
 
-		return $handler;
-	}
+        return $handler;
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getServices(): ServiceProviderContainerContract
-	{
-		$serviceContainer = $this->getLazy(
-			ServiceProviderContainerContract::class,
-			fn () => new ServiceProviderContainer(),
-			true
-		);
+    /**
+     * @inheritDoc
+     */
+    public function getServices(): ServiceProviderContainerContract
+    {
+        $serviceContainer = $this->getLazy(
+            ServiceProviderContainerContract::class,
+            fn () => new ServiceProviderContainer(),
+            true
+        );
 
-		assert(
-			$serviceContainer instanceof ServiceProviderContainerContract,
-			"Invalid service provider container type!"
-		);
+        assert(
+            $serviceContainer instanceof ServiceProviderContainerContract,
+            "Invalid service provider container type!"
+        );
 
-		return $serviceContainer;
-	}
+        return $serviceContainer;
+    }
 }

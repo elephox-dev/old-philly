@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Queue;
-
 
 use Philly\Contracts\Queue\Queue as QueueContract;
 use Philly\Contracts\Queue\QueueIterator as QueueIteratorContract;

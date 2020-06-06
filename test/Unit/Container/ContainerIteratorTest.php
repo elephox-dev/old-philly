@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly\Unit\Container;
@@ -39,14 +40,14 @@ class ContainerIteratorTest extends TestCase
 
     public function testOutOfBounds()
     {
-    	$container = new TestContainer();
+        $container = new TestContainer();
 
-	    /** @noinspection PhpUnhandledExceptionInspection */
-	    $it = $container->getIterator();
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $it = $container->getIterator();
 
-    	static::assertFalse($it->valid());
+        static::assertFalse($it->valid());
 
-		static::expectException(OutOfBoundsException::class);
-		$it->current();
+        static::expectException(OutOfBoundsException::class);
+        $it->current();
     }
 }

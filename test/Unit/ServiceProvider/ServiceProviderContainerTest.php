@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly\Unit\ServiceProvider;
-
 
 use Philly\ServiceProvider\ServiceProviderContainer;
 use Philly\Container\UnacceptableBindingException;
@@ -13,52 +13,52 @@ use test\Philly\TestServiceProvider;
 
 class ServiceProviderContainerTest extends TestCase
 {
-	public function testAcceptsNative()
-	{
-		$container = new ServiceProviderContainer();
+    public function testAcceptsNative()
+    {
+        $container = new ServiceProviderContainer();
 
-		static::expectException(UnacceptableBindingException::class);
+        static::expectException(UnacceptableBindingException::class);
 
-		$container->offsetSet(TestInterface::class, "test");
-	}
+        $container->offsetSet(TestInterface::class, "test");
+    }
 
-	public function testAcceptsObject()
-	{
-		$container = new ServiceProviderContainer();
+    public function testAcceptsObject()
+    {
+        $container = new ServiceProviderContainer();
 
-		static::expectException(UnacceptableBindingException::class);
+        static::expectException(UnacceptableBindingException::class);
 
-		$container->offsetSet(TestInterface::class, new TestClass());
-	}
+        $container->offsetSet(TestInterface::class, new TestClass());
+    }
 
-	public function testAcceptsServiceProvider()
-	{
-		$container = new ServiceProviderContainer();
-		$serviceProvider = new TestServiceProvider();
+    public function testAcceptsServiceProvider()
+    {
+        $container = new ServiceProviderContainer();
+        $serviceProvider = new TestServiceProvider();
 
-		$container->offsetSet(TestInterface::class, $serviceProvider);
+        $container->offsetSet(TestInterface::class, $serviceProvider);
 
-		$service = $container[TestInterface::class];
+        $service = $container[TestInterface::class];
 
-		static::assertInstanceOf(TestServiceProvider::class, $service);
-	}
+        static::assertInstanceOf(TestServiceProvider::class, $service);
+    }
 
-	public function testBoot()
-	{
-		$container = new ServiceProviderContainer();
-		$serviceProvider = new TestServiceProvider();
+    public function testBoot()
+    {
+        $container = new ServiceProviderContainer();
+        $serviceProvider = new TestServiceProvider();
 
-		static::assertFalse($serviceProvider->isRegistered());
-		static::assertFalse($serviceProvider->isBooted());
+        static::assertFalse($serviceProvider->isRegistered());
+        static::assertFalse($serviceProvider->isBooted());
 
-		$container[TestInterface::class] = $serviceProvider;
+        $container[TestInterface::class] = $serviceProvider;
 
-		static::assertTrue($serviceProvider->isRegistered());
-		static::assertFalse($serviceProvider->isBooted());
+        static::assertTrue($serviceProvider->isRegistered());
+        static::assertFalse($serviceProvider->isBooted());
 
-		$container->boot();
+        $container->boot();
 
-		static::assertTrue($serviceProvider->isRegistered());
-		static::assertTrue($serviceProvider->isBooted());
-	}
+        static::assertTrue($serviceProvider->isRegistered());
+        static::assertTrue($serviceProvider->isBooted());
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Container;
@@ -58,8 +59,9 @@ class ContainerIterator implements ContainerIteratorContract
      */
     public function key()
     {
-        if ($this->current_key < count($this->keys))
+        if ($this->current_key < count($this->keys)) {
             return $this->keys[$this->current_key];
+        }
 
         throw new OutOfBoundsException("Current key has not been captured.");
     }

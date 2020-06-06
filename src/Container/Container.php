@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Container;
@@ -18,7 +19,7 @@ abstract class Container extends Storage implements ContainerContract
      */
     public function __construct(array $items = [])
     {
-    	parent::__construct($items);
+        parent::__construct($items);
     }
 
     /**
@@ -51,8 +52,9 @@ abstract class Container extends Storage implements ContainerContract
      */
     public function offsetGet($offset)
     {
-        if (!$this->offsetExists($offset))
+        if (!$this->offsetExists($offset)) {
             throw new OffsetNotFoundException($offset);
+        }
 
         return $this->storage[$offset];
     }
@@ -62,28 +64,31 @@ abstract class Container extends Storage implements ContainerContract
      */
     public function offsetSet($offset, $value)
     {
-    	if (!$this->acceptsKey($offset)) {
-		    if (is_object($offset))
-			    $type = get_class($offset);
-		    else
-			    $type = gettype($offset);
+        if (!$this->acceptsKey($offset)) {
+            if (is_object($offset)) {
+                $type = get_class($offset);
+            } else {
+                $type = gettype($offset);
+            }
 
-		    throw new UnacceptableKeyException($type);
-	    }
-
-        if (!$this->accepts($value)) {
-        	if (is_object($value))
-        		$type = get_class($value);
-        	else
-        		$type = gettype($value);
-
-	        throw new UnacceptableTypeException($type);
+            throw new UnacceptableKeyException($type);
         }
 
-        if ($offset !== null)
+        if (!$this->accepts($value)) {
+            if (is_object($value)) {
+                $type = get_class($value);
+            } else {
+                $type = gettype($value);
+            }
+
+            throw new UnacceptableTypeException($type);
+        }
+
+        if ($offset !== null) {
             $this->storage[$offset] = $value;
-        else
-        	$this->storage[] = $value;
+        } else {
+            $this->storage[] = $value;
+        }
     }
 
     /**
@@ -134,21 +139,22 @@ abstract class Container extends Storage implements ContainerContract
         return true;
     }
 
-	/**
-	 * @inheritDoc
-	 */
+    /**
+     * @inheritDoc
+     */
     public function acceptsKey($offset): bool
     {
-    	return $offset === null || is_string($offset) || is_numeric($offset);
+        return $offset === null || is_string($offset) || is_numeric($offset);
     }
 
-	/**
+    /**
      * @inheritDoc
      */
     public function getLazy($key, $default)
     {
-        if ($this->offsetExists($key))
+        if ($this->offsetExists($key)) {
             return $this->offsetGet($key);
+        }
 
         $this->offsetSet($key, $default);
 

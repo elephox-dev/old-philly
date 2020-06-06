@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Contracts\Routing;
-
 
 use ReflectionMethod;
 
@@ -11,13 +11,13 @@ use ReflectionMethod;
  */
 interface RouteExitNode extends RouteNode
 {
-	/**
-	 * @return Controller The controller which handles the request.
-	 */
-	public function getController(): Controller;
+    /**
+     * @return Controller The controller which handles the request.
+     */
+    public function getController(): Controller;
 
-	/**
-	 * @return ReflectionMethod The method which handles the request.
-	 */
-	public function getHandlerMethod(): ReflectionMethod;
+    /**
+     * @return ReflectionMethod The method which handles the request.
+     */
+    public function getHandlerMethod(): ReflectionMethod;
 }

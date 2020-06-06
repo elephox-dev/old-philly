@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Container;
-
 
 use Philly\Contracts\Container\Collection as CollectionContract;
 
@@ -41,8 +41,9 @@ class Collection extends Container implements CollectionContract
      */
     public function offsetSet($offset, $value)
     {
-        if (is_int($offset) && $offset >= $this->nextOffset)
+        if (is_int($offset) && $offset >= $this->nextOffset) {
             $this->nextOffset = $offset + 1;
+        }
 
         parent::offsetSet($offset, $value);
     }
@@ -52,20 +53,21 @@ class Collection extends Container implements CollectionContract
      */
     public function offsetUnset($offset)
     {
-        if (is_numeric($offset) && $offset == $this->nextOffset - 1)
+        if (is_numeric($offset) && $offset == $this->nextOffset - 1) {
             $this->nextOffset = $offset;
+        }
 
         parent::offsetUnset($offset);
     }
 
-	/**
-	 * Get the offset for the next element to be added.
-	 *
-	 * @return int
-	 */
+    /**
+     * Get the offset for the next element to be added.
+     *
+     * @return int
+     */
     protected function getNextOffset(): int
     {
-    	return $this->nextOffset;
+        return $this->nextOffset;
     }
 
     /**
@@ -75,8 +77,9 @@ class Collection extends Container implements CollectionContract
     {
         $items = array_filter($this->storage, $callback, ARRAY_FILTER_USE_BOTH);
 
-        if (!$preserve_keys)
-        	$items = array_values($items);
+        if (!$preserve_keys) {
+            $items = array_values($items);
+        }
 
         return new Collection($items);
     }
@@ -86,35 +89,38 @@ class Collection extends Container implements CollectionContract
      */
     public function first(?callable $callback = null)
     {
-    	if ($this->count() > 0) {
-		    if ($callback === null)
-			    return reset($this->storage);
+        if ($this->count() > 0) {
+            if ($callback === null) {
+                return reset($this->storage);
+            }
 
-		    foreach ($this as $key => $value) {
-			    if (($callback($value, $key)) === true)
-				    return $value;
-		    }
-	    }
+            foreach ($this as $key => $value) {
+                if (($callback($value, $key)) === true) {
+                    return $value;
+                }
+            }
+        }
 
         return null;
     }
 
-	/**
-	 * @inheritDoc
-	 */
+    /**
+     * @inheritDoc
+     */
     public function any(?callable $callback = null): bool
     {
-    	if ($callback === null)
-    		return $this->count() > 0;
+        if ($callback === null) {
+            return $this->count() > 0;
+        }
 
-    	return $this->first($callback) !== null;
+        return $this->first($callback) !== null;
     }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function asArray(): array
-	{
-		return $this->storage;
-	}
+    /**
+     * @inheritDoc
+     */
+    public function asArray(): array
+    {
+        return $this->storage;
+    }
 }

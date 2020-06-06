@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly\Unit\Container;
@@ -17,14 +18,14 @@ use test\Philly\TestInterface;
  */
 class BindingContainerTest extends TestCase
 {
-	public function testBindNullBuilder()
-	{
-		$container = new BindingContainer();
+    public function testBindNullBuilder()
+    {
+        $container = new BindingContainer();
 
-		static::expectException(InvalidArgumentException::class);
+        static::expectException(InvalidArgumentException::class);
 
-		$container->bind(TestInterface::class, null);
-	}
+        $container->bind(TestInterface::class, null);
+    }
 
     public function testBindBuilder()
     {
@@ -55,8 +56,8 @@ class BindingContainerTest extends TestCase
         $instance_a = $container[TestInterface::class];
         $instance_b = $container[TestInterface::class];
 
-	    static::assertTrue($instance_a instanceof TestClass);
-	    static::assertTrue($instance_a === $instance_b);
+        static::assertTrue($instance_a instanceof TestClass);
+        static::assertTrue($instance_a === $instance_b);
     }
 
     public function testBindSingletonInstance()
@@ -68,100 +69,100 @@ class BindingContainerTest extends TestCase
         $instance_b = $container[TestInterface::class];
         $instance_c = $container[TestInterface::class];
 
-	    static::assertTrue($instance_a === $instance_b);
+        static::assertTrue($instance_a === $instance_b);
         static::assertTrue($instance_b === $instance_c);
     }
 
     public function testInitializeWithValues()
     {
-    	$contract = new BindingContract(TestInterface::class, fn() => new TestClass(), true);
-    	$container = new BindingContainer([$contract]);
+        $contract = new BindingContract(TestInterface::class, fn () => new TestClass(), true);
+        $container = new BindingContainer([$contract]);
 
-    	$result = $container[TestInterface::class];
+        $result = $container[TestInterface::class];
 
-    	static::assertInstanceOf(TestClass::class, $result);
+        static::assertInstanceOf(TestClass::class, $result);
     }
 
     public function testInitializeWithDuplicate()
     {
-    	$contracts = [
-    		new BindingContract(TestInterface::class, fn() => new TestClass(), true),
-    		new BindingContract(TestInterface::class, fn() => new SecondTestClass(), true)
-	    ];
+        $contracts = [
+            new BindingContract(TestInterface::class, fn () => new TestClass(), true),
+            new BindingContract(TestInterface::class, fn () => new SecondTestClass(), true)
+        ];
 
-    	static::expectException(InvalidArgumentException::class);
+        static::expectException(InvalidArgumentException::class);
 
-    	new BindingContainer($contracts);
+        new BindingContainer($contracts);
     }
 
     public function testInitializeWithNullValue()
     {
-	    $contract = new BindingContract("", fn() => null, false);
+        $contract = new BindingContract("", fn () => null, false);
 
-	    static::expectException(InvalidArgumentException::class);
+        static::expectException(InvalidArgumentException::class);
 
-	    new BindingContainer([$contract]);
+        new BindingContainer([$contract]);
     }
 
     public function testOffsetSet()
     {
-    	$container = new BindingContainer();
+        $container = new BindingContainer();
 
-    	$instance_a = new TestClass();
-    	$container->offsetSet(TestInterface::class, $instance_a);
+        $instance_a = new TestClass();
+        $container->offsetSet(TestInterface::class, $instance_a);
 
-    	$instance_b = new SecondTestClass();
-    	$container->offsetSet(SecondTestInterface::class, $instance_b);
+        $instance_b = new SecondTestClass();
+        $container->offsetSet(SecondTestInterface::class, $instance_b);
 
-	    static::assertSame($instance_a, $container[TestInterface::class]);
-	    static::assertSame($instance_b, $container[SecondTestInterface::class]);
+        static::assertSame($instance_a, $container[TestInterface::class]);
+        static::assertSame($instance_b, $container[SecondTestInterface::class]);
 
-	    static::assertSame($instance_a, $container[TestInterface::class]);
-	    static::assertSame($instance_b, $container[SecondTestInterface::class]);
+        static::assertSame($instance_a, $container[TestInterface::class]);
+        static::assertSame($instance_b, $container[SecondTestInterface::class]);
     }
 
     public function testOffsetSetBindingContract()
     {
-    	$contract = new BindingContract(TestInterface::class, fn() => new TestClass(), true);
-    	$container = new BindingContainer();
+        $contract = new BindingContract(TestInterface::class, fn () => new TestClass(), true);
+        $container = new BindingContainer();
 
-    	$container->offsetSet(TestInterface::class, $contract);
+        $container->offsetSet(TestInterface::class, $contract);
 
-		$instance = $container[TestInterface::class];
+        $instance = $container[TestInterface::class];
 
-		static::assertInstanceOf(TestClass::class, $instance);
+        static::assertInstanceOf(TestClass::class, $instance);
 
-		$instance2 = $container[TestInterface::class];
+        $instance2 = $container[TestInterface::class];
 
-		static::assertSame($instance, $instance2);
+        static::assertSame($instance, $instance2);
     }
 
     public function testOffsetSetNull()
     {
-    	$container = new BindingContainer();
+        $container = new BindingContainer();
 
-    	static::expectException(InvalidArgumentException::class);
+        static::expectException(InvalidArgumentException::class);
 
-    	$container->offsetSet(null, null);
+        $container->offsetSet(null, null);
     }
 
     public function testOffsetSetNonString()
     {
-    	$container = new BindingContainer();
+        $container = new BindingContainer();
 
-    	static::expectException(InvalidArgumentException::class);
+        static::expectException(InvalidArgumentException::class);
 
-    	$container->offsetSet(12, null);
+        $container->offsetSet(12, null);
     }
 
     public function testOffsetSetDuplicate()
     {
-    	$container = new BindingContainer();
-    	$container->offsetSet(TestInterface::class, new TestClass());
+        $container = new BindingContainer();
+        $container->offsetSet(TestInterface::class, new TestClass());
 
-    	static::expectException(InvalidArgumentException::class);
+        static::expectException(InvalidArgumentException::class);
 
-    	$container->offsetSet(TestInterface::class, new SecondTestClass());
+        $container->offsetSet(TestInterface::class, new SecondTestClass());
     }
 
     public function testOffsetGet()
@@ -178,7 +179,7 @@ class BindingContainerTest extends TestCase
     public function testMakeSingleton()
     {
         $container = new BindingContainer();
-        $contract = $container->bind(TestInterface::class, fn() => new TestClass(), false);
+        $contract = $container->bind(TestInterface::class, fn () => new TestClass(), false);
 
         $pre_singleton = $container[TestInterface::class];
 
@@ -194,72 +195,72 @@ class BindingContainerTest extends TestCase
 
     public function testGetLazy()
     {
-	    $container = new BindingContainer();
-	    $instance_a = new TestClass();
+        $container = new BindingContainer();
+        $instance_a = new TestClass();
 
-	    $instance_b = $container->getLazy(TestInterface::class, $instance_a, false);
+        $instance_b = $container->getLazy(TestInterface::class, $instance_a, false);
 
-	    static::assertSame($instance_a, $instance_b);
+        static::assertSame($instance_a, $instance_b);
 
-	    $instance_c = $container->getLazy(TestInterface::class, new SecondTestClass());
+        $instance_c = $container->getLazy(TestInterface::class, new SecondTestClass());
 
-	    static::assertInstanceOf(TestClass::class, $instance_c);
-	    static::assertSame($instance_a, $instance_c);
+        static::assertInstanceOf(TestClass::class, $instance_c);
+        static::assertSame($instance_a, $instance_c);
     }
 
     public function testGetLazyBuilder()
     {
-	    $container = new BindingContainer();
+        $container = new BindingContainer();
 
-	    $instance_a = $container->getLazy(TestInterface::class, fn() => new TestClass(), false);
-	    $instance_b = $container->getLazy(TestInterface::class, fn() => new SecondTestClass());
+        $instance_a = $container->getLazy(TestInterface::class, fn () => new TestClass(), false);
+        $instance_b = $container->getLazy(TestInterface::class, fn () => new SecondTestClass());
 
-	    static::assertInstanceOf(TestClass::class, $instance_a);
-	    static::assertInstanceOf(TestClass::class, $instance_b);
-	    static::assertNotSame($instance_a, $instance_b);
+        static::assertInstanceOf(TestClass::class, $instance_a);
+        static::assertInstanceOf(TestClass::class, $instance_b);
+        static::assertNotSame($instance_a, $instance_b);
     }
 
     public function testGetLazySingletonBuilder()
     {
-	    $container = new BindingContainer();
+        $container = new BindingContainer();
 
-	    $instance_a = $container->getLazy(TestInterface::class, fn() => new TestClass(), true);
-	    $instance_b = $container->getLazy(TestInterface::class, new SecondTestClass());
+        $instance_a = $container->getLazy(TestInterface::class, fn () => new TestClass(), true);
+        $instance_b = $container->getLazy(TestInterface::class, new SecondTestClass());
 
-	    static::assertInstanceOf(TestClass::class, $instance_a);
-	    static::assertSame($instance_a, $instance_b);
+        static::assertInstanceOf(TestClass::class, $instance_a);
+        static::assertSame($instance_a, $instance_b);
     }
 
     public function testGetLazySingleton()
     {
-    	$container = new BindingContainer();
-    	$instance_a  = new TestClass();
+        $container = new BindingContainer();
+        $instance_a  = new TestClass();
 
-    	$instance_b = $container->getLazy(TestInterface::class, $instance_a, true);
+        $instance_b = $container->getLazy(TestInterface::class, $instance_a, true);
 
-    	static::assertSame($instance_a, $instance_b);
+        static::assertSame($instance_a, $instance_b);
 
-    	$instance_c = $container->getLazy(TestInterface::class, new SecondTestClass());
+        $instance_c = $container->getLazy(TestInterface::class, new SecondTestClass());
 
-	    static::assertInstanceOf(TestClass::class, $instance_c);
-    	static::assertSame($instance_a, $instance_c);
+        static::assertInstanceOf(TestClass::class, $instance_c);
+        static::assertSame($instance_a, $instance_c);
     }
 
     public function testGetLazyInvalidKey()
     {
-    	$container = new BindingContainer();
+        $container = new BindingContainer();
 
-    	static::expectException(InvalidArgumentException::class);
+        static::expectException(InvalidArgumentException::class);
 
-    	$container->getLazy(0, null);
+        $container->getLazy(0, null);
     }
 
     public function testNullBuilder()
     {
-	    $container = new BindingContainer();
+        $container = new BindingContainer();
 
-	    static::expectException(InvalidArgumentException::class);
+        static::expectException(InvalidArgumentException::class);
 
-	    $container->bind(TestInterface::class, null);
+        $container->bind(TestInterface::class, null);
     }
 }

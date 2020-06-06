@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly\Unit\Container;
@@ -22,11 +23,11 @@ class CollectionTest extends TestCase
         $collection->offsetUnset(1);
 
         try {
-	        static::expectException(OffsetNotFoundException::class);
+            static::expectException(OffsetNotFoundException::class);
 
             $collection->offsetGet(1);
         } finally {
-	        static::assertCount(4, $collection);
+            static::assertCount(4, $collection);
         }
     }
 
@@ -34,12 +35,12 @@ class CollectionTest extends TestCase
     {
         $collection = new Collection();
 
-	    static::assertCount(0, $collection);
+        static::assertCount(0, $collection);
 
         $collection->add('test');
 
-	    static::assertEquals('test', $collection[0]);
-	    static::assertCount(1, $collection);
+        static::assertEquals('test', $collection[0]);
+        static::assertCount(1, $collection);
     }
 
     public function testFirst()
@@ -52,17 +53,17 @@ class CollectionTest extends TestCase
 
         static::assertEquals('abc', $collection->first());
 
-	    static::assertEquals('def', $collection->first(function ($val) {
-		    return strpos($val, 'e') !== false;
-	    }));
+        static::assertEquals('def', $collection->first(function ($val) {
+            return strpos($val, 'e') !== false;
+        }));
 
-	    static::assertNull($collection->first(function () {
-		    return false;
-	    }));
+        static::assertNull($collection->first(function () {
+            return false;
+        }));
 
-	    $empty = new Collection();
+        $empty = new Collection();
 
-	    static::assertNull($empty->first());
+        static::assertNull($empty->first());
     }
 
     public function testWhere()
@@ -79,26 +80,26 @@ class CollectionTest extends TestCase
             return strpos($val, 'b') !== false;
         });
 
-	    static::assertCount(3, $b_collection);
-	    static::assertEquals(['ab', 'bb', 'bc'], $b_collection->getValues());
+        static::assertCount(3, $b_collection);
+        static::assertEquals(['ab', 'bb', 'bc'], $b_collection->getValues());
     }
 
     public function testWherePreserveKeys()
     {
-		$collection = new Collection([
-			0 => 'Apple',
-			1 => 'Bee',
-			2 => 'Citrus',
-			3 => 'Delta'
-		]);
+        $collection = new Collection([
+            0 => 'Apple',
+            1 => 'Bee',
+            2 => 'Citrus',
+            3 => 'Delta'
+        ]);
 
-		$filter = fn($val) => strpos($val, 'e') !== false;
-		$filteredSameKeys = $collection->where($filter);
-		$filteredNewKeys = $collection->where($filter, false);
+        $filter = fn ($val) => strpos($val, 'e') !== false;
+        $filteredSameKeys = $collection->where($filter);
+        $filteredNewKeys = $collection->where($filter, false);
 
-		static::assertCount(3, $filteredSameKeys);
-		static::assertEquals([0, 1, 3], $filteredSameKeys->getKeys());
-		static::assertEquals([0, 1, 2], $filteredNewKeys->getKeys());
+        static::assertCount(3, $filteredSameKeys);
+        static::assertEquals([0, 1, 3], $filteredSameKeys->getKeys());
+        static::assertEquals([0, 1, 2], $filteredNewKeys->getKeys());
     }
 
     public function testOffsetSet()
@@ -108,59 +109,59 @@ class CollectionTest extends TestCase
         $collection->offsetSet(0, 'anton');
 
         $val = $collection->getValues()[0];
-	    static::assertEquals('anton', $val);
+        static::assertEquals('anton', $val);
     }
 
     public function testNextOffset()
     {
-    	$collection = new TestCollection();
+        $collection = new TestCollection();
 
-    	static::assertEquals(0, $collection->getNextOffset());
+        static::assertEquals(0, $collection->getNextOffset());
 
-		$collection->add("test");
+        $collection->add("test");
 
-	    static::assertEquals(1, $collection->getNextOffset());
+        static::assertEquals(1, $collection->getNextOffset());
 
-	    $collection->offsetSet(3, "far away");
+        $collection->offsetSet(3, "far away");
 
-	    static::assertEquals(4, $collection->getNextOffset());
+        static::assertEquals(4, $collection->getNextOffset());
 
-	    $collection->offsetSet(2, "closer");
+        $collection->offsetSet(2, "closer");
 
-	    static::assertEquals(4, $collection->getNextOffset());
+        static::assertEquals(4, $collection->getNextOffset());
 
-	    $collection->add("next");
+        $collection->add("next");
 
-	    static::assertEquals(5, $collection->getNextOffset());
+        static::assertEquals(5, $collection->getNextOffset());
 
-	    $collection->offsetUnset(4);
+        $collection->offsetUnset(4);
 
-	    static::assertEquals(4, $collection->getNextOffset());
+        static::assertEquals(4, $collection->getNextOffset());
 
-	    $collection->offsetUnset(1);
+        $collection->offsetUnset(1);
 
-	    static::assertEquals(4, $collection->getNextOffset());
+        static::assertEquals(4, $collection->getNextOffset());
     }
 
     public function testAsArray()
     {
-    	$collection = new Collection(["test", "moo", "ooo"]);
+        $collection = new Collection(["test", "moo", "ooo"]);
 
-    	$arr = $collection->asArray();
+        $arr = $collection->asArray();
 
-    	static::assertEquals(["test", "moo", "ooo"], $arr);
+        static::assertEquals(["test", "moo", "ooo"], $arr);
     }
 
     public function testAny()
     {
-	    $collection = new Collection(["foo", "bar", "faz", "baz"]);
+        $collection = new Collection(["foo", "bar", "faz", "baz"]);
 
-		static::assertTrue($collection->any());
-		static::assertTrue($collection->any(fn($v) => str_contains($v, "a")));
-		static::assertFalse($collection->any(fn($v) => str_contains($v, "e")));
+        static::assertTrue($collection->any());
+        static::assertTrue($collection->any(fn ($v) => str_contains($v, "a")));
+        static::assertFalse($collection->any(fn ($v) => str_contains($v, "e")));
 
-		$collection->clear();
+        $collection->clear();
 
-		static::assertFalse($collection->any());
+        static::assertFalse($collection->any());
     }
 }

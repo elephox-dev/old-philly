@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Contracts\ServiceProvider;
-
 
 use Philly\Contracts\Container\BindingContainer;
 
@@ -11,8 +11,8 @@ use Philly\Contracts\Container\BindingContainer;
  */
 interface ServiceProviderContainer extends BindingContainer
 {
-	/**
-	 * Boots all registered services.
-	 */
-	public function boot(): void;
+    /**
+     * Boots all registered services.
+     */
+    public function boot(): void;
 }

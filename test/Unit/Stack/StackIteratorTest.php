@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly\Unit\Stack;
@@ -25,9 +26,9 @@ class StackIteratorTest extends TestCase
 
         $current = null;
         while ($it->valid()) {
-	        static::assertNotSame($current, $it->current());
+            static::assertNotSame($current, $it->current());
 
-        	$current = $it->current();
+            $current = $it->current();
 
             static::assertTrue($current instanceof TestInterface);
             static::assertIsInt($it->key());
@@ -45,14 +46,14 @@ class StackIteratorTest extends TestCase
 
     public function testEmptyException()
     {
-    	$stack = new Stack();
+        $stack = new Stack();
 
-	    /** @noinspection PhpUnhandledExceptionInspection */
-	    $it = $stack->getIterator();
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $it = $stack->getIterator();
 
-    	static::assertFalse($it->valid());
-		static::expectException(StackEmptyException::class);
+        static::assertFalse($it->valid());
+        static::expectException(StackEmptyException::class);
 
-		$it->current();
+        $it->current();
     }
 }

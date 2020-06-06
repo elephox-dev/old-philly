@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly\Unit\Queue;
@@ -25,9 +26,9 @@ class QueueIteratorTest extends TestCase
 
         $current = null;
         while ($it->valid()) {
-	        static::assertNotSame($current, $it->current());
+            static::assertNotSame($current, $it->current());
 
-        	$current = $it->current();
+            $current = $it->current();
 
             static::assertTrue($current instanceof TestInterface);
             static::assertIsInt($it->key());
@@ -44,14 +45,14 @@ class QueueIteratorTest extends TestCase
 
     public function testEmptyException()
     {
-    	$queue = new Queue();
+        $queue = new Queue();
 
-	    /** @noinspection PhpUnhandledExceptionInspection */
-	    $it = $queue->getIterator();
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $it = $queue->getIterator();
 
-    	static::assertFalse($it->valid());
-		static::expectException(QueueEmptyException::class);
+        static::assertFalse($it->valid());
+        static::expectException(QueueEmptyException::class);
 
-		$it->current();
+        $it->current();
     }
 }

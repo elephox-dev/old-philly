@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Support;
-
 
 use Philly\Contracts\Support\Storage as StorageContract;
 

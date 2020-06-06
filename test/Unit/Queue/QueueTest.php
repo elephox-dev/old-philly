@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly\Unit\Queue;
@@ -14,48 +15,48 @@ use test\Philly\TestClass;
  */
 class QueueTest extends TestCase
 {
-	public function testHead()
-	{
-		$queue = new Queue();
+    public function testHead()
+    {
+        $queue = new Queue();
 
-		$instance = new TestClass();
-		$queue->enqueue($instance);
+        $instance = new TestClass();
+        $queue->enqueue($instance);
 
-		$result = $queue->head();
-		static::assertSame($instance, $result);
-	}
+        $result = $queue->head();
+        static::assertSame($instance, $result);
+    }
 
-	public function testDequeue()
-	{
-		$queue = new Queue();
+    public function testDequeue()
+    {
+        $queue = new Queue();
 
-		$instance = new TestClass();
-		$queue->enqueue($instance);
+        $instance = new TestClass();
+        $queue->enqueue($instance);
 
-		$result = $queue->dequeue();
-		static::assertSame($instance, $result);
+        $result = $queue->dequeue();
+        static::assertSame($instance, $result);
 
-		static::expectException(QueueEmptyException::class);
-		$queue->dequeue();
-	}
+        static::expectException(QueueEmptyException::class);
+        $queue->dequeue();
+    }
 
-	public function testTail()
-	{
-		$queue = new Queue();
+    public function testTail()
+    {
+        $queue = new Queue();
 
-		$instance_a = new TestClass();
-		$instance_b = new SecondTestClass();
+        $instance_a = new TestClass();
+        $instance_b = new SecondTestClass();
 
-		$queue->enqueue($instance_a, $instance_b);
+        $queue->enqueue($instance_a, $instance_b);
 
-		$result = $queue->tail();
+        $result = $queue->tail();
 
-		static::assertSame($instance_b, $result);
+        static::assertSame($instance_b, $result);
 
-		$queue->dequeue();
-		$queue->dequeue();
+        $queue->dequeue();
+        $queue->dequeue();
 
-		static::expectException(QueueEmptyException::class);
-		$queue->tail();
-	}
+        static::expectException(QueueEmptyException::class);
+        $queue->tail();
+    }
 }

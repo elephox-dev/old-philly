@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly\Unit\ServiceProvider;
-
 
 use Philly\ServiceProvider\AlreadyBootedException;
 use Philly\ServiceProvider\AlreadyRegisteredException;
@@ -12,47 +12,47 @@ use test\Philly\TestServiceProvider;
 
 class ServiceProviderTest extends TestCase
 {
-	public function testDoubleRegistration()
-	{
-		$serviceProvider = new TestServiceProvider();
+    public function testDoubleRegistration()
+    {
+        $serviceProvider = new TestServiceProvider();
 
-		static::assertFalse($serviceProvider->isRegistered());
+        static::assertFalse($serviceProvider->isRegistered());
 
-		$serviceProvider->onRegistered();
+        $serviceProvider->onRegistered();
 
-		static::assertTrue($serviceProvider->isRegistered());
+        static::assertTrue($serviceProvider->isRegistered());
 
-		static::expectException(AlreadyRegisteredException::class);
-		$serviceProvider->onRegistered();
-	}
+        static::expectException(AlreadyRegisteredException::class);
+        $serviceProvider->onRegistered();
+    }
 
-	public function testOnBootedNotRegistered()
-	{
-		$serviceProvider = new TestServiceProvider();
+    public function testOnBootedNotRegistered()
+    {
+        $serviceProvider = new TestServiceProvider();
 
-		static::assertFalse($serviceProvider->isBooted());
-		static::assertFalse($serviceProvider->isRegistered());
+        static::assertFalse($serviceProvider->isBooted());
+        static::assertFalse($serviceProvider->isRegistered());
 
-		static::expectException(NotRegisteredException::class);
-		$serviceProvider->onBooted();
-	}
+        static::expectException(NotRegisteredException::class);
+        $serviceProvider->onBooted();
+    }
 
-	public function testDoubleBooted()
-	{
-		$serviceProvider = new TestServiceProvider();
+    public function testDoubleBooted()
+    {
+        $serviceProvider = new TestServiceProvider();
 
-		static::assertFalse($serviceProvider->isBooted());
-		static::assertFalse($serviceProvider->isRegistered());
+        static::assertFalse($serviceProvider->isBooted());
+        static::assertFalse($serviceProvider->isRegistered());
 
-		$serviceProvider->onRegistered();
+        $serviceProvider->onRegistered();
 
-		static::assertTrue($serviceProvider->isRegistered());
+        static::assertTrue($serviceProvider->isRegistered());
 
-		$serviceProvider->onBooted();
+        $serviceProvider->onBooted();
 
-		static::assertTrue($serviceProvider->isBooted());
+        static::assertTrue($serviceProvider->isBooted());
 
-		static::expectException(AlreadyBootedException::class);
-		$serviceProvider->onBooted();
-	}
+        static::expectException(AlreadyBootedException::class);
+        $serviceProvider->onBooted();
+    }
 }

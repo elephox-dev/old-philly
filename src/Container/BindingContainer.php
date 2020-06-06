@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Container;
@@ -24,86 +25,89 @@ class BindingContainer extends Container implements BindingContainerContract
      */
     public function __construct(array $items = [])
     {
-    	parent::__construct();
+        parent::__construct();
 
-    	/** @var BaseBindingContract $contract */
-	    foreach ($items as $contract)
-	    {
-		    $interface = $contract->getInterface();
+        /** @var BaseBindingContract $contract */
+        foreach ($items as $contract) {
+            $interface = $contract->getInterface();
 
-	    	if (strlen($interface) == 0)
-	    		throw new InvalidArgumentException("Binding contract interface must be set!");
+            if (strlen($interface) == 0) {
+                throw new InvalidArgumentException("Binding contract interface must be set!");
+            }
 
-	    	if (parent::offsetExists($interface))
-	    		throw new InvalidArgumentException("A contract using this interface has already been bound: $interface");
+            if (parent::offsetExists($interface)) {
+                throw new InvalidArgumentException("A contract using this interface has already been bound: $interface");
+            }
 
-	    	parent::offsetSet($interface, $contract);
-	    }
+            parent::offsetSet($interface, $contract);
+        }
     }
 
-	/**
-	 * @inheritDoc
-	 */
+    /**
+     * @inheritDoc
+     */
     public function accepts($value): bool
     {
-    	return $value instanceof BaseBindingContract;
+        return $value instanceof BaseBindingContract;
     }
 
-	/**
-	 * @inheritDoc
-	 */
+    /**
+     * @inheritDoc
+     */
     public function acceptsKey($offset): bool
     {
-    	return is_string($offset);
+        return is_string($offset);
     }
 
-	/**
-	 * @inheritDoc
-	 */
+    /**
+     * @inheritDoc
+     */
     public function acceptsBinding($value): bool
     {
-	    return is_object($value);
+        return is_object($value);
     }
 
-	/**
+    /**
      * @inheritDoc
      */
     public function bind(string $interface, $builder, bool $singleton = false): BaseBindingContract
     {
-	    if ($builder instanceof Closure)
-		    $contract_builder = $builder;
-	    else
-        {
-	        $this->verifyAcceptable($builder);
+        if ($builder instanceof Closure) {
+            $contract_builder = $builder;
+        } else {
+            $this->verifyAcceptable($builder);
 
-		    $contract_builder = /** @return mixed */ fn() => $builder;
-	    }
+            $contract_builder = /** @return mixed */ fn () => $builder;
+        }
 
-	    $contract = new BindingContract($interface, $contract_builder, $singleton);
+        $contract = new BindingContract($interface, $contract_builder, $singleton);
 
         parent::offsetSet($interface, $contract);
 
         return $contract;
     }
 
-	/**
-	 * Offset to set
-	 *
-	 * @param mixed $offset The offset to assign the value to.
-	 * @param mixed|BaseBindingContract $contract The value to set or the contract to bind.
-	 */
+    /**
+     * Offset to set
+     *
+     * @param mixed $offset The offset to assign the value to.
+     * @param mixed|BaseBindingContract $contract The value to set or the contract to bind.
+     */
     public function offsetSet($offset, $contract)
     {
-        if ($offset === null || !is_string($offset))
-        	throw new InvalidArgumentException("Offset must be a string!");
+        if ($offset === null || !is_string($offset)) {
+            throw new InvalidArgumentException("Offset must be a string!");
+        }
 
-        if (parent::offsetExists($offset))
-        	throw new InvalidArgumentException("Offset $offset already bound!");
+        if (parent::offsetExists($offset)) {
+            throw new InvalidArgumentException("Offset $offset already bound!");
+        }
 
-        if ($contract instanceof BaseBindingContract)
-        	parent::offsetSet($offset, $contract);
-        else
+        if ($contract instanceof BaseBindingContract) {
+            parent::offsetSet($offset, $contract);
+        } else {
             $this->bind($offset, $contract, true);
+        }
     }
 
     /**
@@ -117,56 +121,59 @@ class BindingContainer extends Container implements BindingContainerContract
 
         $builder = $contract->getBuilder();
 
-        if (!$contract->isSingleton())
-	        return $this->verifyAcceptable($builder());
+        if (!$contract->isSingleton()) {
+            return $this->verifyAcceptable($builder());
+        }
 
         $interface = $contract->getInterface();
 
-        if (array_key_exists($interface, $this->singletons))
+        if (array_key_exists($interface, $this->singletons)) {
             return $this->singletons[$interface];
+        }
 
         return $this->singletons[$interface] = $this->verifyAcceptable($builder());
     }
 
-	/**
-	 * Checks if this container accepts the provided instance as a binding. Throws an exception if the given type is not
-	 * acceptable.
-	 *
-	 * @param mixed $instance The instance to check.
-	 *
-	 * @throws UnacceptableBindingException If the given type is not acceptable for binding.
-	 *
-	 * @return object The given instance.
-	 */
+    /**
+     * Checks if this container accepts the provided instance as a binding. Throws an exception if the given type is not
+     * acceptable.
+     *
+     * @param mixed $instance The instance to check.
+     *
+     * @throws UnacceptableBindingException If the given type is not acceptable for binding.
+     *
+     * @return object The given instance.
+     */
     private function verifyAcceptable($instance): object
     {
-	    if (!$this->acceptsBinding($instance)) {
-	    	if (is_object($instance))
-	    		$type = get_class($instance);
-	    	else
-	    		$type = gettype($instance);
+        if (!$this->acceptsBinding($instance)) {
+            if (is_object($instance)) {
+                $type = get_class($instance);
+            } else {
+                $type = gettype($instance);
+            }
 
-		    throw new UnacceptableBindingException($type);
-	    }
+            throw new UnacceptableBindingException($type);
+        }
 
-	    return $instance;
+        return $instance;
     }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getLazy($key, $default, bool $singleton = false)
-	{
-		if (!$this->offsetExists($key)) {
-			if (!is_string($key)) {
-				$type = gettype($key);
+    /**
+     * @inheritDoc
+     */
+    public function getLazy($key, $default, bool $singleton = false)
+    {
+        if (!$this->offsetExists($key)) {
+            if (!is_string($key)) {
+                $type = gettype($key);
 
-				throw new InvalidArgumentException("Key has invalid type: $type. Only strings can be used as keys.");
-			}
+                throw new InvalidArgumentException("Key has invalid type: $type. Only strings can be used as keys.");
+            }
 
-			$this->bind($key, $default, $singleton);
-		}
+            $this->bind($key, $default, $singleton);
+        }
 
-		return $this->offsetGet($key);
-	}
+        return $this->offsetGet($key);
+    }
 }

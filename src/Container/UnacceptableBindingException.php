@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Container;
@@ -11,11 +12,11 @@ use Psr\Container\ContainerExceptionInterface;
  */
 class UnacceptableBindingException extends InvalidArgumentException implements ContainerExceptionInterface
 {
-	/**
-	 * UnacceptableBindingException constructor.
-	 */
-	public function __construct(string $type)
-	{
-		parent::__construct("Cannot accept bindings of objects with type '$type'");
-	}
+    /**
+     * UnacceptableBindingException constructor.
+     */
+    public function __construct(string $type)
+    {
+        parent::__construct("Cannot accept bindings of objects with type '$type'");
+    }
 }

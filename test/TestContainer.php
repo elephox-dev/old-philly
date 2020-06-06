@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace test\Philly;
-
 
 use Philly\Container\Container;
 use Philly\Container\FiltersTypes;
@@ -13,7 +13,7 @@ use Philly\Contracts\Container\FiltersTypes as FiltersTypesContract;
  */
 class TestContainer extends Container implements FiltersTypesContract
 {
-	use FiltersTypes;
+    use FiltersTypes;
 
     /**
      * @inheritDoc

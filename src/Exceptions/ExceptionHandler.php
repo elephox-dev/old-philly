@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Exceptions;
-
 
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Contracts;
@@ -12,13 +13,13 @@ use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
  */
 interface App extends BindingContainer
 {
-	/**
-	 * @return ExceptionHandlerContract The handler for exceptions in the application.
-	 */
-	public function getExceptionHandler(): ExceptionHandlerContract;
+    /**
+     * @return ExceptionHandlerContract The handler for exceptions in the application.
+     */
+    public function getExceptionHandler(): ExceptionHandlerContract;
 
-	/**
-	 * @return ServiceProviderContainerContract The container for all services.
-	 */
-	public function getServices(): ServiceProviderContainerContract;
+    /**
+     * @return ServiceProviderContainerContract The container for all services.
+     */
+    public function getServices(): ServiceProviderContainerContract;
 }

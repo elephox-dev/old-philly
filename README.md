@@ -17,19 +17,21 @@
     <a href="https://github.com/ricardoboss/Philly/milestones">
         <img alt="Github Milestone Progress" src="https://img.shields.io/github/milestones/progress/ricardoboss/Philly/1">
     </a>
-    <br>
-    <a href="https://shepherd.dev/github/ricardoboss/philly">
-        <img alt="Type Coverage" src="https://shepherd.dev/github/ricardoboss/philly/coverage.svg">
-    </a>
-    <a href="https://dashboard.stryker-mutator.io/reports/github.com/ricardoboss/Philly/master">
-        <img alt="Mutation Score" src="https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fricardoboss%2FPhilly%2Fmaster">
-    </a>
-    <a href="https://github.com/ricardoboss/Philly/actions?query=workflow%3ATests">
-        <img alt="PHPUnit Tests" src="https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg">
-    </a>
 </p>
 
 ## Documentation
 
 The documentation for this framework can be seen at [philly.ricardoboss.de](https://philly.ricardoboss.de/home).
 
+## Analysis
+
+<a href="https://shepherd.dev/github/ricardoboss/philly">
+    <img alt="Type Coverage" src="https://shepherd.dev/github/ricardoboss/philly/coverage.svg">
+</a>
+<a href="https://dashboard.stryker-mutator.io/reports/github.com/ricardoboss/Philly/master">
+    <img alt="Mutation Score" src="https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fricardoboss%2FPhilly%2Fmaster">
+</a>
+<img alt="StyleCI Test" src="https://github.styleci.io/repos/233383847/shield?branch=master">
+<a href="https://github.com/ricardoboss/Philly/actions?query=workflow%3ATests">
+    <img alt="PHPUnit Tests" src="https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg">
+</a>

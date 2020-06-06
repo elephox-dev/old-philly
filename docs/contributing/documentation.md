@@ -8,17 +8,19 @@ parent: Contributing
 
 ## Local Development
 
+### Prerequisites
+
 To preview your changes to the documentation before committing them, you can use jekyll, a static site generator.
 
 You need to have ruby installed in order to use `jekyll` and `bundle`.
 
-To do so, navigate to the `docs/` folder from the main repository:
+After you got those, navigate to the `docs/` folder from the main repository:
 
 ```bash
 $ cd docs
 ```
 
-Then, run
+Then, run:
 
 ```bash
 $ bundle install
@@ -26,7 +28,9 @@ $ bundle install
 
 to install the dependencies. You only need to run this once to set jekyll up.
 
-Following this, you will want to run this command to start watching for file changes and start a web server.
+### Server
+
+You will want to run this command to start watching for file changes and start a web server:
 
 ```bash
 $ bundle exec jekyll serve --config _config.local.yml

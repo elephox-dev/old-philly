@@ -10,7 +10,5 @@ has_toc: false
 
 You are always welcome to contribute to the codebase!
 
-When submitting source code, please adhere to the common coding style:
-[PSR-12: Extended Coding Style](https://www.php-fig.org/psr/psr-12/).
-
-When extending the documentation, please read [documentation](/contributing/documentation).
+Please read the [project guide](/contributing/project-guide) if you are unsure where to start.
+When extending the documentation, please have a look at this guide: [documentation](/contributing/documentation).

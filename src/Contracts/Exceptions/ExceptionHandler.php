@@ -16,5 +16,5 @@ interface ExceptionHandler
      * @param Throwable $throwable
      * @return JsonResponse
      */
-    function handle(Throwable $throwable): JsonResponse;
+    public function handle(Throwable $throwable): JsonResponse;
 }

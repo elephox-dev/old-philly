@@ -11,51 +11,51 @@ use Philly\Contracts\Container\BindingContract as BaseBindingContract;
  */
 class BindingContract implements BaseBindingContract
 {
-	/**
-	 * The interface which this contract binds.
-	 */
-	protected string $interface;
+    /**
+     * The interface which this contract binds.
+     */
+    protected string $interface;
 
-	/**
-	 * The builder for the interface bound.
-	 */
-	protected Closure $builder;
+    /**
+     * The builder for the interface bound.
+     */
+    protected Closure $builder;
 
-	/**
-	 * Whether this contract is a singleton.
-	 */
-	protected bool $singleton;
+    /**
+     * Whether this contract is a singleton.
+     */
+    protected bool $singleton;
 
     /**
      * BindingContract constructor.
      */
     public function __construct(string $interface, Closure $builder, bool $singleton)
     {
-    	$this->interface = $interface;
-    	$this->builder = $builder;
-    	$this->singleton = $singleton;
+        $this->interface = $interface;
+        $this->builder = $builder;
+        $this->singleton = $singleton;
     }
 
     /**
      * @inheritDoc
      */
-    function getInterface(): string
+    public function getInterface(): string
     {
-    	return $this->interface;
+        return $this->interface;
     }
 
     /**
      * @inheritDoc
      */
-    function getBuilder(): Closure
+    public function getBuilder(): Closure
     {
-    	return $this->builder;
+        return $this->builder;
     }
 
     /**
      * @inheritDoc
      */
-    function makeSingleton(): BaseBindingContract
+    public function makeSingleton(): BaseBindingContract
     {
         $this->singleton = true;
 
@@ -65,8 +65,8 @@ class BindingContract implements BaseBindingContract
     /**
      * @inheritDoc
      */
-    function isSingleton(): bool
+    public function isSingleton(): bool
     {
-    	return $this->singleton;
+        return $this->singleton;
     }
 }

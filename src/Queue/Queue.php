@@ -13,63 +13,66 @@ use Philly\Support\Storage;
  */
 class Queue extends Storage implements QueueContract
 {
-	/**
-	 * Queue constructor.
-	 */
-	public function __construct(array $items = [])
-	{
-		parent::__construct($items);
-	}
+    /**
+     * Queue constructor.
+     */
+    public function __construct(array $items = [])
+    {
+        parent::__construct($items);
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getIterator(): QueueIteratorContract
-	{
-		return new QueueIterator($this);
-	}
+    /**
+     * @inheritDoc
+     */
+    public function getIterator(): QueueIteratorContract
+    {
+        return new QueueIterator($this);
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	function enqueue(...$value): void
-	{
-		array_push($this->storage, ...$value);
-	}
+    /**
+     * @inheritDoc
+     */
+    public function enqueue(...$value): void
+    {
+        array_push($this->storage, ...$value);
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	function dequeue()
-	{
-		$value = array_shift($this->storage);
-		if ($value === null)
-			throw new QueueEmptyException();
+    /**
+     * @inheritDoc
+     */
+    public function dequeue()
+    {
+        $value = array_shift($this->storage);
+        if ($value === null) {
+            throw new QueueEmptyException();
+        }
 
-		return $value;
-	}
+        return $value;
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	function head()
-	{
-		$value = reset($this->storage);
-		if ($value === false)
-			throw new QueueEmptyException();
+    /**
+     * @inheritDoc
+     */
+    public function head()
+    {
+        $value = reset($this->storage);
+        if ($value === false) {
+            throw new QueueEmptyException();
+        }
 
-		return $value;
-	}
+        return $value;
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	function tail()
-	{
-		$value = end($this->storage);
-		if ($value === false)
-			throw new QueueEmptyException();
+    /**
+     * @inheritDoc
+     */
+    public function tail()
+    {
+        $value = end($this->storage);
+        if ($value === false) {
+            throw new QueueEmptyException();
+        }
 
-		return $value;
-	}
+        return $value;
+    }
 }

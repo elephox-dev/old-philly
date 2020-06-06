@@ -11,18 +11,18 @@ use Countable;
  */
 interface Storage extends Countable, JsonCompatible
 {
-	/**
-	 * @return bool Whether this storage is empty.
-	 */
-	function isEmpty(): bool;
+    /**
+     * @return bool Whether this storage is empty.
+     */
+    public function isEmpty(): bool;
 
-	/**
-	 * @inheritDoc
-	 */
-	function count(): int;
+    /**
+     * @inheritDoc
+     */
+    public function count(): int;
 
-	/**
-	 * Clears the storage.
-	 */
-	function clear(): void;
+    /**
+     * Clears the storage.
+     */
+    public function clear(): void;
 }

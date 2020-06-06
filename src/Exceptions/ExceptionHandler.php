@@ -16,7 +16,7 @@ class ExceptionHandler implements ExceptionHandlerContract
     /**
      * @inheritDoc
      */
-    function handle(Throwable $throwable): JsonResponse
+    public function handle(Throwable $throwable): JsonResponse
     {
         $response = new JsonResponse(null, 500);
 

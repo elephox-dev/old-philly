@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Data Types
-nav_order: 4
+nav_order: 20
 has_children: true
 has_toc: false
 ---

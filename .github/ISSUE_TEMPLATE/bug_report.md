@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug Report
 about: Create a report to help us improve
 title: ''
 labels: bug
@@ -22,9 +22,9 @@ Steps to reproduce the behavior:
 4. See error
 
 **Environment**
-OS: 
-IDE: 
-shell: 
+OS:
+IDE:
+shell:
 `php -v`: ``
 
 **Additional context**

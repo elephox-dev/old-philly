@@ -11,7 +11,7 @@ use Philly\Support\Storage;
 /**
  * Class Container
  */
-abstract class Container extends Storage implements ContainerContract
+class Container extends Storage implements ContainerContract
 {
     /**
      * Container constructor.

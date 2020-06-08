@@ -18,7 +18,7 @@ class RouteNode implements RouteNodeContract
     /** @var string The options to use when matching. */
     protected string $options;
 
-    /** @var Collection All nodes which follow this one. */
+    /** @var Collection<RouteNodeContract> All nodes which follow this one. */
     protected Collection $subNodes;
 
     /**
@@ -26,9 +26,9 @@ class RouteNode implements RouteNodeContract
      *
      * @param string $pattern The pattern used to check whether this node handles a uri part.
      * @param string|null $options The options to use when matching. Defaults to mb_regex_set_options().
-     * @param array|RouteNodeContract[] $nodes The sub-nodes for this node.
+     * @param RouteNodeContract ...$nodes The sub-nodes for this node.
      */
-    public function __construct(string $pattern, ?string $options = null, array ...$nodes)
+    public function __construct(string $pattern, ?string $options = null, ...$nodes)
     {
         $this->pattern = $pattern;
         $this->options = $options ?? mb_regex_set_options();

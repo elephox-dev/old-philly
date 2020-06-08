@@ -6,14 +6,18 @@ namespace Philly\Contracts\Container;
 
 /**
  * Interface Collection.
+ *
+ * @template TValue
+ *
+ * @extends Container<int, TValue>
  */
 interface Collection extends Container
 {
     /**
      * Adds a value to this collection.
      *
-     * @param mixed $value The value to add.
-     * @return Collection The same collection with the value added to the end.
+     * @param TValue $value The value to add.
+     * @return Collection<TValue> The same collection with the value added to the end.
      */
     public function add($value): self;
 
@@ -22,7 +26,7 @@ interface Collection extends Container
      *
      * @param callable $callback The callback will receive two arguments: the value and the key (in this order).
      *                           If this result evaluates to true, the item is added to the resulting collection.
-     * @return Collection A new collection containing the filtered items.
+     * @return Collection<TValue> A new collection containing the filtered items.
      */
     public function where(callable $callback, bool $preserve_keys = true): self;
 
@@ -33,7 +37,7 @@ interface Collection extends Container
      *
      * @param callable|null $callback The callback to use for filtering. The callback receives both the value and then
      *     the key as arguments.
-     * @return mixed|null The first item that got matched by the callback or null if no item matched.
+     * @return TValue|null The first item that got matched by the callback or null if no item matched.
      */
     public function first(?callable $callback = null);
 
@@ -49,7 +53,7 @@ interface Collection extends Container
     public function any(?callable $callback = null): bool;
 
     /**
-     * @return array Returns a copy of the underlying storage for this collection.
+     * @return array<array-key, mixed> Returns a copy of the underlying storage for this collection.
      */
     public function asArray(): array;
 }

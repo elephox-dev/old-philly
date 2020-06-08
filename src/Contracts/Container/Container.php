@@ -12,24 +12,37 @@ use Traversable;
 
 /**
  * Interface Container
+ *
+ * @template TKey of array-key
+ * @phpstan-template TKey
+ * @template TValue
+ *
+ * @extends ArrayAccess<TKey, TValue>
+ * @extends IteratorAggregate<TKey, TValue>
+ * @extends Traversable<TKey, TValue>
+ * @extends Storage<TKey, TValue>
  */
 interface Container extends ContainerInterface, ArrayAccess, Traversable, IteratorAggregate, Storage
 {
     /**
      * Store a value with an associated key.
      *
-     * @param int|string|float $key
-     * @param mixed $value
+     * @param TKey $key
+     * @param TValue $value
      */
     public function put($key, $value): void;
 
     /**
      * Get all keys available in the container.
+     *
+     * @return array<TKey> The keys in this container.
      */
     public function getKeys(): array;
 
     /**
      * Get all values available in the container.
+     *
+     * @return array<TValue> The values in this container.
      */
     public function getValues(): array;
 
@@ -39,9 +52,9 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
      *
      * Multiple calls to this method with the same key should result in the same outputs.
      *
-     * @param int|string|float $key
-     * @param mixed $default
-     * @return mixed
+     * @param TKey $key
+     * @param TValue $default
+     * @return TValue
      */
     public function getLazy($key, $default);
 
@@ -50,7 +63,7 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
      * Check whether this container accepts the given value. This method should be overridden by implementations that
      * check the types of values added to this container.
      *
-     * @param mixed $value The value to check.
+     * @param TValue $value The value to check.
      *
      * @return bool
      */
@@ -60,7 +73,7 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
      * Check whether this contains accepts the given value as a key. This method should be overridden by implementations
      * that restrict the types of keys for this container.
      *
-     * @param string|int|float|null $offset
+     * @param TKey $offset
      * @return bool
      */
     public function acceptsKey($offset): bool;

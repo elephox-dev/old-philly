@@ -10,11 +10,19 @@ use Philly\Support\Storage;
 
 /**
  * Class Queue.
+ *
+ * @template TValue
+ *
+ * @implements Storage<int, TValue>
+ *
+ * @iterable<TValue>
  */
 class Queue extends Storage implements QueueContract
 {
     /**
      * Queue constructor.
+     *
+     * @param TValue ...$items The initial items in this queue.
      */
     public function __construct(array $items = [])
     {

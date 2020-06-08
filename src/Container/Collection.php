@@ -8,6 +8,12 @@ use Philly\Contracts\Container\Collection as CollectionContract;
 
 /**
  * Class Collection
+ *
+ * @template TValue
+ *
+ * @extend Container<int, TValue>
+ *
+ * @iterable<TValue>
  */
 class Collection extends Container implements CollectionContract
 {
@@ -19,7 +25,7 @@ class Collection extends Container implements CollectionContract
     /**
      * Collection constructor.
      *
-     * @param array $items Items, which should be contained in the collection.
+     * @param array<int, TValue> $items Items, which should be contained in the collection.
      */
     public function __construct(array $items = [])
     {

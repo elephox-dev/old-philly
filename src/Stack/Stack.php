@@ -8,10 +8,21 @@ use Philly\Contracts\Stack\Stack as StackContract;
 use Philly\Contracts\Stack\StackIterator as StackIteratorContract;
 use Philly\Support\Storage;
 
+/**
+ * Class Stack.
+ *
+ * @template TValue
+ *
+ * @implements Storage<int, TValue>
+ *
+ * @iterable<TValue>
+ */
 class Stack extends Storage implements StackContract
 {
     /**
      * Stack constructor.
+     *
+     * @param TValue ...$items The initial items in this stack.
      */
     public function __construct(array $items = [])
     {

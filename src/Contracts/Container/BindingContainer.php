@@ -7,13 +7,18 @@ namespace Philly\Contracts\Container;
 use Closure;
 
 /**
- * Interface BindingContainer
+ * Interface BindingContainer.
+ *
+ * @extend Container<class-string, BindingContract>
+ *
+ * @iterable<class-string, BindingContract>
  */
 interface BindingContainer extends Container
 {
     /**
      * Bind a builder callback to a contract.
      *
+     * @param string|class-string $interface The interface to use.
      * @param Closure|mixed $builder Can be a callable or an instance which implements the given interface.
      * @return BindingContract The contract which binds a builder/instance to an interface.
      */
@@ -35,7 +40,7 @@ interface BindingContainer extends Container
      *
      * Multiple calls to this method with the same(!) arguments should result in the same outputs.
      *
-     * @param int|string|float $key
+     * @param string|class-string $key
      * @param Closure|mixed $default A builder or the default instance. The builder will only be called if the key does
      *                               not exist in the container.
      * @param bool $singleton

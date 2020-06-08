@@ -10,12 +10,19 @@ use Philly\Support\Storage;
 
 /**
  * Class Container
+ *
+ * @template TKey of array-key
+ * @phpstan-template TKey
+ * @template TValue
+ *
+ * @iterable<TKey, TValue>
  */
 abstract class Container extends Storage implements ContainerContract
 {
     /**
      * Container constructor.
-     * @param array $items
+     *
+     * @param array<TKey, TValue> $items
      */
     public function __construct(array $items = [])
     {

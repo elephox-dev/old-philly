@@ -32,6 +32,8 @@ class Router
     public function getExitNode(string $uri): ?RouteExitNodeContract
     {
         $routeStack = new Stack(preg_split("/\//", $uri));
+
+        /** @var RouteExitNodeContract|null $currentNode */
         $currentNode = $this->entryNode;
 
         if ($routeStack->isEmpty()) {
@@ -40,11 +42,12 @@ class Router
 
         while (!($currentNode instanceof RouteExitNodeContract)) {
             $nextPart = $routeStack->pop();
-            $currentNode = $currentNode->getNext($nextPart);
 
             if ($currentNode === null) {
                 return $this->fallbackNode;
             }
+
+            $currentNode = $currentNode->getNext($nextPart);
         }
 
         return $currentNode;

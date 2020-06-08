@@ -8,6 +8,10 @@ use Philly\Contracts\Queue\QueueIterator as QueueIteratorContract;
 
 /**
  * Class QueueIterator.
+ *
+ * @template TValue
+ *
+ * @implements QueueIteratorContract<TValue>
  */
 class QueueIterator implements QueueIteratorContract
 {

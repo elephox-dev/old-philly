@@ -73,12 +73,23 @@
       <path value="$PROJECT_DIR$/vendor/infection/abstract-testframework-adapter" />
       <path value="$PROJECT_DIR$/vendor/infection/include-interceptor" />
       <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
+  <component name="PhpStanValidator">
+    <phpstan_settings>
+      <PhpStanValidatorConfiguration tool_path="$PROJECT_DIR$/vendor/bin/phpstan" timeout="30000" />
+    </phpstan_settings>
+  </component>
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings configuration_file_path="phpunit.xml" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" phpunit_phar_path="" />
     </phpunit_settings>
+  </component>
+  <component name="PsalmValidator">
+    <psalm_settings>
+      <PsalmValidatorConfiguration tool_path="$PROJECT_DIR$/vendor/bin/psalm" timeout="30000" />
+    </psalm_settings>
   </component>
 </project>

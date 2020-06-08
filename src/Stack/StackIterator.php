@@ -8,13 +8,20 @@ use Philly\Contracts\Stack\StackIterator as StackIteratorContract;
 
 /**
  * Class StackIterator.
+ *
+ * @template TValue
+ *
+ * @implements StackIteratorContract<TValue>
  */
 class StackIterator implements StackIteratorContract
 {
+    /** @var Stack<TValue> $stack  */
     protected Stack $stack;
 
     /**
      * StackIterator constructor.
+     *
+     * @param Stack<TValue> $stack
      */
     public function __construct(Stack $stack)
     {

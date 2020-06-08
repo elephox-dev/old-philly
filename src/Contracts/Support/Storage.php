@@ -8,6 +8,12 @@ use Countable;
 
 /**
  * Interface Storage.
+ *
+ * @template TKey as array-key
+ * @phpstan-template TKey
+ * @template TValue
+ *
+ * @iterable<TKey, TValue>
  */
 interface Storage extends Countable, JsonCompatible
 {

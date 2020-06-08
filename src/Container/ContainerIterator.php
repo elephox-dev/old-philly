@@ -8,7 +8,11 @@ use OutOfBoundsException;
 use Philly\Contracts\Container\ContainerIterator as ContainerIteratorContract;
 
 /**
- * Class ContainerIterator
+ * Class ContainerIterator.
+ *
+ * @template TValue
+ *
+ * @implements ContainerIteratorContract<TValue>
  */
 class ContainerIterator implements ContainerIteratorContract
 {

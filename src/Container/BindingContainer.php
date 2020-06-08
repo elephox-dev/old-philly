@@ -10,18 +10,23 @@ use Philly\Contracts\Container\BindingContainer as BindingContainerContract;
 use Philly\Contracts\Container\BindingContract as BaseBindingContract;
 
 /**
- * Class BindingContainer
+ * Class BindingContainer.
+ *
+ * @extend Container<class-string, BindingContract>
+ *
+ * @iterable<class-string, BaseBindingContract>
  */
 class BindingContainer extends Container implements BindingContainerContract
 {
     /**
-     * This array contains the singleton instances which were already built
-     * @var array
+     * @var array<class-string, BindingContract> This array contains the singleton instances which were already built
      */
     protected array $singletons = [];
 
     /**
      * Container constructor.
+     *
+     * @param array<class-string, BaseBindingContract> $items
      */
     public function __construct(array $items = [])
     {
@@ -90,7 +95,7 @@ class BindingContainer extends Container implements BindingContainerContract
     /**
      * Offset to set
      *
-     * @param mixed $offset The offset to assign the value to.
+     * @param class-string $offset The offset to assign the value to.
      * @param mixed|BaseBindingContract $contract The value to set or the contract to bind.
      */
     public function offsetSet($offset, $contract)
@@ -138,13 +143,15 @@ class BindingContainer extends Container implements BindingContainerContract
      * Checks if this container accepts the provided instance as a binding. Throws an exception if the given type is not
      * acceptable.
      *
-     * @param mixed $instance The instance to check.
+     * @template T
+     *
+     * @param T $instance The instance to check.
      *
      * @throws UnacceptableBindingException If the given type is not acceptable for binding.
      *
-     * @return object The given instance.
+     * @return T The given instance.
      */
-    private function verifyAcceptable($instance): object
+    private function verifyAcceptable($instance)
     {
         if (!$this->acceptsBinding($instance)) {
             if (is_object($instance)) {

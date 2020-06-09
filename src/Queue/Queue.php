@@ -48,12 +48,9 @@ class Queue implements QueueContract
      */
     public function dequeue()
     {
-        try
-        {
+        try {
             return $this->queue->pop();
-        }
-        catch (UnderflowException $ue)
-        {
+        } catch (UnderflowException $ue) {
             throw new QueueEmptyException($ue->getMessage(), $ue->getCode(), $ue);
         }
     }
@@ -77,8 +74,9 @@ class Queue implements QueueContract
     {
         $arr = $this->queue->toArray();
         $value = end($arr);
-        if ($value === false)
+        if ($value === false) {
             throw new QueueEmptyException();
+        }
 
         return $value;
     }

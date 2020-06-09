@@ -47,9 +47,7 @@ class Stack implements StackContract
     {
         try {
             return $this->stack->pop();
-        }
-        catch (UnderflowException $ue)
-        {
+        } catch (UnderflowException $ue) {
             throw new StackEmptyException($ue->getMessage(), $ue->getCode(), $ue);
         }
     }

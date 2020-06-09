@@ -15,7 +15,7 @@
         <img alt="Packagist Version (including pre-releases)" src="https://img.shields.io/packagist/v/ricardoboss/Philly">
     </a>
     <a href="https://github.com/ricardoboss/Philly/milestones">
-        <img alt="Github Milestone Progress" src="https://img.shields.io/github/milestones/progress/ricardoboss/Philly/1">
+        <img alt="Github Milestone Progress" src="https://img.shields.io/github/milestones/progress/ricardoboss/Philly/2">
     </a>
 </p>
 

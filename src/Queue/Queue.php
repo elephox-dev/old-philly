@@ -6,19 +6,25 @@ namespace Philly\Queue;
 
 use Philly\Contracts\Queue\Queue as QueueContract;
 use Philly\Contracts\Queue\QueueIterator as QueueIteratorContract;
-use Philly\Support\Storage;
+use Philly\Support\JsonCompatible;
+use UnderflowException;
 
 /**
  * Class Queue.
  */
-class Queue extends Storage implements QueueContract
+class Queue implements QueueContract
 {
+    use JsonCompatible;
+
+    /** @var \Ds\Queue The Data Structures implementation of a queue. */
+    protected \Ds\Queue $queue;
+
     /**
      * Queue constructor.
      */
     public function __construct(array $items = [])
     {
-        parent::__construct($items);
+        $this->queue = new \Ds\Queue($items);
     }
 
     /**
@@ -34,7 +40,7 @@ class Queue extends Storage implements QueueContract
      */
     public function enqueue(...$value): void
     {
-        array_push($this->storage, ...$value);
+        $this->queue->push(...$value);
     }
 
     /**
@@ -42,12 +48,14 @@ class Queue extends Storage implements QueueContract
      */
     public function dequeue()
     {
-        $value = array_shift($this->storage);
-        if ($value === null) {
-            throw new QueueEmptyException();
+        try
+        {
+            return $this->queue->pop();
         }
-
-        return $value;
+        catch (UnderflowException $ue)
+        {
+            throw new QueueEmptyException($ue->getMessage(), $ue->getCode(), $ue);
+        }
     }
 
     /**
@@ -55,12 +63,11 @@ class Queue extends Storage implements QueueContract
      */
     public function head()
     {
-        $value = reset($this->storage);
-        if ($value === false) {
-            throw new QueueEmptyException();
+        try {
+            return $this->queue->peek();
+        } catch (UnderflowException $ue) {
+            throw new QueueEmptyException($ue->getMessage(), $ue->getCode(), $ue);
         }
-
-        return $value;
     }
 
     /**
@@ -68,11 +75,31 @@ class Queue extends Storage implements QueueContract
      */
     public function tail()
     {
-        $value = end($this->storage);
-        if ($value === false) {
+        $arr = $this->queue->toArray();
+        $value = end($arr);
+        if ($value === false)
             throw new QueueEmptyException();
-        }
 
         return $value;
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->queue->isEmpty();
+    }
+
+    public function count(): int
+    {
+        return $this->queue->count();
+    }
+
+    public function clear(): void
+    {
+        $this->queue->clear();
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->queue->jsonSerialize();
     }
 }

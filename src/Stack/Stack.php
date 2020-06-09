@@ -6,16 +6,22 @@ namespace Philly\Stack;
 
 use Philly\Contracts\Stack\Stack as StackContract;
 use Philly\Contracts\Stack\StackIterator as StackIteratorContract;
-use Philly\Support\Storage;
+use Philly\Support\JsonCompatible;
+use UnderflowException;
 
-class Stack extends Storage implements StackContract
+class Stack implements StackContract
 {
+    use JsonCompatible;
+
+    /** @var \Ds\Stack $stack The Data Structures implementation of a stack. */
+    protected \Ds\Stack $stack;
+
     /**
      * Stack constructor.
      */
     public function __construct(array $items = [])
     {
-        parent::__construct($items);
+        $this->stack = new \Ds\Stack($items);
     }
 
     /**
@@ -31,7 +37,7 @@ class Stack extends Storage implements StackContract
      */
     public function push(...$value): void
     {
-        array_push($this->storage, ...$value);
+        $this->stack->push(...$value);
     }
 
     /**
@@ -39,12 +45,13 @@ class Stack extends Storage implements StackContract
      */
     public function pop()
     {
-        $value = array_pop($this->storage);
-        if ($value === null) {
-            throw new StackEmptyException();
+        try {
+            return $this->stack->pop();
         }
-
-        return $value;
+        catch (UnderflowException $ue)
+        {
+            throw new StackEmptyException($ue->getMessage(), $ue->getCode(), $ue);
+        }
     }
 
     /**
@@ -52,11 +59,30 @@ class Stack extends Storage implements StackContract
      */
     public function peek()
     {
-        $value = end($this->storage);
-        if ($value === false) {
-            throw new StackEmptyException();
+        try {
+            return $this->stack->peek();
+        } catch (UnderflowException $ue) {
+            throw new StackEmptyException($ue->getMessage(), $ue->getCode(), $ue);
         }
+    }
 
-        return $value;
+    public function isEmpty(): bool
+    {
+        return $this->stack->isEmpty();
+    }
+
+    public function count(): int
+    {
+        return $this->stack->count();
+    }
+
+    public function clear(): void
+    {
+        $this->stack->clear();
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->stack->jsonSerialize();
     }
 }

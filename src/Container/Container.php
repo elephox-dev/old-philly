@@ -17,7 +17,7 @@ use Philly\Support\Storage;
  *
  * @iterable<TKey, TValue>
  */
-abstract class Container extends Storage implements ContainerContract
+class Container extends Storage implements ContainerContract
 {
     /**
      * Container constructor.

@@ -1,5 +1,8 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Philly Documentation
+  - name: Philly Documentation 📖
     url: https://philly.ricardoboss.de/
     about: Please look into the documentation first.
+  - name: Proposing new features 🌟
+    url: https://github.com/ricardoboss/Philly/issues?q=is%3Aopen+label%3Aenhancement
+    about: Please check if someone already requested a new feature before you propose a new one.

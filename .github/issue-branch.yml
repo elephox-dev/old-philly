@@ -1,0 +1,13 @@
+mode: chatops
+silent: true
+autoCloseIssue: true
+
+branches:
+  - label: enhancement
+    prefix: feature/
+  - label: documentation
+    prefix: docs/
+  - label: bug
+    prefix: bugfix/
+  - label: '*'
+    prefix: issues/

@@ -45,7 +45,6 @@ interface Container extends ContainerInterface, ArrayAccess, Traversable, Iterat
      */
     public function getLazy($key, $default);
 
-
     /**
      * Check whether this container accepts the given value. This method should be overridden by implementations that
      * check the types of values added to this container.

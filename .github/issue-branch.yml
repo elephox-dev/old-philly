@@ -1,6 +1,5 @@
 mode: chatops
 silent: true
-branchName: short
 autoCloseIssue: true
 
 branches:

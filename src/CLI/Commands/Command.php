@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Philly\CLI\Commands;
 
-
 use Philly\Contracts\CLI\Commands\Command as CommandContract;
 use Philly\Contracts\CLI\Commands\CommandSignature as CommandSignatureContract;
 

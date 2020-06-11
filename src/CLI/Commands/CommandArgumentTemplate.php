@@ -23,7 +23,15 @@ class CommandArgumentTemplate implements CommandArgumentTemplateContract
     /** @var string $shortName The short name of this command argument. */
     protected string $shortName;
 
-    public function __construct(string $name, ?string $shortName = null, $default = null, bool $optional = false)
+    /**
+     * CommandArgumentTemplate constructor.
+     *
+     * @param string $name A descriptive name for this argument.
+     * @param string|null $shortName The short name of this argument.
+     * @param bool $optional Whether this argument is optional
+     * @param mixed|null $default The default value, if optional.
+     */
+    public function __construct(string $name, ?string $shortName = null, bool $optional = false, $default = null)
     {
         $this->name = $name;
         $this->shortName = $shortName ?? substr($name, 0, 1);

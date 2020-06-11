@@ -11,7 +11,6 @@ interface CommandArgument extends CommandArgumentTemplate
 {
     /**
      * @return mixed|null When used to invoke a command, this function returns the value held by this argument.
-     * @throws BadMethodCallException If this argument was used to define a command signature and has no value.
      */
     public function getValue();
 }

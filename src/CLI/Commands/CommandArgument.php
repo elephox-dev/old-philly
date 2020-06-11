@@ -23,7 +23,8 @@ class CommandArgument extends CommandArgumentTemplate implements CommandArgument
      */
     public function __construct(CommandArgumentTemplateContract $template, $value = null)
     {
-        parent::__construct($template->name, $template->shortName, $template->default, $template->optional);
+        parent::__construct($template->getName(), $template->getShortName(),
+                            $template->isOptional(), $template->getDefaultValue());
 
         $this->value = $value;
     }

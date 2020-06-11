@@ -40,6 +40,13 @@ class CommandResult implements CommandResultContract
     /** @var Throwable|null The exception thrown by a command. */
     protected ?Throwable $throwable;
 
+    /**
+     * CommandResult constructor.
+     *
+     * @param bool $success Whether the command result indicates a success.
+     * @param mixed|null $value The value returned by the command, if any.
+     * @param Throwable|null $throwable The exception thrown
+     */
     public function __construct(bool $success, $value = null, ?Throwable $throwable = null)
     {
         $this->success = $success;

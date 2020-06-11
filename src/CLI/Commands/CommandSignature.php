@@ -34,8 +34,7 @@ class CommandSignature implements CommandSignatureContract
         $this->name = $name;
         if ($arguments instanceof CommandArgumentTemplateCollectionContract) {
             $this->arguments = $arguments;
-        }
-        else {
+        } else {
             $this->arguments = new CommandArgumentTemplateCollection($arguments);
         }
         $this->aliases = $aliases;

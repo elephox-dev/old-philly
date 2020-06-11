@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Philly\CLI\Commands;
 
-use BadMethodCallException;
 use Philly\Contracts\CLI\Commands\CommandArgumentTemplate as CommandArgumentTemplateContract;
 
+/**
+ * Class CommandArgumentTemplate.
+ */
 class CommandArgumentTemplate implements CommandArgumentTemplateContract
 {
     /** @var bool $optional Whether this argument is optional. */
@@ -24,9 +26,7 @@ class CommandArgumentTemplate implements CommandArgumentTemplateContract
     public function __construct(string $name, ?string $shortName = null, $default = null, bool $optional = false)
     {
         $this->name = $name;
-        if ($shortName === null) {
-            $this->shortName = substr($name, 0, 1);
-        }
+        $this->shortName = $shortName ?? substr($name, 0, 1);
 
         $this->default = $default;
         $this->optional = $optional;
@@ -45,10 +45,6 @@ class CommandArgumentTemplate implements CommandArgumentTemplateContract
      */
     public function getDefaultValue()
     {
-        if (!$this->isOptional()) {
-            throw new BadMethodCallException("This argument is not optional and therefore has not default value.");
-        }
-
         return $this->default;
     }
 

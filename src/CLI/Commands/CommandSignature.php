@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Philly\CLI\Commands;
 
+use Philly\Contracts\CLI\Commands\CommandArgumentTemplate as CommandArgumentTemplateContract;
 use Philly\Contracts\CLI\Commands\CommandArgumentTemplateCollection as CommandArgumentTemplateCollectionContract;
 use Philly\Contracts\CLI\Commands\CommandSignature as CommandSignatureContract;
 
@@ -25,13 +26,18 @@ class CommandSignature implements CommandSignatureContract
      * CommandSignature constructor.
      *
      * @param string $name The name of this command.
-     * @param CommandArgumentTemplateCollectionContract $arguments The arguments of this command.
+     * @param CommandArgumentTemplateCollectionContract|CommandArgumentTemplateContract[] $arguments The arguments of this command.
      * @param string[] $aliases The aliases for this command.
      */
-    public function __construct(string $name, CommandArgumentTemplateCollectionContract $arguments, array $aliases = [])
+    public function __construct(string $name, $arguments, array $aliases = [])
     {
         $this->name = $name;
-        $this->arguments = $arguments;
+        if ($arguments instanceof CommandArgumentTemplateCollectionContract) {
+            $this->arguments = $arguments;
+        }
+        else {
+            $this->arguments = new CommandArgumentTemplateCollection($arguments);
+        }
         $this->aliases = $aliases;
     }
 

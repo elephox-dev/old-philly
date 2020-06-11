@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Philly\Contracts\CLI\Commands;
 
-use BadMethodCallException;
-
 /**
  * Interface CommandArgumentTemplate.
  */
@@ -18,7 +16,6 @@ interface CommandArgumentTemplate
     public function isOptional(): bool;
 
     /**
-     * @throws BadMethodCallException If this argument is not optional.
      * @return mixed|null If this argument is optional, then this method returns the default value.
      */
     public function getDefaultValue();

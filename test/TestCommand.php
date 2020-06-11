@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace test\Philly;
 
-
 use Philly\CLI\Commands\Command;
 use Philly\CLI\Commands\CommandArgumentTemplate;
 use Philly\CLI\Commands\CommandResult;
@@ -18,7 +17,8 @@ class TestCommand extends Command
     public static function makeSignature(): CommandSignatureContract
     {
         return new CommandSignature(
-            "test", [
+            "test",
+            [
                 new CommandArgumentTemplate("fail", "f")
             ]
         );

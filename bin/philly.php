@@ -9,9 +9,10 @@ if (PHP_SAPI != 'cli') {
     exit(1);
 }
 
-$autoload = "vendor" . DIRECTORY_SEPARATOR ."autoload.php";
-for ($i = 0; $i < 10 && realpath($autoload) === false; $i++)
+$autoload = "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
+for ($i = 0; $i < 10 && realpath($autoload) === false; $i++) {
     $autoload = ".." . DIRECTORY_SEPARATOR . $autoload;
+}
 
 if (realpath($autoload) === false) {
     echo PHP_EOL . 'Could not find autoload.php' . PHP_EOL;
@@ -51,8 +52,7 @@ if ($command === null) {
 
 $templates = $command->getSignature()->getArguments();
 $arguments = new CommandArgumentCollection();
-for ($i = 0; $i < count($argv); $i++)
-{
+for ($i = 0; $i < count($argv); $i++) {
     $argument = new CommandArgument($templates->get($i), $argv[$i]);
 
     $arguments->add($argument);

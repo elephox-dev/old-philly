@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Philly\Foundation\CLI\Commands;
 
-
 use Philly\App;
 use Philly\CLI\Commands\Command;
 use Philly\CLI\Commands\CommandResult;

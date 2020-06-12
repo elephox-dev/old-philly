@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Philly;
 
+use Philly\CLI\Commands\CommandCollection;
 use Philly\Container\BindingContainer;
 use Philly\Contracts\App as AppContract;
+use Philly\Contracts\CLI\Commands\CommandCollection as CommandCollectionContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Exceptions\ExceptionHandler;
+use Philly\Foundation\CLI\Commands\VersionCommand;
 use Philly\ServiceProvider\ServiceProviderContainer;
 
 /**
@@ -16,6 +19,8 @@ use Philly\ServiceProvider\ServiceProviderContainer;
  */
 class App extends BindingContainer implements AppContract
 {
+    public const VERSION = "0.0.3";
+
     protected static ?AppContract $instance = null;
 
     /**
@@ -77,5 +82,26 @@ class App extends BindingContainer implements AppContract
         );
 
         return $serviceContainer;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCommands(): CommandCollectionContract
+    {
+        $commandCollection = $this->getLazy(
+            CommandCollectionContract::class,
+            fn () => new CommandCollection([
+                new VersionCommand()
+            ]),
+            true
+        );
+
+        assert(
+            $commandCollection instanceof CommandCollectionContract,
+            "Invalid command collection type!"
+        );
+
+        return $commandCollection;
     }
 }

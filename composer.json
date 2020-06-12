@@ -34,6 +34,9 @@
       "test\\Philly\\": "test"
     }
   },
+  "bin": [
+    "bin/philly.php"
+  ],
   "scripts": {
     "test": "phpunit --configuration=phpunit.xml.dist --coverage-text",
     "stan": "psalm --config=psalm.xml.dist --output-format=github --shepherd",

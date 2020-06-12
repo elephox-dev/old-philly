@@ -29,7 +29,7 @@ class CommandSignature implements CommandSignatureContract
      * @param CommandArgumentTemplateCollectionContract|CommandArgumentTemplateContract[] $arguments The arguments of this command.
      * @param string[] $aliases The aliases for this command.
      */
-    public function __construct(string $name, $arguments, array $aliases = [])
+    public function __construct(string $name, $arguments = [], array $aliases = [])
     {
         $this->name = $name;
         if ($arguments instanceof CommandArgumentTemplateCollectionContract) {

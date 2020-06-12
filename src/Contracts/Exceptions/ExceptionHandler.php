@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Philly\Contracts\Exceptions;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Throwable;
 
 /**
@@ -14,7 +13,6 @@ interface ExceptionHandler
 {
     /**
      * @param Throwable $throwable
-     * @return JsonResponse
      */
-    public function handle(Throwable $throwable): JsonResponse;
+    public function handle(Throwable $throwable): void;
 }

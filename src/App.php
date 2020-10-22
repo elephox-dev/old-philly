@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Philly;
 
 use Philly\Container\BindingContainer;
+use Philly\Container\UnacceptableTypeException;
 use Philly\Contracts\App as AppContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
@@ -51,10 +52,8 @@ class App extends BindingContainer implements AppContract
             fn () => new ExceptionHandler()
         );
 
-        assert(
-            $handler instanceof ExceptionHandlerContract,
-            "Invalid exception handler type!"
-        );
+        if (!($handler instanceof ExceptionHandlerContract))
+            throw new UnacceptableTypeException("Invalid exception handler type!");
 
         return $handler;
     }
@@ -69,10 +68,8 @@ class App extends BindingContainer implements AppContract
             fn () => new ServiceProviderContainer()
         );
 
-        assert(
-            $serviceContainer instanceof ServiceProviderContainerContract,
-            "Invalid service provider container type!"
-        );
+        if (!($serviceContainer instanceof ServiceProviderContainerContract))
+            throw new UnacceptableTypeException("Invalid service provider container type!");
 
         return $serviceContainer;
     }

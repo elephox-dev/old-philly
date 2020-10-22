@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CLI\Commands;
@@ -22,7 +23,8 @@ class CommandSignatureTest extends TestCase
         static::assertEmpty($s->getArguments());
     }
 
-    public function testAliases() {
+    public function testAliases()
+    {
         $catc = new CommandArgumentTemplateCollection();
 
         $s1 = new CommandSignature("test1", $catc, ['1']);

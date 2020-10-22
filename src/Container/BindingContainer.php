@@ -19,7 +19,6 @@ class BindingContainer extends Container implements BindingContainerContract
      * @var array
      */
     protected array $singletons = [];
-
     /**
      * Container constructor.
      */
@@ -117,7 +116,8 @@ class BindingContainer extends Container implements BindingContainerContract
     {
         $contract = parent::offsetGet($offset);
 
-        assert($contract instanceof BaseBindingContract, "Invalid binding contract!");
+        if (!($contract instanceof BaseBindingContract))
+            throw new UnacceptableTypeException("Invalid binding contract!");
 
         $builder = $contract->getBuilder();
 

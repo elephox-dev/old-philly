@@ -46,10 +46,9 @@ class App extends BindingContainer implements AppContract
      */
     public function getExceptionHandler(): ExceptionHandlerContract
     {
-        $handler = $this->getLazy(
+        $handler = $this->getLazySingleton(
             ExceptionHandlerContract::class,
-            fn () => new ExceptionHandler(),
-            true
+            fn () => new ExceptionHandler()
         );
 
         assert(
@@ -65,10 +64,9 @@ class App extends BindingContainer implements AppContract
      */
     public function getServices(): ServiceProviderContainerContract
     {
-        $serviceContainer = $this->getLazy(
+        $serviceContainer = $this->getLazySingleton(
             ServiceProviderContainerContract::class,
-            fn () => new ServiceProviderContainer(),
-            true
+            fn () => new ServiceProviderContainer()
         );
 
         assert(

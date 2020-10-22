@@ -162,7 +162,7 @@ class BindingContainer extends Container implements BindingContainerContract
     /**
      * @inheritDoc
      */
-    public function getLazy($key, $default, bool $singleton = false)
+    public function getLazy($key, $default)
     {
         if (!$this->offsetExists($key)) {
             if (!is_string($key)) {
@@ -171,7 +171,25 @@ class BindingContainer extends Container implements BindingContainerContract
                 throw new InvalidArgumentException("Key has invalid type: $type. Only strings can be used as keys.");
             }
 
-            $this->bind($key, $default, $singleton);
+            $this->bind($key, $default, false);
+        }
+
+        return $this->offsetGet($key);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLazySingleton($key, $default)
+    {
+        if (!$this->offsetExists($key)) {
+            if (!is_string($key)) {
+                $type = gettype($key);
+
+                throw new InvalidArgumentException("Key has invalid type: $type. Only strings can be used as keys.");
+            }
+
+            $this->bind($key, $default, true);
         }
 
         return $this->offsetGet($key);

@@ -198,7 +198,7 @@ class BindingContainerTest extends TestCase
         $container = new BindingContainer();
         $instance_a = new TestClass();
 
-        $instance_b = $container->getLazy(TestInterface::class, $instance_a, false);
+        $instance_b = $container->getLazy(TestInterface::class, $instance_a);
 
         static::assertSame($instance_a, $instance_b);
 
@@ -212,7 +212,7 @@ class BindingContainerTest extends TestCase
     {
         $container = new BindingContainer();
 
-        $instance_a = $container->getLazy(TestInterface::class, fn () => new TestClass(), false);
+        $instance_a = $container->getLazy(TestInterface::class, fn () => new TestClass());
         $instance_b = $container->getLazy(TestInterface::class, fn () => new SecondTestClass());
 
         static::assertInstanceOf(TestClass::class, $instance_a);
@@ -224,7 +224,7 @@ class BindingContainerTest extends TestCase
     {
         $container = new BindingContainer();
 
-        $instance_a = $container->getLazy(TestInterface::class, fn () => new TestClass(), true);
+        $instance_a = $container->getLazySingleton(TestInterface::class, fn () => new TestClass());
         $instance_b = $container->getLazy(TestInterface::class, new SecondTestClass());
 
         static::assertInstanceOf(TestClass::class, $instance_a);
@@ -236,7 +236,7 @@ class BindingContainerTest extends TestCase
         $container = new BindingContainer();
         $instance_a  = new TestClass();
 
-        $instance_b = $container->getLazy(TestInterface::class, $instance_a, true);
+        $instance_b = $container->getLazySingleton(TestInterface::class, $instance_a);
 
         static::assertSame($instance_a, $instance_b);
 

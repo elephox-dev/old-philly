@@ -52,8 +52,9 @@ class App extends BindingContainer implements AppContract
             fn () => new ExceptionHandler()
         );
 
-        if (!($handler instanceof ExceptionHandlerContract))
+        if (!($handler instanceof ExceptionHandlerContract)) {
             throw new UnacceptableTypeException("Invalid exception handler type!");
+        }
 
         return $handler;
     }
@@ -68,8 +69,9 @@ class App extends BindingContainer implements AppContract
             fn () => new ServiceProviderContainer()
         );
 
-        if (!($serviceContainer instanceof ServiceProviderContainerContract))
+        if (!($serviceContainer instanceof ServiceProviderContainerContract)) {
             throw new UnacceptableTypeException("Invalid service provider container type!");
+        }
 
         return $serviceContainer;
     }

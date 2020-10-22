@@ -91,9 +91,9 @@ class BindingContainer extends Container implements BindingContainerContract
      * Offset to set
      *
      * @param mixed $offset The offset to assign the value to.
-     * @param mixed|BaseBindingContract $contract The value to set or the contract to bind.
+     * @param mixed|BaseBindingContract $value The value to set or the contract to bind.
      */
-    public function offsetSet($offset, $contract)
+    public function offsetSet($offset, $value)
     {
         if ($offset === null || !is_string($offset)) {
             throw new InvalidArgumentException("Offset must be a string!");
@@ -103,10 +103,10 @@ class BindingContainer extends Container implements BindingContainerContract
             throw new InvalidArgumentException("Offset $offset already bound!");
         }
 
-        if ($contract instanceof BaseBindingContract) {
-            parent::offsetSet($offset, $contract);
+        if ($value instanceof BaseBindingContract) {
+            parent::offsetSet($offset, $value);
         } else {
-            $this->bind($offset, $contract, true);
+            $this->bind($offset, $value, true);
         }
     }
 

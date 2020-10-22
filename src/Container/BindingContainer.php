@@ -116,8 +116,9 @@ class BindingContainer extends Container implements BindingContainerContract
     {
         $contract = parent::offsetGet($offset);
 
-        if (!($contract instanceof BaseBindingContract))
+        if (!($contract instanceof BaseBindingContract)) {
             throw new UnacceptableTypeException("Invalid binding contract!");
+        }
 
         $builder = $contract->getBuilder();
 

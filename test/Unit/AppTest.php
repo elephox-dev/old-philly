@@ -58,7 +58,7 @@ class AppTest extends TestCase
         TestApp::reset();
         $app = TestApp::inst();
 
-        $app->bind(ServiceProviderContainerContract::class, fn() => new TestClass(), true);
+        $app->bind(ServiceProviderContainerContract::class, fn () => new TestClass(), true);
 
         static::expectException(UnacceptableTypeException::class);
 

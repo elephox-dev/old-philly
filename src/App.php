@@ -86,18 +86,23 @@ class App extends BindingContainer implements AppContract
      */
     public function getCommands(): CommandCollectionContract
     {
-        $commandCollection = $this->getLazySingleton(
-            CommandCollectionContract::class,
-            fn () => new CommandCollection([
-                new VersionCommand()
-            ])
-        );
+        if (!$this->offsetExists(CommandCollectionContract::class)) {
+            $this->offsetSet(CommandCollectionContract::class, new CommandCollection());
+            $this->registerDefaultCommands();
+        }
 
-        assert(
-            $commandCollection instanceof CommandCollectionContract,
-            "Invalid command collection type!"
-        );
+        $commandCollection = $this->get(CommandCollectionContract::class);
+
+        if (!($commandCollection instanceof CommandCollectionContract)) {
+            throw new UnacceptableTypeException("Invalid command collection type!");
+        }
 
         return $commandCollection;
+    }
+
+    private function registerDefaultCommands()
+    {
+        $commandCollection = $this->getCommands();
+        $commandCollection->add(new VersionCommand());
     }
 }

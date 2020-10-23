@@ -29,15 +29,18 @@ use Philly\App;
 use Philly\CLI\Commands\CommandArgument;
 use Philly\CLI\Commands\CommandArgumentCollection;
 use Philly\Contracts\CLI\Commands\Command as CommandContract;
+use Philly\Queue\Queue;
 
 $app = App::inst();
 $commands = $app->getCommands();
 
+$args = new Queue($argv);
+
 // remove path to bin
-array_shift($argv);
+$args->dequeue();
 
 // get first argument
-$commandString = array_shift($argv);
+$commandString = $args->dequeue();
 
 /** @var CommandContract $command */
 $command = $commands->first(function (CommandContract $command) use ($commandString) {
@@ -52,8 +55,8 @@ if ($command === null) {
 
 $templates = $command->getSignature()->getArguments();
 $arguments = new CommandArgumentCollection();
-for ($i = 0; $i < count($argv); $i++) {
-    $argument = new CommandArgument($templates->get($i), $argv[$i]);
+foreach ($args as $arg) {
+    $argument = new CommandArgument($templates->get($i), $arg);
 
     $arguments->add($argument);
 }

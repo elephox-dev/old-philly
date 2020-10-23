@@ -22,7 +22,7 @@ jobs:
       run: composer validate
 
     - name: Cache composer dependencies
-      uses: actions/cache@v1.1.0
+      uses: actions/cache@v2
       with:
         path: vendor
         key: composer@${{ hashFiles('**/composer.lock') }}

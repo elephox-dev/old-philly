@@ -6,6 +6,7 @@ namespace Philly;
 
 use Philly\CLI\Commands\CommandCollection;
 use Philly\Container\BindingContainer;
+use Philly\Container\UnacceptableTypeException;
 use Philly\Contracts\App as AppContract;
 use Philly\Contracts\CLI\Commands\CommandCollection as CommandCollectionContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
@@ -51,16 +52,14 @@ class App extends BindingContainer implements AppContract
      */
     public function getExceptionHandler(): ExceptionHandlerContract
     {
-        $handler = $this->getLazy(
+        $handler = $this->getLazySingleton(
             ExceptionHandlerContract::class,
-            fn () => new ExceptionHandler(),
-            true
+            fn () => new ExceptionHandler()
         );
 
-        assert(
-            $handler instanceof ExceptionHandlerContract,
-            "Invalid exception handler type!"
-        );
+        if (!($handler instanceof ExceptionHandlerContract)) {
+            throw new UnacceptableTypeException("Invalid exception handler type!");
+        }
 
         return $handler;
     }
@@ -70,16 +69,14 @@ class App extends BindingContainer implements AppContract
      */
     public function getServices(): ServiceProviderContainerContract
     {
-        $serviceContainer = $this->getLazy(
+        $serviceContainer = $this->getLazySingleton(
             ServiceProviderContainerContract::class,
-            fn () => new ServiceProviderContainer(),
-            true
+            fn () => new ServiceProviderContainer()
         );
 
-        assert(
-            $serviceContainer instanceof ServiceProviderContainerContract,
-            "Invalid service provider container type!"
-        );
+        if (!($serviceContainer instanceof ServiceProviderContainerContract)) {
+            throw new UnacceptableTypeException("Invalid service provider container type!");
+        }
 
         return $serviceContainer;
     }

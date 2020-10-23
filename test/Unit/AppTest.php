@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace test\Philly\Unit;
 
 use Philly\Container\UnacceptableTypeException;
+use Philly\Contracts\CLI\Commands\CommandCollection as CommandCollectionContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use PHPUnit\Framework\TestCase;
@@ -41,6 +42,21 @@ class AppTest extends TestCase
         static::assertSame($services, $services2);
     }
 
+    public function testGetCommands()
+    {
+        TestApp::reset();
+        $app = TestApp::inst();
+
+        $commands = $app->getCommands();
+
+        static::assertInstanceOf(CommandCollectionContract::class, $commands);
+
+        $commands2 = $app->getCommands();
+
+        static::assertSame($commands, $commands2);
+        static::assertCount(1, $commands);
+    }
+
     public function testGetInvalidExceptionHandler()
     {
         TestApp::reset();
@@ -63,5 +79,17 @@ class AppTest extends TestCase
         static::expectException(UnacceptableTypeException::class);
 
         $app->getServices();
+    }
+
+    public function testGetInvalidCommands()
+    {
+        TestApp::reset();
+        $app = TestApp::inst();
+
+        $app->bind(CommandCollectionContract::class, fn () => new TestClass(), true);
+
+        static::expectException(UnacceptableTypeException::class);
+
+        $app->getCommands();
     }
 }

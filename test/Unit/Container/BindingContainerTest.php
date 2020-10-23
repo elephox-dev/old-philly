@@ -292,7 +292,7 @@ class BindingContainerTest extends TestCase
     {
         $bindingContainer = new BindingContainer();
 
-        $closure = function($offset, $value) {
+        $closure = function ($offset, $value) {
             return parent::offsetSet($offset, $value);
         };
 
@@ -307,7 +307,7 @@ class BindingContainerTest extends TestCase
     {
         $bindingContainer = new TestBindingContainer();
 
-        $closure = function($offset, $value) {
+        $closure = function ($offset, $value) {
             return parent::offsetSet($offset, $value);
         };
 

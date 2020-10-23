@@ -19,7 +19,11 @@ class Container extends Storage implements ContainerContract
      */
     public function __construct(array $items = [])
     {
-        parent::__construct($items);
+        parent::__construct([]);
+
+        foreach ($items as $key => $item) {
+            $this->offsetSet($key, $item);
+        }
     }
 
     /**

@@ -28,14 +28,26 @@ interface Collection extends Container
 
     /**
      * Filters the collection to find a specific value via a callback. If an item is found, the value is returned. If
-     * not then null will be returned. If no callback is given then this method returns the first element in this
-     * collection or null if this collection is empty.
+     * not then a default value will be returned. If no callback is given then this method returns the first element in
+     * this collection or null if this collection is empty.
      *
      * @param callable|null $callback The callback to use for filtering. The callback receives both the value and then
-     *     the key as arguments.
+     *                                the key as arguments.
+     * @param mixed|null $default A default value to return in case no entry is accepted.
      * @return mixed|null The first item that got matched by the callback or null if no item matched.
      */
-    public function first(?callable $callback = null);
+    public function first(?callable $callback = null, $default = null);
+
+    /**
+     * Filters the collection to find a specific key. If an item is found, the value is returned. If not then a default
+     * value will be returned. If no callback is given then this method returns the first element in this collection or
+     * null if this collection is empty.
+     *
+     * @param mixed $key The key to look for.
+     * @param mixed|null $default A default value to return in case no entry is accepted.
+     * @return mixed|null The first item that got matched by the callback or null if no item matched.
+     */
+    public function firstKey($key, $default = null);
 
     /**
      * Checks if this collection contains a specific value determined by a callback. If not callback is given then this

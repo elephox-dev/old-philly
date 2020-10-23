@@ -95,10 +95,11 @@ class Collection extends Container implements CollectionContract
     /**
      * @inheritDoc
      */
-    public function first(?callable $callback = null)
+    public function first(?callable $callback = null, $default = null)
     {
         if ($this->count() > 0) {
             if ($callback === null) {
+                // reset() will not return false since the array is not empty
                 return reset($this->storage);
             }
 
@@ -109,7 +110,15 @@ class Collection extends Container implements CollectionContract
             }
         }
 
-        return null;
+        return $default;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function firstKey($key, $default = null)
+    {
+        return $this->first(fn ($v, $k) => $k === $key, $default);
     }
 
     /**

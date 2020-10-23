@@ -86,12 +86,11 @@ class App extends BindingContainer implements AppContract
      */
     public function getCommands(): CommandCollectionContract
     {
-        $commandCollection = $this->getLazy(
+        $commandCollection = $this->getLazySingleton(
             CommandCollectionContract::class,
             fn () => new CommandCollection([
                 new VersionCommand()
-            ]),
-            true
+            ])
         );
 
         assert(

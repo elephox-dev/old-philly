@@ -7,12 +7,9 @@ namespace Philly\CLI\Commands;
 use Philly\Contracts\CLI\Commands\CommandArgument as CommandArgumentContract;
 use Philly\Contracts\CLI\Commands\CommandArgumentCollection as CommandArgumentCollectionContract;
 use Philly\Contracts\CLI\Commands\CommandArgumentTemplateCollection as CommandArgumentTemplateCollectionContract;
-use Philly\Support\Cloneable;
 
 class CommandArgumentCollection extends CommandArgumentTemplateCollection implements CommandArgumentCollectionContract
 {
-    use Cloneable;
-
     public static function fromArray(CommandArgumentTemplateCollectionContract $argumentTemplateCollection, array $args = []): CommandArgumentCollectionContract
     {
         $collection = new CommandArgumentCollection();
@@ -30,18 +27,24 @@ class CommandArgumentCollection extends CommandArgumentTemplateCollection implem
         return $collection;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function accepts($value): bool
     {
         return $value instanceof CommandArgumentContract;
     }
 
-    public function getValue($key)
+    /**
+     * @inheritDoc
+     */
+    public function getValue(string $key, $default = null)
     {
         /** @var CommandArgumentContract $arg */
         $arg = parent::firstKey($key, null);
 
         if ($arg === null) {
-            return $arg->getDefaultValue();
+            return $default;
         }
 
         return $arg->getValue();

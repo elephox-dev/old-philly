@@ -19,6 +19,9 @@ class CommandArgumentTemplateCollection extends Collection implements
         return $value instanceof CommandArgumentTemplateContract;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function firstKey($key, $default = null)
     {
         return parent::first(

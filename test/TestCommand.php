@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace test\Philly;
 
+use Exception;
 use Philly\CLI\Commands\Command;
 use Philly\CLI\Commands\CommandArgumentTemplate;
 use Philly\CLI\Commands\CommandResult;
@@ -19,7 +20,8 @@ class TestCommand extends Command
         return new CommandSignature(
             "test",
             [
-                new CommandArgumentTemplate("fail", "f")
+                new CommandArgumentTemplate("fail"),
+                new CommandArgumentTemplate("val")
             ]
         );
     }
@@ -29,10 +31,10 @@ class TestCommand extends Command
      */
     public function handle(CommandArgumentCollectionContract $args): CommandResultContract
     {
-        if ($args['fail']) {
-            return CommandResult::fail();
+        if ($args->getValue('fail')) {
+            return CommandResult::fail(new Exception("test command failed"), $args->getValue('val'));
         }
 
-        return CommandResult::success();
+        return CommandResult::success($args->getValue('val'));
     }
 }

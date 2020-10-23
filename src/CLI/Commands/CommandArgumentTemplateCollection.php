@@ -18,4 +18,12 @@ class CommandArgumentTemplateCollection extends Collection implements
     {
         return $value instanceof CommandArgumentTemplateContract;
     }
+
+    public function firstKey($key, $default = null)
+    {
+        return parent::first(
+            fn(CommandArgumentTemplateContract $v) => $v->getName() === $key || $v->getShortName() === $key,
+            $default
+        );
+    }
 }

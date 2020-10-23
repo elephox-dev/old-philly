@@ -22,7 +22,7 @@ class CommandArgumentTemplateCollection extends Collection implements
     public function firstKey($key, $default = null)
     {
         return parent::first(
-            fn(CommandArgumentTemplateContract $v) => $v->getName() === $key || $v->getShortName() === $key,
+            fn (CommandArgumentTemplateContract $v) => $v->getName() === $key || $v->getShortName() === $key,
             $default
         );
     }

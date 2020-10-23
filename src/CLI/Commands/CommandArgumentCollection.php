@@ -19,8 +19,9 @@ class CommandArgumentCollection extends CommandArgumentTemplateCollection implem
 
         foreach ($args as $k => $v) {
             $template = $argumentTemplateCollection->firstKey($k);
-            if ($template == false)
+            if ($template == false) {
                 continue;
+            }
 
             $arg = new CommandArgument($template, $v);
             $collection->add($arg);
@@ -39,8 +40,9 @@ class CommandArgumentCollection extends CommandArgumentTemplateCollection implem
         /** @var CommandArgumentContract $arg */
         $arg = parent::firstKey($key, null);
 
-        if ($arg === null)
+        if ($arg === null) {
             return $arg->getDefaultValue();
+        }
 
         return $arg->getValue();
     }

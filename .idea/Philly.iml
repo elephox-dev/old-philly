@@ -11,7 +11,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/infection/include-interceptor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/infection/infection" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/ocramius/package-versions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ondram/ci-detector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sanmai/pipeline" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />

@@ -7,10 +7,13 @@ namespace test\Philly\Unit\Container;
 use InvalidArgumentException;
 use Philly\Container\BindingContainer;
 use Philly\Container\BindingContract;
+use Philly\Container\UnacceptableTypeException;
 use PHPUnit\Framework\TestCase;
 use test\Philly\SecondTestClass;
 use test\Philly\SecondTestInterface;
+use test\Philly\TestBindingContainer;
 use test\Philly\TestClass;
+use test\Philly\TestContainer;
 use test\Philly\TestInterface;
 
 /**
@@ -165,6 +168,18 @@ class BindingContainerTest extends TestCase
         $container->offsetSet(TestInterface::class, new SecondTestClass());
     }
 
+    public function testOffsetSetSingleton()
+    {
+        $container = new BindingContainer();
+
+        $container->offsetSet(TestInterface::class, fn () => new TestClass());
+
+        $a = $container->offsetGet(TestInterface::class);
+        $b = $container->offsetGet(TestInterface::class);
+
+        static::assertSame($a, $b);
+    }
+
     public function testOffsetGet()
     {
         $instance_a = new TestClass();
@@ -255,6 +270,15 @@ class BindingContainerTest extends TestCase
         $container->getLazy(0, null);
     }
 
+    public function testGetLazySingletonInvalidKey()
+    {
+        $container = new BindingContainer();
+
+        static::expectException(InvalidArgumentException::class);
+
+        $container->getLazySingleton(0, null);
+    }
+
     public function testNullBuilder()
     {
         $container = new BindingContainer();
@@ -262,5 +286,37 @@ class BindingContainerTest extends TestCase
         static::expectException(InvalidArgumentException::class);
 
         $container->bind(TestInterface::class, null);
+    }
+
+    public function testUnacceptableTypeOffsetSet()
+    {
+        $bindingContainer = new BindingContainer();
+
+        $closure = function($offset, $value) {
+            return parent::offsetSet($offset, $value);
+        };
+
+        $closure = $closure->bindTo($bindingContainer, BindingContainer::class);
+
+        static::expectException(UnacceptableTypeException::class);
+
+        $closure(TestInterface::class, new TestClass());
+    }
+
+    public function testUnacceptableTypeOffsetGet()
+    {
+        $bindingContainer = new TestBindingContainer();
+
+        $closure = function($offset, $value) {
+            return parent::offsetSet($offset, $value);
+        };
+
+        $closure = $closure->bindTo($bindingContainer, TestContainer::class);
+
+        $closure(TestInterface::class, new TestClass());
+
+        static::expectException(UnacceptableTypeException::class);
+
+        $bindingContainer->offsetGet(TestInterface::class);
     }
 }

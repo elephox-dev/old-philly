@@ -19,6 +19,7 @@ class BindingContainer extends Container implements BindingContainerContract
      * @var array
      */
     protected array $singletons = [];
+
     /**
      * Container constructor.
      */

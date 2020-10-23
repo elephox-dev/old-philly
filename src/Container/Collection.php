@@ -29,6 +29,14 @@ class Collection extends Container implements CollectionContract
     /**
      * @inheritDoc
      */
+    public function acceptsKey($offset): bool
+    {
+        return is_int($offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function add($value): self
     {
         $this->offsetSet($this->nextOffset, $value);

@@ -6,7 +6,7 @@
     "php": "^7.4",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "ext-ds": "*",
+    "php-ds/php-ds": "^v1.3.0",
     "psr/container": "^1.0"
   },
   "require-dev": {

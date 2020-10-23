@@ -12,6 +12,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/infection/infection" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ondram/ci-detector" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-ds/php-ds" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sanmai/pipeline" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/complexity" />

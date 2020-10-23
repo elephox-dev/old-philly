@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CLI\Commands;
+namespace test\Philly\Unit\CLI\Commands;
 
 use Philly\CLI\Commands\CommandArgumentTemplateCollection;
 use Philly\CLI\Commands\CommandSignature;

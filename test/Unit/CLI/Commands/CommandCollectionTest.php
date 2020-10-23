@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace test\Philly\CLI\Commands;
+namespace test\Philly\Unit\CLI\Commands;
 
 use Philly\CLI\Commands\CommandCollection;
 use Philly\Container\UnacceptableTypeException;

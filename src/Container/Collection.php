@@ -116,14 +116,6 @@ class Collection extends Container implements CollectionContract
     /**
      * @inheritDoc
      */
-    public function firstKey($key, $default = null)
-    {
-        return $this->first(fn ($v, $k) => $k === $key, $default);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function any(?callable $callback = null): bool
     {
         if ($callback === null) {

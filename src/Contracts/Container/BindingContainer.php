@@ -43,8 +43,7 @@ interface BindingContainer extends Container
      * @param string|class-string $key
      * @param Closure|mixed $default A builder or the default instance. The builder will only be called if the key does
      *                               not exist in the container.
-     * @param bool $singleton
      * @return mixed
      */
-    public function getLazy($key, $default, bool $singleton = false);
+    public function getLazySingleton($key, $default);
 }

@@ -96,9 +96,9 @@ class BindingContainer extends Container implements BindingContainerContract
      * Offset to set
      *
      * @param class-string $offset The offset to assign the value to.
-     * @param mixed|BaseBindingContract $contract The value to set or the contract to bind.
+     * @param mixed|BaseBindingContract $value The value to set or the contract to bind.
      */
-    public function offsetSet($offset, $contract)
+    public function offsetSet($offset, $value)
     {
         if ($offset === null || !is_string($offset)) {
             throw new InvalidArgumentException("Offset must be a string!");
@@ -108,10 +108,10 @@ class BindingContainer extends Container implements BindingContainerContract
             throw new InvalidArgumentException("Offset $offset already bound!");
         }
 
-        if ($contract instanceof BaseBindingContract) {
-            parent::offsetSet($offset, $contract);
+        if ($value instanceof BaseBindingContract) {
+            parent::offsetSet($offset, $value);
         } else {
-            $this->bind($offset, $contract, true);
+            $this->bind($offset, $value, true);
         }
     }
 
@@ -122,7 +122,9 @@ class BindingContainer extends Container implements BindingContainerContract
     {
         $contract = parent::offsetGet($offset);
 
-        assert($contract instanceof BaseBindingContract, "Invalid binding contract!");
+        if (!($contract instanceof BaseBindingContract)) {
+            throw new UnacceptableTypeException("Invalid binding contract!");
+        }
 
         $builder = $contract->getBuilder();
 
@@ -169,7 +171,7 @@ class BindingContainer extends Container implements BindingContainerContract
     /**
      * @inheritDoc
      */
-    public function getLazy($key, $default, bool $singleton = false)
+    public function getLazy($key, $default)
     {
         if (!$this->offsetExists($key)) {
             if (!is_string($key)) {
@@ -178,7 +180,25 @@ class BindingContainer extends Container implements BindingContainerContract
                 throw new InvalidArgumentException("Key has invalid type: $type. Only strings can be used as keys.");
             }
 
-            $this->bind($key, $default, $singleton);
+            $this->bind($key, $default, false);
+        }
+
+        return $this->offsetGet($key);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLazySingleton($key, $default)
+    {
+        if (!$this->offsetExists($key)) {
+            if (!is_string($key)) {
+                $type = gettype($key);
+
+                throw new InvalidArgumentException("Key has invalid type: $type. Only strings can be used as keys.");
+            }
+
+            $this->bind($key, $default, true);
         }
 
         return $this->offsetGet($key);

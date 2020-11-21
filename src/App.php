@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Philly;
 
+use Philly\CLI\Commands\CommandCollection;
 use Philly\Container\BindingContainer;
 use Philly\Container\UnacceptableTypeException;
 use Philly\Contracts\App as AppContract;
+use Philly\Contracts\CLI\Commands\CommandCollection as CommandCollectionContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Exceptions\ExceptionHandler;
+use Philly\Foundation\CLI\Commands\VersionCommand;
 use Philly\ServiceProvider\ServiceProviderContainer;
 
 /**
@@ -17,6 +20,8 @@ use Philly\ServiceProvider\ServiceProviderContainer;
  */
 class App extends BindingContainer implements AppContract
 {
+    public const VERSION = "0.0.3";
+
     protected static ?AppContract $instance = null;
 
     /**
@@ -74,5 +79,30 @@ class App extends BindingContainer implements AppContract
         }
 
         return $serviceContainer;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCommands(): CommandCollectionContract
+    {
+        if (!$this->offsetExists(CommandCollectionContract::class)) {
+            $this->offsetSet(CommandCollectionContract::class, new CommandCollection());
+            $this->registerDefaultCommands();
+        }
+
+        $commandCollection = $this->get(CommandCollectionContract::class);
+
+        if (!($commandCollection instanceof CommandCollectionContract)) {
+            throw new UnacceptableTypeException("Invalid command collection type!");
+        }
+
+        return $commandCollection;
+    }
+
+    private function registerDefaultCommands()
+    {
+        $commandCollection = $this->getCommands();
+        $commandCollection->add(new VersionCommand());
     }
 }

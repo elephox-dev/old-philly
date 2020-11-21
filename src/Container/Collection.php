@@ -29,6 +29,14 @@ class Collection extends Container implements CollectionContract
     /**
      * @inheritDoc
      */
+    public function acceptsKey($offset): bool
+    {
+        return is_int($offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function add($value): self
     {
         $this->offsetSet($this->nextOffset, $value);
@@ -87,10 +95,11 @@ class Collection extends Container implements CollectionContract
     /**
      * @inheritDoc
      */
-    public function first(?callable $callback = null)
+    public function first(?callable $callback = null, $default = null)
     {
         if ($this->count() > 0) {
             if ($callback === null) {
+                // reset() will not return false since the array is not empty
                 return reset($this->storage);
             }
 
@@ -101,7 +110,7 @@ class Collection extends Container implements CollectionContract
             }
         }
 
-        return null;
+        return $default;
     }
 
     /**

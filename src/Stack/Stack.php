@@ -48,7 +48,7 @@ class Stack implements StackContract
         try {
             return $this->stack->pop();
         } catch (UnderflowException $ue) {
-            throw new StackEmptyException($ue->getMessage(), $ue->getCode(), $ue);
+            throw new StackEmptyException($ue->getMessage(), (int)$ue->getCode(), $ue);
         }
     }
 
@@ -60,7 +60,7 @@ class Stack implements StackContract
         try {
             return $this->stack->peek();
         } catch (UnderflowException $ue) {
-            throw new StackEmptyException($ue->getMessage(), $ue->getCode(), $ue);
+            throw new StackEmptyException($ue->getMessage(), (int)$ue->getCode(), $ue);
         }
     }
 

@@ -51,7 +51,7 @@ class Queue implements QueueContract
         try {
             return $this->queue->pop();
         } catch (UnderflowException $ue) {
-            throw new QueueEmptyException($ue->getMessage(), $ue->getCode(), $ue);
+            throw new QueueEmptyException($ue->getMessage(), (int)$ue->getCode(), $ue);
         }
     }
 
@@ -63,7 +63,7 @@ class Queue implements QueueContract
         try {
             return $this->queue->peek();
         } catch (UnderflowException $ue) {
-            throw new QueueEmptyException($ue->getMessage(), $ue->getCode(), $ue);
+            throw new QueueEmptyException($ue->getMessage(), (int)$ue->getCode(), $ue);
         }
     }
 

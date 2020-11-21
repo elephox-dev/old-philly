@@ -39,6 +39,12 @@ $args = new Queue($argv);
 // remove path to bin
 $args->dequeue();
 
+if ($args->isEmpty()) {
+    echo 'To see a list of available commands, please run the "list" command' . PHP_EOL;
+
+    exit(1);
+}
+
 // get first argument
 $commandString = $args->dequeue();
 
@@ -48,7 +54,7 @@ $command = $commands->first(function (CommandContract $command) use ($commandStr
 });
 
 if ($command === null) {
-    echo PHP_EOL . 'Unknown command: ' . $commandString . PHP_EOL;
+    echo 'Unknown command: ' . $commandString . PHP_EOL;
 
     exit(1);
 }
@@ -64,7 +70,7 @@ foreach ($args as $arg) {
 $result = $command->handle($arguments);
 
 if (!$result->isSuccess()) {
-    echo PHP_EOL . 'Command was not successful.' . PHP_EOL;
+    echo 'Command was not successful.' . PHP_EOL;
 
     if (($throwable = $result->getThrowable()) !== null) {
         echo $throwable->getMessage() . PHP_EOL;

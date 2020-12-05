@@ -33,7 +33,7 @@
     }
   },
   "bin": [
-    "bin/philly.php"
+    "bin/philly"
   ],
   "scripts": {
     "test": "phpunit --configuration=phpunit.xml.dist --coverage-text",

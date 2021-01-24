@@ -193,4 +193,19 @@ class ContainerTest extends TestCase
 
         static::assertCount(0, $container);
     }
+
+    public function testIsEmpty()
+    {
+        $container = new TestContainer();
+
+        static::assertTrue($container->isEmpty());
+
+        $container[TestInterface::class] = new TestClass();
+
+        static::assertFalse($container->isEmpty());
+
+        $container->clear();
+
+        static::assertTrue($container->isEmpty());
+    }
 }

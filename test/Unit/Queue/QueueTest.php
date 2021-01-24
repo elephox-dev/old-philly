@@ -59,4 +59,39 @@ class QueueTest extends TestCase
         static::expectException(QueueEmptyException::class);
         $queue->tail();
     }
+
+    public function testIsEmpty()
+    {
+        $queue = new Queue();
+
+        static::assertTrue($queue->isEmpty());
+        static::assertCount(0, $queue);
+
+        $queue->enqueue(1);
+
+        static::assertFalse($queue->isEmpty());
+        static::assertCount(1, $queue);
+    }
+
+    public function testClear()
+    {
+        $queue = new Queue([1]);
+
+        static::assertCount(1, $queue);
+
+        $queue->clear();
+
+        static::assertCount(0, $queue);
+    }
+
+    public function testJsonSerialize()
+    {
+        $queue = new Queue([1, 2]);
+
+        $json_enc = json_encode($queue, $queue->jsonOptions());
+        $json_as = $queue->asJson();
+
+        static::assertEquals("[1,2]", $json_enc);
+        static::assertEquals($json_enc, $json_as);
+    }
 }

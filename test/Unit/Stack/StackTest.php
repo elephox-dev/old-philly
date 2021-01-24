@@ -72,7 +72,7 @@ class StackTest extends TestCase
         $stack->peek();
     }
 
-    public function testIsEmpty()
+    public function testIsEmptyAndClear()
     {
         $stack = new Stack();
         $instance = new TestClass();
@@ -82,6 +82,11 @@ class StackTest extends TestCase
         static::assertFalse($stack->isEmpty());
 
         $stack->pop();
+
+        static::assertTrue($stack->isEmpty());
+
+        $stack->push($instance);
+        $stack->clear();
 
         static::assertTrue($stack->isEmpty());
     }

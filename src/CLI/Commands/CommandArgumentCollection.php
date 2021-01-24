@@ -12,7 +12,8 @@ use Philly\Contracts\CLI\Commands\CommandArgumentTemplateCollection as CommandAr
 
 class CommandArgumentCollection extends CommandArgumentTemplateCollection implements CommandArgumentCollectionContract
 {
-    public static function fromArray(CommandArgumentTemplateCollectionContract $argumentTemplateCollection, array $args = []): CommandArgumentCollectionContract {
+    public static function fromArray(CommandArgumentTemplateCollectionContract $argumentTemplateCollection, array $args = []): CommandArgumentCollectionContract
+    {
         $collection = new CommandArgumentCollection();
 
         /** @var CommandArgumentTemplateContract $template */

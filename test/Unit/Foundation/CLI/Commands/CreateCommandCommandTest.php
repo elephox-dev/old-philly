@@ -63,10 +63,10 @@ class CreateCommandCommandTest extends TestCase
 
             $genSig = $c->getSignature();
             static::assertEquals("test$rand", $genSig->getName());
-
         } finally {
-            if ($fileLoc !== null && file_exists($fileLoc))
+            if ($fileLoc !== null && file_exists($fileLoc)) {
                 unlink($fileLoc);
+            }
         }
     }
 }

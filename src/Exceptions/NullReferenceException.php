@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Exceptions;
@@ -15,8 +16,9 @@ class NullReferenceException extends TypeError
 
     public function __construct($message = null, $code = 0, Throwable $previous = null, ?string $var_name = null)
     {
-        if ($message === null && $var_name !== null)
+        if ($message === null && $var_name !== null) {
             $message = "Variable \$$var_name was null.";
+        }
 
         parent::__construct($message, $code, $previous);
 

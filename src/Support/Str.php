@@ -109,10 +109,12 @@ class Str
 
     /**
      * Determine if a given string contains a given substring.
+     *
+     * @param string|string[] $needles
      */
-    public static function contains(string $haystack, string ...$needles): bool
+    public static function contains(string $haystack, $needles): bool
     {
-        foreach ($needles as $needle) {
+        foreach ((array)$needles as $needle) {
             if ($needle !== '' && mb_strpos($haystack, $needle) !== false) {
                 return true;
             }
@@ -137,11 +139,13 @@ class Str
 
     /**
      * Determine if a given string ends with a given substring.
+     *
+     * @param string|null|array<string|null> $needles
      */
-    public static function endsWith(string $haystack, string ...$needles): bool
+    public static function endsWith(string $haystack, $needles): bool
     {
-        foreach ($needles as $needle) {
-            if ($needle !== '' && str_ends_with($haystack, $needle)) {
+        foreach ((array)$needles as $needle) {
+            if ($needle !== null && $needle !== '' && str_ends_with($haystack, $needle)) {
                 return true;
             }
         }
@@ -431,11 +435,13 @@ class Str
 
     /**
      * Determine if a given string starts with a given substring.
+     *
+     * @param string|array<string|null> $needles
      */
-    #[Pure] public static function startsWith(string $haystack, string ...$needles): bool
+    #[Pure] public static function startsWith(string $haystack, $needles): bool
     {
-        foreach ($needles as $needle) {
-            if ($needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0) {
+        foreach ((array)$needles as $needle) {
+            if ($needle !== null && $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0) {
                 return true;
             }
         }

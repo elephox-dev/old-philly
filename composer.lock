@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6600e3949278aa74a22ec45e8b336621",
+    "content-hash": "30c90c573e9aa0acee8a3c19788b3a63",
     "packages": [
+        {
+            "name": "jetbrains/phpstorm-attributes",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JetBrains/phpstorm-attributes.git",
+                "reference": "a7a83ae5df4dd3c0875484483de19de8edf60a9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JetBrains/phpstorm-attributes/zipball/a7a83ae5df4dd3c0875484483de19de8edf60a9f",
+                "reference": "a7a83ae5df4dd3c0875484483de19de8edf60a9f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JetBrains\\PhpStorm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "JetBrains",
+                    "homepage": "https://www.jetbrains.com"
+                }
+            ],
+            "description": "PhpStorm specific attributes",
+            "keywords": [
+                "attributes",
+                "jetbrains",
+                "phpstorm"
+            ],
+            "support": {
+                "issues": "https://youtrack.jetbrains.com/newIssue?project=WI",
+                "source": "https://github.com/JetBrains/phpstorm-attributes/tree/1.0"
+            },
+            "time": "2020-11-17T11:09:47+00:00"
+        },
         {
             "name": "php-ds/php-ds",
             "version": "v1.3.0",
@@ -113,6 +155,46 @@
                 "source": "https://github.com/php-fig/container/tree/master"
             },
             "time": "2017-02-14T16:28:37+00:00"
+        },
+        {
+            "name": "ricardoboss/php-console-logger",
+            "version": "v1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ricardoboss/php-console-logger.git",
+                "reference": "1b27be47fe646f6d843b90a3662e61eea220b7f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ricardoboss/php-console-logger/zipball/1b27be47fe646f6d843b90a3662e61eea220b7f8",
+                "reference": "1b27be47fe646f6d843b90a3662e61eea220b7f8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^7.4|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ricardoboss\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ricardo Boss",
+                    "email": "contact@ricardoboss.de"
+                }
+            ],
+            "description": "A simple console logger for scripts or small applications.",
+            "support": {
+                "issues": "https://github.com/ricardoboss/php-console-logger/issues",
+                "source": "https://github.com/ricardoboss/php-console-logger/tree/v1.5"
+            },
+            "time": "2021-01-24T06:30:46+00:00"
         }
     ],
     "packages-dev": [

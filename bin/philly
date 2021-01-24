@@ -9,19 +9,7 @@ if (PHP_SAPI != 'cli') {
     exit(1);
 }
 
-$autoload = "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
-for ($i = 0; $i < 10 && realpath($autoload) === false; $i++) {
-    $autoload = ".." . DIRECTORY_SEPARATOR . $autoload;
-}
-
-if (realpath($autoload) === false) {
-    echo PHP_EOL . 'Could not find autoload.php' . PHP_EOL;
-
-    exit(1);
-}
-
-/** @noinspection PhpIncludeInspection */
-require $autoload;
+require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
 /******************************************************************************/
 
@@ -34,10 +22,9 @@ use Philly\Contracts\CLI\Commands\CommandArgumentTemplateCollection as CommandAr
 use Philly\Queue\Queue;
 use ricardoboss\Console;
 
-$app = App::inst();
-
 Console::info(Console::magenta("Philly") . Console::blue("CLI") . " v" . Console::bold(App::VERSION));
 
+$app = App::inst();
 $commands = $app->getCommands();
 
 $args = new Queue($argv);

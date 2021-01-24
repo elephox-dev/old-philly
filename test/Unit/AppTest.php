@@ -9,6 +9,7 @@ use Philly\Contracts\CLI\Commands\CommandCollection as CommandCollectionContract
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use PHPUnit\Framework\TestCase;
+use ricardoboss\Console;
 use test\Philly\TestApp;
 use test\Philly\TestClass;
 
@@ -54,7 +55,7 @@ class AppTest extends TestCase
         $commands2 = $app->getCommands();
 
         static::assertSame($commands, $commands2);
-        static::assertCount(1, $commands);
+        static::assertGreaterThan(1, count($commands));
     }
 
     public function testGetInvalidExceptionHandler()
@@ -91,5 +92,15 @@ class AppTest extends TestCase
         static::expectException(UnacceptableTypeException::class);
 
         $app->getCommands();
+    }
+
+    public function testConsoleLogging()
+    {
+        TestApp::reset();
+        TestApp::inst();
+
+        static::assertTrue(Console::isOpen());
+
+        Console::default("test");
     }
 }

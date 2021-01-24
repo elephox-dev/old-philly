@@ -41,7 +41,7 @@ class CommandArgumentCollection extends CommandArgumentTemplateCollection implem
     public function getValue(string $key, $default = null)
     {
         /** @var CommandArgumentContract $arg */
-        $arg = parent::firstKey($key, null);
+        $arg = parent::firstKey($key);
 
         if ($arg === null) {
             return $default;

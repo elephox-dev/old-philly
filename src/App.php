@@ -12,8 +12,8 @@ use Philly\Contracts\CLI\Commands\CommandCollection as CommandCollectionContract
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
 use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Exceptions\ExceptionHandler;
-use Philly\Foundation\CLI\Commands\VersionCommand;
 use Philly\ServiceProvider\ServiceProviderContainer;
+use ricardoboss\Console;
 
 /**
  * Class App
@@ -45,6 +45,9 @@ class App extends BindingContainer implements AppContract
 
         // bind this app instance to its own class
         $this[AppContract::class] = $this;
+
+        // open console for logging
+        Console::open();
     }
 
     /**
@@ -88,7 +91,6 @@ class App extends BindingContainer implements AppContract
     {
         if (!$this->offsetExists(CommandCollectionContract::class)) {
             $this->offsetSet(CommandCollectionContract::class, new CommandCollection());
-            $this->registerDefaultCommands();
         }
 
         $commandCollection = $this->get(CommandCollectionContract::class);
@@ -98,11 +100,5 @@ class App extends BindingContainer implements AppContract
         }
 
         return $commandCollection;
-    }
-
-    private function registerDefaultCommands()
-    {
-        $commandCollection = $this->getCommands();
-        $commandCollection->add(new VersionCommand());
     }
 }

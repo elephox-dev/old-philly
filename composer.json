@@ -37,8 +37,8 @@
     "bin/philly"
   ],
   "scripts": {
-    "test": "phpunit --configuration=phpunit.xml.dist --coverage-text",
+    "test": "XDEBUG_MODE=coverage phpunit --configuration=phpunit.xml.dist --coverage-text",
     "stan": "psalm --config=psalm.xml.dist --output-format=github --shepherd",
-    "infect": "infection --configuration=infection.json.dist --no-progress"
+    "infect": "XDEBUG_MODE=coverage infection --configuration=infection.json.dist --no-progress"
   }
 }

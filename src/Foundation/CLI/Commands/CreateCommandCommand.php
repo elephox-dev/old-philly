@@ -5,7 +5,6 @@ namespace Philly\Foundation\CLI\Commands;
 
 use Exception;
 use JetBrains\PhpStorm\Pure;
-use Philly\App;
 use Philly\CLI\Commands\Command;
 use Philly\CLI\Commands\CommandArgumentTemplate;
 use Philly\CLI\Commands\CommandResult;
@@ -83,7 +82,7 @@ class CreateCommandCommand extends Command
             $signature = $this->generateSignature($name, $arg_names);
             $stub = Str::replaceAll('$STUB_COMMAND_SIGNATURE', $signature, $stub);
 
-            $filename = $destination . $classname . '.php';
+            $filename = Str::finish($destination, DIRECTORY_SEPARATOR) . $classname . '.php';
             $success = file_put_contents($filename, $stub);
 
             if ($success !== false)
@@ -117,7 +116,7 @@ class CreateCommandCommand extends Command
         $sig = "new CommandSignature(\n            \"$command\"";
 
         if (count($arg_names) > 0) {
-            $sig .= ",\n            [\n";
+            $sig .= ",\n            [";
 
             foreach ($arg_names as $arg) {
                 $sig .= "\n                new CommandArgumentTemplate(\"$arg\"),";

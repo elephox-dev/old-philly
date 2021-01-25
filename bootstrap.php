@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 $autoload = "vendor" . DIRECTORY_SEPARATOR . "autoload.php";

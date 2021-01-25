@@ -90,7 +90,15 @@ class CreateCommandCommand extends Command
             $signature = $this->generateSignature($name, $arg_names);
             $stub = Str::replaceAll('$STUB_COMMAND_SIGNATURE', $signature, $stub);
 
-            $success = $this->files["app-root"]->putContents($filename, $stub, false);
+            if (Str::isAbsolutePath($filename)) {
+                if (realpath($filename) !== false) {
+                    return CommandResult::fail(new FileNotCreatedException("File at $filename already exists"));
+                }
+
+                $success = false !== file_put_contents($filename, $stub);
+            } else {
+                $success = $this->files["app-root"]->putContents($filename, $stub, overwrite: false);
+            }
 
             if ($success) {
                 Console::info("New command %s successfully generated at %s", Console::green($name), Console::link($filename));

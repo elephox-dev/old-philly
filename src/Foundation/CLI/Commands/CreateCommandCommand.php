@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Philly\Foundation\CLI\Commands;
 
-use Exception;
 use JetBrains\PhpStorm\Pure;
 use Philly\CLI\Commands\Command;
 use Philly\CLI\Commands\CommandArgumentTemplate;
@@ -83,12 +82,13 @@ class CreateCommandCommand extends Command
             $stub = Str::replaceAll('$STUB_COMMAND_SIGNATURE', $signature, $stub);
 
             $filename = Str::finish($destination, DIRECTORY_SEPARATOR) . $classname . '.php';
-            $success = file_put_contents($filename, $stub);
+            $success = @file_put_contents($filename, $stub);
 
-            if ($success !== false)
+            if ($success !== false) {
                 return CommandResult::success($filename);
+            }
 
-            return CommandResult::fail(new Exception("Failed to put contents for new command at $filename."));
+            return CommandResult::fail(new FileNotFoundException("Failed to put contents for new command at $filename."));
         } catch (FileNotFoundException $fileNotFoundException) {
             return CommandResult::fail($fileNotFoundException);
         } catch (NullReferenceException $nullReferenceException) {

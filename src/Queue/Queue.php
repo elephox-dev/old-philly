@@ -100,4 +100,18 @@ class Queue implements QueueContract
     {
         return $this->queue->jsonSerialize();
     }
+
+    public function copy(bool $deep = true): self
+    {
+        if (!$deep) {
+            return new self($this->queue->toArray());
+        }
+
+        $copy = new self();
+        foreach ($this->queue as $k => $v) {
+            $copy->queue[$k] = clone $v;
+        }
+
+        return $copy;
+    }
 }

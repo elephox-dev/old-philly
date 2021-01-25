@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Philly\Filesystem;
 
 
-use JetBrains\PhpStorm\Pure;
 use Philly\Contracts\Filesystem\Filesystem as FilesystemContract;
 use Philly\Support\Str;
 
@@ -95,7 +94,8 @@ class Filesystem implements FilesystemContract
         if (file_exists($dirs))
             return true;
 
-        $success = @mkdir($dirs, recursive: true);
+        // TODO: use default permissions once https://github.com/vimeo/psalm/issues/4631 is fixed, otherwise psalm reports an error
+        $success = @mkdir($dirs, 0777, recursive: true);
         if (!$success && $throw) {
             throw new FileNotCreatedException("Unable to create directories: $dirs");
         }

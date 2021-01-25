@@ -157,7 +157,7 @@ class CreateCommandCommandTest extends TestCase
                 [
                     'name' => "test$rand",
                     'dest' => $tmp,
-                    'stub' => null
+                    'stub' => ''
                 ]
             )
         );

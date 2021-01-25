@@ -19,17 +19,20 @@ use Philly\CLI\Commands\CommandArgumentCollection;
 use Philly\Contracts\CLI\Commands\Command as CommandContract;
 use Philly\Contracts\CLI\Commands\CommandArgumentTemplate as CommandArgumentTemplateContract;
 use Philly\Contracts\CLI\Commands\CommandArgumentTemplateCollection as CommandArgumentTemplateCollectionContract;
+use Philly\Contracts\Filesystem\FilesService;
 use Philly\Queue\Queue;
 use ricardoboss\Console;
 
 Console::info(Console::magenta("Philly") . Console::blue("CLI") . " v" . Console::bold(App::VERSION));
 
 $app = App::inst();
-$commands = $app->getCommands();
+
+// store current dir as app root
+$app[FilesService::class]->add('app-root', getcwd());
 
 $args = new Queue($argv);
 
-// remove path to bin
+// path to bin
 $args->dequeue();
 
 if ($args->isEmpty()) {
@@ -42,10 +45,12 @@ if ($args->isEmpty()) {
     $commandString = $args->dequeue();
 }
 
-/** @var CommandContract $command */
-$command = $commands->first(function (CommandContract $command) use ($commandString) {
-    return $commandString === $command->getSignature()->getName();
-});
+/** @var CommandContract|null $command */
+$command = $app
+        ->getCommands()
+        ->first(function (CommandContract $command) use ($commandString) {
+            return $commandString === $command->getSignature()->getName();
+        });
 
 if ($command === null) {
     Console::error('Unknown command: %s', $commandString);

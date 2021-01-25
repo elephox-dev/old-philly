@@ -164,4 +164,21 @@ class Container extends Storage implements ContainerContract
 
         return $default;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function copy(bool $deep = true): ContainerContract
+    {
+        if (!$deep) {
+            return new self($this->storage);
+        }
+
+        $copy = new self();
+        foreach ($this->storage as $k => $v) {
+            $copy->storage[$k] = clone $v;
+        }
+
+        return $copy;
+    }
 }

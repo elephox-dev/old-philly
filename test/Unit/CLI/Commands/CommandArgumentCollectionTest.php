@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace test\Philly\Unit\CLI\Commands;
 
+use InvalidArgumentException;
 use Philly\CLI\Commands\CommandArgument;
 use Philly\CLI\Commands\CommandArgumentCollection;
 use Philly\CLI\Commands\CommandArgumentTemplate;
@@ -39,5 +40,19 @@ class CommandArgumentCollectionTest extends TestCase
         );
 
         static::assertCount(2, $collection);
+    }
+
+    public function testInvalidFromArray()
+    {
+        $s = TestCommand::makeSignature();
+
+        static::expectException(InvalidArgumentException::class);
+
+        CommandArgumentCollection::fromArray(
+            $s->getArguments(),
+            [
+                'invalid' => null,
+            ]
+        );
     }
 }

@@ -117,11 +117,13 @@ class App extends BindingContainer implements AppContract
      */
     public function offsetGet($offset)
     {
-        if ($this->offsetExists($offset))
+        if ($this->offsetExists($offset)) {
             return parent::offsetGet($offset);
+        }
 
-        if ($this->getServices()->offsetExists($offset))
+        if ($this->getServices()->offsetExists($offset)) {
             return $this->getServices()->offsetGet($offset);
+        }
 
         throw new InvalidArgumentException("Service of type $offset not found in app container.");
     }

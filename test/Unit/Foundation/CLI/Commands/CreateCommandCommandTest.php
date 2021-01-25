@@ -7,6 +7,7 @@ namespace test\Philly\Unit\Foundation\CLI\Commands;
 use Philly\CLI\Commands\Command;
 use Philly\CLI\Commands\CommandArgumentCollection;
 use Philly\Exceptions\NullReferenceException;
+use Philly\Filesystem\FileNotCreatedException;
 use Philly\Filesystem\FileNotFoundException;
 use Philly\Foundation\CLI\Commands\CreateCommandCommand;
 use PHPUnit\Framework\TestCase;
@@ -224,13 +225,13 @@ class CreateCommandCommandTest extends TestCase
                 $cmd->getSignature()->getArguments(),
                 [
                     'name' => "test$rand",
-                    'dest' => "NO_DRIVE/",
+                    'dest' => "_:NO_DRIVE/",
                 ]
             )
         );
 
         static::assertFalse($r->isSuccess());
-        static::assertInstanceOf(FileNotFoundException::class, $r->getThrowable());
+        static::assertInstanceOf(FileNotCreatedException::class, $r->getThrowable());
         static::assertNull($r->getValue());
     }
 }

@@ -55,8 +55,9 @@ class ServiceProviderContainer extends BindingContainer implements ServiceProvid
      */
     public function boot(): void
     {
-        if ($this->booted || $this->booting)
-            throw new AlreadyBootedException("Service provider container ".__CLASS__." was already booted.");
+        if ($this->booted || $this->booting) {
+            throw new AlreadyBootedException("Service provider container " . __CLASS__ . " was already booted.");
+        }
 
         $this->booting = true;
 

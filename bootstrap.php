@@ -18,5 +18,11 @@ require $autoload;
 
 /******************************************************************************/
 
+use Philly\App;
+use Philly\Contracts\Filesystem\FilesService;
+
 // instantiate App container
-Philly\App::inst();
+$app = App::inst();
+
+// store current dir as app root
+$app[FilesService::class]->add('app-root', getcwd());

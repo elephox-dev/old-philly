@@ -16,7 +16,6 @@ use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProvider
 use Philly\Exceptions\ExceptionHandler;
 use Philly\Filesystem\FilesService;
 use Philly\ServiceProvider\ServiceProviderContainer;
-use ricardoboss\Console;
 
 /**
  * Class App
@@ -48,9 +47,6 @@ class App extends BindingContainer implements AppContract
 
         // bind this app instance to its own class
         $this[AppContract::class] = $this;
-
-        // open console for logging
-        Console::open();
     }
 
     /**

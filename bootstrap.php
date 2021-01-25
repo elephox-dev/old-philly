@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 $autoload = "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
@@ -20,9 +19,16 @@ require $autoload;
 
 use Philly\App;
 use Philly\Contracts\Filesystem\FilesService;
+use ricardoboss\Console;
+
+// open console for logging
+Console::open();
+Console::debug("Bootstrapping application...");
 
 // instantiate App container
 $app = App::inst();
 
 // store current dir as app root
 $app[FilesService::class]->add('app-root', getcwd());
+
+Console::debug("Bootstrapped application");

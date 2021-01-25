@@ -94,7 +94,7 @@ class Filesystem implements FilesystemContract
         if (file_exists($dirs))
             return true;
 
-        $success = mkdir($dirs, recursive: true);
+        $success = @mkdir($dirs, recursive: true);
         if (!$success && $throw) {
             throw new FileNotCreatedException("Unable to create directories: $dirs");
         }

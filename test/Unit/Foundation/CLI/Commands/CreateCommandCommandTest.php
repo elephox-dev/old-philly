@@ -18,7 +18,7 @@ class CreateCommandCommandTest extends TestCase
         static::assertEquals("create:command", $cmd->getSignature()->getName());
     }
 
-    public function testHandleSuccess()
+    public function testHandleRandomName()
     {
         $fileLoc = null;
 

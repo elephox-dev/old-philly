@@ -271,7 +271,8 @@ class StrTest extends TestCase
         static::assertSame($expected, Str::limit($text));
     }
 
-    public function testLimitTrim() {
+    public function testLimitTrim()
+    {
         $string = 'The PHP framework for web artisans.';
         static::assertSame('The PHP...', Str::limit($string, 8));
     }

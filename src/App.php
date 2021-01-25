@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Philly;
 
+use InvalidArgumentException;
 use Philly\CLI\Commands\CommandCollection;
 use Philly\Container\BindingContainer;
 use Philly\Container\UnacceptableTypeException;
 use Philly\Contracts\App as AppContract;
 use Philly\Contracts\CLI\Commands\CommandCollection as CommandCollectionContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
+use Philly\Contracts\Filesystem\FilesService as FilesServiceContract;
 use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProviderContainerContract;
 use Philly\Exceptions\ExceptionHandler;
+use Philly\Filesystem\FilesService;
 use Philly\ServiceProvider\ServiceProviderContainer;
 use ricardoboss\Console;
 
@@ -74,7 +77,14 @@ class App extends BindingContainer implements AppContract
     {
         $serviceContainer = $this->getLazySingleton(
             ServiceProviderContainerContract::class,
-            fn () => new ServiceProviderContainer()
+            function () {
+                $serviceContainer = new ServiceProviderContainer();
+
+                // register base services
+                $serviceContainer[FilesServiceContract::class] = new FilesService();
+
+                return $serviceContainer;
+            }
         );
 
         if (!($serviceContainer instanceof ServiceProviderContainerContract)) {

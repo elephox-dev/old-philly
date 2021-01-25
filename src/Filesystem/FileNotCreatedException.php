@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Philly\Exceptions;
+namespace Philly\Filesystem;
 
 use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 /**
- * Class FileNotFoundException.
+ * Class FileNotCreatedException.
  */
-class FileNotFoundException extends FilesystemException
+class FileNotCreatedException extends FilesystemException
 {
     protected ?string $path;
 
@@ -17,9 +17,9 @@ class FileNotFoundException extends FilesystemException
     {
         if ($message === null) {
             if ($path === null) {
-                $message = "File not found.";
+                $message = "File could not be created.";
             } else {
-                $message = "File at $path not found.";
+                $message = "File at $path could not be created.";
             }
         }
 

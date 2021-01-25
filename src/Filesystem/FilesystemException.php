@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Philly\Exceptions;
+namespace Philly\Filesystem;
 
 use Exception;
 use JetBrains\PhpStorm\Pure;

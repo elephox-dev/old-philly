@@ -44,9 +44,9 @@ class Filesystem implements FilesystemContract
     /**
      * @inheritDoc
      */
-    #[Pure] public function exists(string $path): bool
+    public function exists(string $path): bool
     {
-        return file_exists($this->root . $path);
+        return is_file($this->root . $path);
     }
 
     /**

@@ -103,7 +103,7 @@ class CreateCommandCommand extends Command
             if ($success) {
                 Console::info("New command %s successfully generated at %s", Console::green($name), Console::link($filename));
 
-                return CommandResult::success();
+                return CommandResult::success($filename);
             }
 
             return CommandResult::fail(new FileNotFoundException("Failed to put contents for new command at $filename."));

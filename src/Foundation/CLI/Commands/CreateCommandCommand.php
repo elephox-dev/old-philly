@@ -114,19 +114,15 @@ class CreateCommandCommand extends Command
 
     #[Pure] private function generateSignature(string $command, array $arg_names): string {
         $sig = "new CommandSignature(\n            \"$command\"";
+        $sig .= ",\n            [";
 
-        if (count($arg_names) > 0) {
-            $sig .= ",\n            [";
-
-            foreach ($arg_names as $arg) {
-                $sig .= "\n                new CommandArgumentTemplate(\"$arg\"),";
-            }
-
-            $sig = Str::replaceLast(",", "", $sig);
-
-            $sig .= "\n            ]";
+        foreach ($arg_names as $arg) {
+            $sig .= "\n                new CommandArgumentTemplate(\"$arg\"),";
         }
 
+        $sig = Str::replaceLast(",", "", $sig);
+
+        $sig .= "\n            ]";
         $sig .= "\n    )";
 
         return $sig;

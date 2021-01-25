@@ -279,14 +279,6 @@ class Str
     }
 
     /**
-     * Parse a Class[@]method style callback into class and method.
-     */
-    public static function parseCallback(string $callback, ?string $default = null): array
-    {
-        return static::contains($callback, '@') ? explode('@', $callback, 2) : [$callback, $default];
-    }
-
-    /**
      * Generate a more truly "random" alpha-numeric string.
      */
     public static function random(int $length = 16): string
@@ -491,19 +483,5 @@ class Str
     public static function ucfirst(string $string): string
     {
         return static::upper(static::substr($string, 0, 1)) . static::substr($string, 1);
-    }
-
-    /**
-     * Split a string using a RegEx pattern.
-     */
-    #[Pure] public static function split(string $pattern, ?string $subject, ?int $count = null): ?array
-    {
-        if ($subject === null)
-            return null;
-
-        if ($count !== null)
-            return mb_split($pattern, $subject, $count);
-        else
-            return mb_split($pattern, $subject);
     }
 }

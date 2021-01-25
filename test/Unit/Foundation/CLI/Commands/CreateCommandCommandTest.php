@@ -6,8 +6,8 @@ namespace test\Philly\Unit\Foundation\CLI\Commands;
 
 use Philly\CLI\Commands\Command;
 use Philly\CLI\Commands\CommandArgumentCollection;
-use Philly\Exceptions\FileNotFoundException;
 use Philly\Exceptions\NullReferenceException;
+use Philly\Filesystem\FileNotFoundException;
 use Philly\Foundation\CLI\Commands\CreateCommandCommand;
 use PHPUnit\Framework\TestCase;
 

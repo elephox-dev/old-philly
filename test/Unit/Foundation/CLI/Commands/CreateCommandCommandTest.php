@@ -118,7 +118,8 @@ class CreateCommandCommandTest extends TestCase
         }
     }
 
-    public function testHandleInvalidStub() {
+    public function testHandleInvalidStub()
+    {
         $cmd = new CreateCommandCommand();
         $tmp = sys_get_temp_dir();
 
@@ -141,7 +142,8 @@ class CreateCommandCommandTest extends TestCase
         static::assertNull($r->getValue());
     }
 
-    public function testHandleNoStub() {
+    public function testHandleNoStub()
+    {
         $cmd = new CreateCommandCommand();
         $tmp = sys_get_temp_dir();
 
@@ -164,7 +166,8 @@ class CreateCommandCommandTest extends TestCase
         static::assertNull($r->getValue());
     }
 
-    public function testHandleEmptyArgs() {
+    public function testHandleEmptyArgs()
+    {
         $fileLoc = null;
 
         try {

@@ -8,6 +8,7 @@ use Philly\Contracts\Container\Container as ContainerContract;
 use Philly\Contracts\Filesystem\FilesService as FilesServiceContract;
 use Philly\Contracts\Filesystem\Filesystem as FilesystemContract;
 use Philly\ServiceProvider\ServiceProvider;
+use ricardoboss\Console;
 
 class FilesService extends ServiceProvider implements FilesServiceContract
 {
@@ -55,6 +56,8 @@ class FilesService extends ServiceProvider implements FilesServiceContract
             $this->storage[$name] = $filesystem;
         else
             $this->storage[$name] = new Filesystem($name, $filesystem);
+
+        Console::debug("Added filesystem '$name' with root '{$this->storage[$name]->getRoot()}'");
     }
 
     public function offsetExists($offset): bool

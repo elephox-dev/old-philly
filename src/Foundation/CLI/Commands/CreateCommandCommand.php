@@ -93,7 +93,7 @@ class CreateCommandCommand extends Command
             $success = $this->files["app-root"]->putContents($filename, $stub, false);
 
             if ($success) {
-                Console::green("New command '$name' successfully generated at $filename");
+                Console::info("New command %s successfully generated at %s", Console::green($name), Console::link($filename));
 
                 return CommandResult::success();
             }
@@ -109,7 +109,7 @@ class CreateCommandCommand extends Command
      * @throws NullReferenceException
      */
 	private function loadStub(?string $path): string {
-	    if ($path === null)
+	    if ($path === null || strlen($path) == 0)
 	        throw new NullReferenceException(var_name: 'path');
 
 	    $p = realpath($path);

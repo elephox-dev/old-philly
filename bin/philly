@@ -19,16 +19,12 @@ use Philly\CLI\Commands\CommandArgumentCollection;
 use Philly\Contracts\CLI\Commands\Command as CommandContract;
 use Philly\Contracts\CLI\Commands\CommandArgumentTemplate as CommandArgumentTemplateContract;
 use Philly\Contracts\CLI\Commands\CommandArgumentTemplateCollection as CommandArgumentTemplateCollectionContract;
-use Philly\Contracts\Filesystem\FilesService;
 use Philly\Queue\Queue;
 use ricardoboss\Console;
 
 Console::info(Console::magenta("Philly") . Console::blue("CLI") . " v" . Console::bold(App::VERSION));
 
 $app = App::inst();
-
-// store current dir as app root
-$app[FilesService::class]->add('app-root', getcwd());
 
 $args = new Queue($argv);
 

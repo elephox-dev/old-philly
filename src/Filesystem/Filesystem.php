@@ -65,10 +65,11 @@ class Filesystem implements FilesystemContract
      */
     public function putContents(string $path, string $content, bool $overwrite = true): bool
     {
-        if ($this->exists($path) && !$overwrite)
+        if ($this->exists($path) && !$overwrite) {
             throw new FileExistsException(path: $this->root . $path);
-
-        $this->makeDirs($path);
+        } elseif (!$overwrite) {
+            $this->makeDirs($path);
+        }
 
         $full = $this->root . $path;
 

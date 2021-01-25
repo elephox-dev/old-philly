@@ -14,12 +14,12 @@ class StrTest extends TestCase
         static::assertSame('Taylor...', Str::words('Taylor Otwell', 1));
         static::assertSame('Taylor___', Str::words('Taylor Otwell', 1, '___'));
         static::assertSame('Taylor Otwell', Str::words('Taylor Otwell', 3));
-    }
 
-    public function testStringTrimmedOnlyWhereNecessary()
-    {
-        static::assertSame(' Taylor Otwell ', Str::words(' Taylor Otwell ', 3));
-        static::assertSame(' Taylor...', Str::words(' Taylor Otwell ', 1));
+        // test implicit limit of 100 words
+        $long_text = str_repeat("Test ", 100);
+        $longer_text = $long_text . "Testend";
+        $expect_text = rtrim($long_text) . "...";
+        static::assertSame($expect_text, Str::words($longer_text));
     }
 
     public function testStringTitle()
@@ -154,6 +154,8 @@ class StrTest extends TestCase
         static::assertFalse(Str::contains('taylor', ['xxx']));
         static::assertFalse(Str::contains('taylor', ''));
         static::assertFalse(Str::contains('', ''));
+        $mb_string = 'žščř';
+        static::assertTrue(Str::contains($mb_string, 'š'));
     }
 
     public function testStrContainsAll()
@@ -163,19 +165,17 @@ class StrTest extends TestCase
         static::assertFalse(Str::containsAll('taylor otwell', ['taylor', 'xxx']));
     }
 
-    public function testParseCallback()
-    {
-        static::assertEquals(['Class', 'method'], Str::parseCallback('Class@method', 'foo'));
-        static::assertEquals(['Class', 'foo'], Str::parseCallback('Class', 'foo'));
-        static::assertEquals(['Class', null], Str::parseCallback('Class'));
-    }
-
     public function testSlug()
     {
         static::assertSame('hello-world', Str::slug('hello world'));
         static::assertSame('hello-world', Str::slug('hello-world'));
         static::assertSame('hello-world', Str::slug('hello_world'));
+        static::assertSame('hello-world', Str::slug('-hello_world-'));
         static::assertSame('hello_world', Str::slug('hello_world', '_'));
+        static::assertSame('hello_world', Str::slug('_hello_world_', '_'));
+        static::assertSame('hello\'world', Str::slug('hello world', '\''));
+        static::assertSame('hellö\'world', Str::slug('hellö world', '\''));
+        static::assertSame('helloworld\'also', Str::slug('hello_world also', '\''));
         static::assertSame('user-at-host', Str::slug('user@host'));
         static::assertSame('sometext', Str::slug('some text', ''));
         static::assertSame('', Str::slug('', ''));
@@ -264,18 +264,32 @@ class StrTest extends TestCase
         $nonAsciiString = '这是一段中文';
         static::assertSame('这是一...', Str::limit($nonAsciiString, 6));
         static::assertSame('这是一', Str::limit($nonAsciiString, 6, ''));
+
+        // test implicit limit of 100
+        $text = str_repeat("test ", 30);
+        $expected = rtrim(substr($text, 0, 100)) . '...';
+        static::assertSame($expected, Str::limit($text));
+    }
+
+    public function testLimitTrim() {
+        $string = 'The PHP framework for web artisans.';
+        static::assertSame('The PHP...', Str::limit($string, 8));
     }
 
     public function testLength()
     {
         static::assertEquals(11, Str::length('foo bar baz'));
         static::assertEquals(11, Str::length('foo bar baz', 'UTF-8'));
+
+        $mb_string = 'žščř';
+        static::assertEquals(4, Str::length($mb_string));
+        static::assertEquals(4, Str::length($mb_string, 'UTF-8'));
     }
 
     public function testRandom()
     {
         static::assertEquals(16, strlen(Str::random()));
-        $randomInteger = random_int(1, 100);
+        $randomInteger = random_int(1, 1000);
         static::assertEquals($randomInteger, strlen(Str::random($randomInteger)));
         static::assertIsString(Str::random());
     }
@@ -383,6 +397,7 @@ class StrTest extends TestCase
     {
         static::assertSame(3, Str::substrCount('laravelPHPFramework', 'a'));
         static::assertSame(0, Str::substrCount('laravelPHPFramework', 'z'));
+        static::assertSame(2, Str::substrCount('laravelPHPFramework', 'l'));
         static::assertSame(1, Str::substrCount('laravelPHPFramework', 'l', 2));
         static::assertSame(0, Str::substrCount('laravelPHPFramework', 'z', 2));
         static::assertSame(1, Str::substrCount('laravelPHPFramework', 'k', -1));

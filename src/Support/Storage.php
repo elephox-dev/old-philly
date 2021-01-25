@@ -67,8 +67,9 @@ class Storage implements StorageContract
         }
 
         $copy = new self();
-        foreach ($this->storage as $k => $v)
+        foreach ($this->storage as $k => $v) {
             $copy->storage[$k] = clone $v;
+        }
 
         return $copy;
     }

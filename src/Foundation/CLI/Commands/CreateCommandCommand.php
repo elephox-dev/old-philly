@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Philly\Foundation\CLI\Commands;
 
 use JetBrains\PhpStorm\Pure;
+use Philly\App;
 use Philly\CLI\Commands\Command;
 use Philly\CLI\Commands\CommandArgumentTemplate;
 use Philly\CLI\Commands\CommandResult;
@@ -11,8 +12,11 @@ use Philly\CLI\Commands\CommandSignature;
 use Philly\Container\Collection;
 use Philly\Contracts\CLI\Commands\CommandArgumentCollection as CommandArgumentCollectionContract;
 use Philly\Contracts\CLI\Commands\CommandResult as CommandResultContract;
-use Philly\Exceptions\FileNotFoundException;
+use Philly\Contracts\Filesystem\FilesService;
 use Philly\Exceptions\NullReferenceException;
+use Philly\Filesystem\FileExistsException;
+use Philly\Filesystem\FileNotCreatedException;
+use Philly\Filesystem\FileNotFoundException;
 use Philly\Support\Str;
 use ricardoboss\Console;
 
@@ -21,18 +25,22 @@ use ricardoboss\Console;
  */
 class CreateCommandCommand extends Command
 {
+    private FilesService $files;
+
     public function __construct()
     {
+        $this->files = App::inst()[FilesService::class];
+
         parent::__construct(new CommandSignature(
             "create:command",
             [
                 new CommandArgumentTemplate("name"),
                 new CommandArgumentTemplate("short", optional: true),
                 new CommandArgumentTemplate("args", optional: true),
-                new CommandArgumentTemplate("namespace", optional: true, default: "App\\CLI\\Commands"),
+                new CommandArgumentTemplate("namespace", optional: true, default: "CLI\\Commands"),
                 new CommandArgumentTemplate("classname", optional: true),
-                new CommandArgumentTemplate("stub", optional: true, default: __DIR__."/stubs/Command.php.stub"),
-                new CommandArgumentTemplate("dest", optional: true, default: "src/App/CLI/Commands/")
+                new CommandArgumentTemplate("stub", optional: true),
+                new CommandArgumentTemplate("dest", optional: true, default: "app/CLI/Commands/")
             ]
         ));
     }
@@ -64,12 +72,13 @@ class CreateCommandCommand extends Command
         Console::debug("Classname: %s", $classname);
 
         /** @var string $stub_path */
-        $stub_path = $args->getValue("stub");
+        $stub_path = $args->getValue("stub") ?? $this->files["philly-command-stubs"]->real("Command.php.stub");
         Console::debug("Stub path: %s", $stub_path);
 
         /** @var string $destination */
         $destination = $args->getValue("dest");
-        Console::debug("Destination: %s", $destination);
+        $filename = $destination . "$classname.php";
+        Console::debug("Destination: %s", $filename);
 
         try {
             $stub = $this->loadStub($stub_path);
@@ -81,18 +90,17 @@ class CreateCommandCommand extends Command
             $signature = $this->generateSignature($name, $arg_names);
             $stub = Str::replaceAll('$STUB_COMMAND_SIGNATURE', $signature, $stub);
 
-            $filename = Str::finish($destination, DIRECTORY_SEPARATOR) . $classname . '.php';
-            $success = @file_put_contents($filename, $stub);
+            $success = $this->files["app-root"]->putContents($filename, $stub, false);
 
-            if ($success !== false) {
-                return CommandResult::success($filename);
+            if ($success) {
+                Console::green("New command '$name' successfully generated at $filename");
+
+                return CommandResult::success();
             }
 
             return CommandResult::fail(new FileNotFoundException("Failed to put contents for new command at $filename."));
-        } catch (FileNotFoundException $fileNotFoundException) {
-            return CommandResult::fail($fileNotFoundException);
-        } catch (NullReferenceException $nullReferenceException) {
-            return CommandResult::fail($nullReferenceException);
+        } catch (FileNotFoundException | FileNotCreatedException | FileExistsException | NullReferenceException $e) {
+            return CommandResult::fail($e);
         }
     }
 
@@ -113,17 +121,13 @@ class CreateCommandCommand extends Command
     }
 
     #[Pure] private function generateSignature(string $command, array $arg_names): string {
-        $sig = "new CommandSignature(\n            \"$command\"";
-        $sig .= ",\n            [";
+        $sig = "new CommandSignature(\n            \"$command\",\n            [";
 
         foreach ($arg_names as $arg) {
             $sig .= "\n                new CommandArgumentTemplate(\"$arg\"),";
         }
 
-        $sig = Str::replaceLast(",", "", $sig);
-
-        $sig .= "\n            ]";
-        $sig .= "\n    )";
+        $sig .= "\n            ]\n        )";
 
         return $sig;
     }

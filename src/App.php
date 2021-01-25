@@ -100,7 +100,7 @@ class App extends BindingContainer implements AppContract
     public function getCommands(): CommandCollectionContract
     {
         if (!$this->offsetExists(CommandCollectionContract::class)) {
-            $this->offsetSet(CommandCollectionContract::class, new CommandCollection());
+            $this[CommandCollectionContract::class] = new CommandCollection();
         }
 
         $commandCollection = $this->get(CommandCollectionContract::class);
@@ -110,5 +110,19 @@ class App extends BindingContainer implements AppContract
         }
 
         return $commandCollection;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        if ($this->offsetExists($offset))
+            return parent::offsetGet($offset);
+
+        if ($this->getServices()->offsetExists($offset))
+            return $this->getServices()->offsetGet($offset);
+
+        throw new InvalidArgumentException("Service of type $offset not found in app container.");
     }
 }

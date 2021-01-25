@@ -76,7 +76,7 @@ class CreateCommandCommand extends Command
 
         /** @var string $destination */
         $destination = $args->getValue("dest");
-        $filename = $destination . "$classname.php";
+        $filename = Str::finish($destination, DIRECTORY_SEPARATOR) . "$classname.php";
         Console::debug("Destination: %s", $filename);
 
         try {

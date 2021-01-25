@@ -484,4 +484,35 @@ class Str
     {
         return static::upper(static::substr($string, 0, 1)) . static::substr($string, 1);
     }
+
+    /**
+     * Determines whether a given path is rooted.
+     */
+    public static function isAbsolutePath(string $path): bool
+    {
+        // Path can NOT have non-printable characters or be empty
+        if (!ctype_print($path)) {
+            return false;
+        }
+
+        // Optional wrapper(s).
+        $regExp = '%^(?<wrappers>(?:[[:print:]]{2,}://)*)';
+
+        // Optional root prefix.
+        $regExp .= '(?<root>(?:[[:alpha:]]:[\/\\\\]|\/)?)';
+
+        // Actual path.
+        $regExp .= '(?<path>[[:print:]]*)$%';
+
+        $parts = [];
+        if (!preg_match($regExp, $path, $parts)) {
+            return false;
+        }
+
+        if ($parts['root'] === '') {
+            return false;
+        }
+
+        return true;
+    }
 }

@@ -21,12 +21,10 @@ class FilesService extends ServiceProvider implements FilesServiceContract
 
     /**
      * @inheritDoc
-     * @throws FileNotFoundException
      */
     public function onRegistered(): void
     {
         $this->add('philly-root', dirname(__DIR__, 2));
-        $this->add('philly-command-stubs', $this->get('philly-root')->real("src/Foundation/CLI/Commands/stubs/"));
 
         parent::onRegistered();
     }
@@ -60,21 +58,33 @@ class FilesService extends ServiceProvider implements FilesServiceContract
         Console::debug("Added filesystem '$name' with root '{$this->storage[$name]->getRoot()}'");
     }
 
+    /**
+     * @inheritDoc
+     */
     public function offsetExists($offset): bool
     {
         return $this->storage->offsetExists($offset);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function offsetSet($offset, $value)
     {
         $this->storage->offsetSet($offset, $value);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function offsetUnset($offset)
     {
         $this->storage->offsetUnset($offset);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function offsetGet($offset)
     {
         return $this->storage->offsetGet($offset);

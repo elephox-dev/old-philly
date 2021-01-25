@@ -68,11 +68,10 @@ class CreateCommandCommand extends Command
         $classname = $args->getValue("classname") ?? ucfirst(Str::camel($name));
         if (!Str::endsWith($classname, "Command"))
             $classname .= "Command";
-
         Console::debug("Classname: %s", $classname);
 
         /** @var string $stub_path */
-        $stub_path = $args->getValue("stub") ?? $this->files["philly-command-stubs"]->real("Command.php.stub");
+        $stub_path = $args->getValue("stub") ?? $this->files["philly-root"]->real("src/Foundation/CLI/Commands/stubs/Command.php.stub");
         Console::debug("Stub path: %s", $stub_path);
 
         /** @var string $destination */

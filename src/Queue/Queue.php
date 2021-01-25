@@ -81,26 +81,41 @@ class Queue implements QueueContract
         return $value;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isEmpty(): bool
     {
         return $this->queue->isEmpty();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function count(): int
     {
         return $this->queue->count();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function clear(): void
     {
         $this->queue->clear();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function jsonSerialize()
     {
         return $this->queue->jsonSerialize();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function copy(bool $deep = true): self
     {
         if (!$deep) {

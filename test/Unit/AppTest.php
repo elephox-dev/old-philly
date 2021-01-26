@@ -73,7 +73,7 @@ class AppTest extends TestCase
         try {
             $app = TestApp::inst();
 
-            $app->bind(ExceptionHandlerContract::class, fn() => new TestClass(), true);
+            $app->bind(ExceptionHandlerContract::class, fn () => new TestClass(), true);
 
             static::expectException(UnacceptableTypeException::class);
 
@@ -88,7 +88,7 @@ class AppTest extends TestCase
         try {
             $app = TestApp::inst();
 
-            $app->bind(ServiceProviderContainerContract::class, fn() => new TestClass(), true);
+            $app->bind(ServiceProviderContainerContract::class, fn () => new TestClass(), true);
 
             static::expectException(UnacceptableTypeException::class);
 
@@ -103,7 +103,7 @@ class AppTest extends TestCase
         try {
             $app = TestApp::inst();
 
-            $app->bind(CommandCollectionContract::class, fn() => new TestClass(), true);
+            $app->bind(CommandCollectionContract::class, fn () => new TestClass(), true);
 
             static::expectException(UnacceptableTypeException::class);
 
@@ -119,7 +119,7 @@ class AppTest extends TestCase
             $app = TestApp::inst();
 
             // register service provider in services
-            $app->getServices()->bind(TestServiceProvider::class, fn() => new TestServiceProvider());
+            $app->getServices()->bind(TestServiceProvider::class, fn () => new TestServiceProvider());
 
             // use app to access app services as well as the service container
             $appService = $app[ServiceProviderContainerContract::class];

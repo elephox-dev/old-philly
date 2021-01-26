@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Filesystem;
@@ -50,10 +51,11 @@ class FilesService extends ServiceProvider implements FilesServiceContract
      */
     public function add(string $name, string|FilesystemContract $filesystem): void
     {
-        if ($filesystem instanceof FilesystemContract)
+        if ($filesystem instanceof FilesystemContract) {
             $this->storage[$name] = $filesystem;
-        else
+        } else {
             $this->storage[$name] = new Filesystem($name, $filesystem);
+        }
 
         Console::debug("Added filesystem '$name' with root '{$this->storage[$name]->getRoot()}'");
     }

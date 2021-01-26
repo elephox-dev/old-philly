@@ -209,7 +209,8 @@ class ContainerTest extends TestCase
         static::assertTrue($container->isEmpty());
     }
 
-    public function testCopy() {
+    public function testCopy()
+    {
         $a = new TestClass();
 
         $container = new TestContainer([

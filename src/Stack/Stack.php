@@ -102,12 +102,12 @@ class Stack implements StackContract
     public function copy(bool $deep = true): self
     {
         if (!$deep) {
-            return new self($this->stack->toArray());
+            return new self(array_reverse($this->stack->toArray()));
         }
 
         $copy = new self();
-        foreach ($this->stack as $k => $v) {
-            $copy->stack[$k] = clone $v;
+        foreach (array_reverse($this->stack->toArray()) as $item) {
+            $copy->stack[] = clone $item;
         }
 
         return $copy;

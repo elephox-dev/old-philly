@@ -84,7 +84,7 @@ class App extends BindingContainer implements AppContract
         );
 
         if (!($serviceContainer instanceof ServiceProviderContainerContract)) {
-            throw new UnacceptableTypeException("Invalid service provider container type!");
+            throw new UnacceptableTypeException(sprintf("Invalid service provider container type: %s!", get_class($serviceContainer)));
         }
 
         return $serviceContainer;

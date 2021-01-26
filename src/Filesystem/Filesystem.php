@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Philly\Filesystem;
 
-
 use Philly\Contracts\Filesystem\Filesystem as FilesystemContract;
 use Philly\Support\Str;
 
@@ -53,8 +52,9 @@ class Filesystem implements FilesystemContract
      */
     public function getContents(string $path): string
     {
-        if (!$this->exists($path))
+        if (!$this->exists($path)) {
             throw new FileNotFoundException(path: $this->root . $path);
+        }
 
         return file_get_contents($this->root . $path);
     }
@@ -73,8 +73,9 @@ class Filesystem implements FilesystemContract
         $full = $this->root . $path;
 
         $h = fopen($full, "w");
-        if ($h === false)
+        if ($h === false) {
             throw new FileNotCreatedException(path: $full);
+        }
 
         $result = fwrite($h, $content);
         fclose($h);
@@ -91,8 +92,9 @@ class Filesystem implements FilesystemContract
     {
         $dirs = dirname($this->root . $path);
 
-        if (file_exists($dirs))
+        if (file_exists($dirs)) {
             return true;
+        }
 
         // TODO: use default permissions once https://github.com/vimeo/psalm/issues/4631 is fixed, otherwise psalm reports an error
         $success = @mkdir($dirs, 0777, recursive: true);
@@ -110,10 +112,11 @@ class Filesystem implements FilesystemContract
     {
         $real = realpath($this->root . $path);
 
-        if ($real === false && $throw)
+        if ($real === false && $throw) {
             throw new FileNotFoundException(path: $path);
-        elseif (!$throw)
+        } elseif (!$throw) {
             return null;
+        }
 
         return $real;
     }

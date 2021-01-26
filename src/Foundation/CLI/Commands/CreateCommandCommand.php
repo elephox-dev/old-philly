@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Philly\Foundation\CLI\Commands;
@@ -45,12 +46,12 @@ class CreateCommandCommand extends Command
         ));
     }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function handle(CommandArgumentCollectionContract $args): CommandResultContract
-	{
-	    /** @var string $name */
+    /**
+     * @inheritDoc
+     */
+    public function handle(CommandArgumentCollectionContract $args): CommandResultContract
+    {
+        /** @var string $name */
         $name = $args->getValue('name');
         Console::debug("Command name: %s", $name);
 
@@ -60,14 +61,15 @@ class CreateCommandCommand extends Command
 
         /** @var string[] $arg_names */
         $arg_names = (new Collection(explode(",", $args->getValue("args") ?? "")))
-            ->where(fn($v) => strlen($v) > 0) // filter empty args
+            ->where(fn ($v) => strlen($v) > 0) // filter empty args
             ->asArray();
         Console::debug("Arg names: [%s]", implode(', ', $arg_names));
 
         /** @var string $classname */
         $classname = $args->getValue("classname") ?? ucfirst(Str::camel($name));
-        if (!Str::endsWith($classname, "Command"))
+        if (!Str::endsWith($classname, "Command")) {
             $classname .= "Command";
+        }
         Console::debug("Classname: %s", $classname);
 
         /** @var string $stub_path */
@@ -76,8 +78,9 @@ class CreateCommandCommand extends Command
 
         /** @var string $destination */
         $destination = $args->getValue("dest");
-        if (strlen($destination) == 0)
+        if (strlen($destination) == 0) {
             return CommandResult::fail(new FileNotCreatedException("Invalid destination: cannot be empty"));
+        }
 
         $filename = Str::finish($destination, DIRECTORY_SEPARATOR) . "$classname.php";
         Console::debug("Destination: %s", $filename);
@@ -118,19 +121,22 @@ class CreateCommandCommand extends Command
      * @throws FileNotFoundException
      * @throws NullReferenceException
      */
-	private function loadStub(?string $path): string {
-	    if ($path === null || strlen($path) == 0)
-	        throw new NullReferenceException(var_name: 'path');
+    private function loadStub(?string $path): string
+    {
+        if ($path === null || strlen($path) == 0) {
+            throw new NullReferenceException(var_name: 'path');
+        }
 
-	    $p = realpath($path);
-	    if ($p === false || !file_exists($p)) {
+        $p = realpath($path);
+        if ($p === false || !file_exists($p)) {
             throw new FileNotFoundException(path: $path);
         }
 
         return file_get_contents($path);
     }
 
-    #[Pure] private function generateSignature(string $command, array $arg_names): string {
+    #[Pure] private function generateSignature(string $command, array $arg_names): string
+    {
         $sig = "new CommandSignature(\n            \"$command\",\n            [";
 
         foreach ($arg_names as $arg) {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace test\Philly\Unit;
 
+use InvalidArgumentException;
 use Philly\Container\UnacceptableTypeException;
 use Philly\Contracts\CLI\Commands\CommandCollection as CommandCollectionContract;
 use Philly\Contracts\Exceptions\ExceptionHandler as ExceptionHandlerContract;
@@ -11,6 +12,7 @@ use Philly\Contracts\ServiceProvider\ServiceProviderContainer as ServiceProvider
 use PHPUnit\Framework\TestCase;
 use test\Philly\TestApp;
 use test\Philly\TestClass;
+use test\Philly\TestServiceProvider;
 
 class AppTest extends TestCase
 {

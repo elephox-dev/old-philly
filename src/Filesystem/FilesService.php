@@ -42,7 +42,7 @@ class FilesService extends ServiceProvider implements FilesServiceContract
      */
     public function get(string $name): FilesystemContract
     {
-        return $this->storage[$name];
+        return $this->storage->offsetGet($name);
     }
 
     /**

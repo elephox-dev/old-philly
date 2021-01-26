@@ -12,7 +12,7 @@ use Philly\CLI\Commands\CommandSignature;
 use Philly\Container\Collection;
 use Philly\Contracts\CLI\Commands\CommandArgumentCollection as CommandArgumentCollectionContract;
 use Philly\Contracts\CLI\Commands\CommandResult as CommandResultContract;
-use Philly\Contracts\Filesystem\FilesService;
+use Philly\Contracts\Filesystem\FilesService as FilesServiceContract;
 use Philly\Exceptions\NullReferenceException;
 use Philly\Filesystem\FileExistsException;
 use Philly\Filesystem\FileNotCreatedException;
@@ -25,11 +25,11 @@ use ricardoboss\Console;
  */
 class CreateCommandCommand extends Command
 {
-    private FilesService $files;
+    private FilesServiceContract $files;
 
     public function __construct()
     {
-        $this->files = App::inst()[FilesService::class];
+        $this->files = App::inst()->getServices()->get(FilesServiceContract::class);
 
         parent::__construct(new CommandSignature(
             "create:command",
@@ -76,6 +76,9 @@ class CreateCommandCommand extends Command
 
         /** @var string $destination */
         $destination = $args->getValue("dest");
+        if (strlen($destination) == 0)
+            return CommandResult::fail(new FileNotCreatedException("Invalid destination: cannot be empty"));
+
         $filename = Str::finish($destination, DIRECTORY_SEPARATOR) . "$classname.php";
         Console::debug("Destination: %s", $filename);
 

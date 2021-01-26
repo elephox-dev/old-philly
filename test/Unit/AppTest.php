@@ -110,4 +110,28 @@ class AppTest extends TestCase
             TestApp::reset();
         }
     }
+
+    public function testCombinedOffsetGet()
+    {
+        try {
+            $app = TestApp::inst();
+
+            // register service provider in services
+            $app->getServices()->bind(TestServiceProvider::class, fn() => new TestServiceProvider());
+
+            // use app to access app services as well as the service container
+            $appService = $app[ServiceProviderContainerContract::class];
+            $spService = $app[TestServiceProvider::class];
+
+            static::assertInstanceOf(ServiceProviderContainerContract::class, $appService);
+            static::assertInstanceOf(TestServiceProvider::class, $spService);
+
+            static::expectException(InvalidArgumentException::class);
+
+            // not bound service
+            $app[TestClass::class];
+        } finally {
+            TestApp::reset();
+        }
+    }
 }

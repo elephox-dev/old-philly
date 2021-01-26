@@ -34,8 +34,8 @@ The documentation for this framework can be seen at [philly.ricardoboss.de](http
         <td><img alt="PHPUnit Tests" src="https://github.com/ricardoboss/Philly/workflows/PHPUnit%20Tests/badge.svg"></td>
     </tr>
     <tr>
-        <td align="right"><a href="https://dashboard.stryker-mutator.io/reports/github.com/ricardoboss/Philly/main">Mutation Testing</a></td>
-        <td><img alt="Mutation Score" src="https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fricardoboss%2FPhilly%2Fmain"></td>
+        <td align="right"><a href="https://dashboard.stryker-mutator.io/reports/github.com/ricardoboss/Philly/develop">Mutation Testing</a></td>
+        <td><img alt="Mutation Score" src="https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fricardoboss%2FPhilly%2Fdevelop"></td>
     </tr>
     <tr>
         <td align="right"><a href="https://shepherd.dev/github/ricardoboss/philly">Static Analysis</a></td>

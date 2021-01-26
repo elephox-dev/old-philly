@@ -225,7 +225,7 @@ class CreateCommandCommandTest extends TestCase
                 $cmd->getSignature()->getArguments(),
                 [
                     'name' => "test$rand",
-                    'dest' => "_:NO_DRIVE/",
+                    'dest' => "",
                 ]
             )
         );

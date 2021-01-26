@@ -123,8 +123,8 @@ class Queue implements QueueContract
         }
 
         $copy = new self();
-        foreach ($this->queue as $k => $v) {
-            $copy->queue[$k] = clone $v;
+        foreach (array_reverse($this->queue->toArray()) as $item) {
+            $copy->queue[] = clone $item;
         }
 
         return $copy;

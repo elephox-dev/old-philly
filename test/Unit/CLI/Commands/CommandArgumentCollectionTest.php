@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Philly\CLI\Commands\CommandArgument;
 use Philly\CLI\Commands\CommandArgumentCollection;
 use Philly\CLI\Commands\CommandArgumentTemplate;
+use Philly\Container\OffsetNotFoundException;
 use Philly\Container\UnacceptableTypeException;
 use PHPUnit\Framework\TestCase;
 use test\Philly\TestCommand;
@@ -34,7 +35,7 @@ class CommandArgumentCollectionTest extends TestCase
             $s->getArguments(),
             [
                 'invalid' => null,
-                'fail' => true,
+                'f' => true,
                 'val' => null
             ]
         );
@@ -54,5 +55,14 @@ class CommandArgumentCollectionTest extends TestCase
                 'invalid' => null,
             ]
         );
+    }
+
+    public function testGetValueInvalidKey()
+    {
+        $collection = new CommandArgumentCollection();
+
+        static::expectException(OffsetNotFoundException::class);
+
+        $collection->getValue('invalid');
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Philly\CLI\Commands;
 
 use InvalidArgumentException;
+use Philly\Container\OffsetNotFoundException;
 use Philly\Contracts\CLI\Commands\CommandArgument as CommandArgumentContract;
 use Philly\Contracts\CLI\Commands\CommandArgumentCollection as CommandArgumentCollectionContract;
 use Philly\Contracts\CLI\Commands\CommandArgumentTemplate as CommandArgumentTemplateContract;
@@ -46,13 +47,13 @@ class CommandArgumentCollection extends CommandArgumentTemplateCollection implem
     /**
      * @inheritDoc
      */
-    public function getValue(string $key, $default = null)
+    public function getValue(string $key)
     {
         /** @var CommandArgumentContract $arg */
         $arg = parent::firstKey($key);
 
         if ($arg === null) {
-            return $default;
+            throw new OffsetNotFoundException($key);
         }
 
         return $arg->getValue();

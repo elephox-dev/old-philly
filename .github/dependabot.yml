@@ -8,6 +8,6 @@ updates:
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
-      interval: "mothly"
+      interval: "monthly"
     versioning-strategy: increase-if-necessary
     target-branch: "develop"

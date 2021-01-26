@@ -85,7 +85,7 @@ class Container extends Storage implements ContainerContract
                 $type = gettype($value);
             }
 
-            throw new UnacceptableTypeException($type);
+            throw new UnacceptableTypeException(type: $type);
         }
 
         if ($offset !== null) {

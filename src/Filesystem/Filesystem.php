@@ -96,8 +96,7 @@ class Filesystem implements FilesystemContract
             return true;
         }
 
-        // TODO: use default permissions once https://github.com/vimeo/psalm/issues/4631 is fixed, otherwise psalm reports an error
-        $success = @mkdir($dirs, 0777, recursive: true);
+        $success = @mkdir($dirs, recursive: true);
         if (!$success && $throw) {
             throw new FileNotCreatedException("Unable to create directories: $dirs");
         }

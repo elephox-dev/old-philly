@@ -435,6 +435,15 @@ class StrTest extends TestCase
         static::assertSame('Alien     ', Str::padRight('Alien', 10));
     }
 
+    public function testIsAbsolutePath()
+    {
+        static::assertTrue(Str::isAbsolutePath("C:\\Users\\ricardoboss\\test.txt"));
+        static::assertTrue(Str::isAbsolutePath("/home/ricardoboss/test.txt"));
+        static::assertFalse(Str::isAbsolutePath("../test.txt"));
+        static::assertFalse(Str::isAbsolutePath(""));
+        static::assertFalse(Str::isAbsolutePath("this is not a path"));
+    }
+
     public function validUuidList()
     {
         return [

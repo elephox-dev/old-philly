@@ -19,6 +19,7 @@ class AppTest extends TestCase
     public function testGetExceptionHandler()
     {
         try {
+            TestApp::reset();
             $app = TestApp::inst();
 
             $handler = $app->getExceptionHandler();
@@ -36,6 +37,7 @@ class AppTest extends TestCase
     public function testGetServices()
     {
         try {
+            TestApp::reset();
             $app = TestApp::inst();
 
             $services = $app->getServices();
@@ -53,6 +55,7 @@ class AppTest extends TestCase
     public function testGetCommands()
     {
         try {
+            TestApp::reset();
             $app = TestApp::inst();
 
             $commands = $app->getCommands();
@@ -71,6 +74,7 @@ class AppTest extends TestCase
     public function testGetInvalidExceptionHandler()
     {
         try {
+            TestApp::reset();
             $app = TestApp::inst();
 
             $app->bind(ExceptionHandlerContract::class, fn () => new TestClass(), true);
@@ -86,6 +90,7 @@ class AppTest extends TestCase
     public function testGetInvalidServices()
     {
         try {
+            TestApp::reset();
             $app = TestApp::inst();
 
             $app->bind(ServiceProviderContainerContract::class, fn () => new TestClass(), true);
@@ -101,6 +106,7 @@ class AppTest extends TestCase
     public function testGetInvalidCommands()
     {
         try {
+            TestApp::reset();
             $app = TestApp::inst();
 
             $app->bind(CommandCollectionContract::class, fn () => new TestClass(), true);
@@ -116,6 +122,7 @@ class AppTest extends TestCase
     public function testCombinedOffsetGet()
     {
         try {
+            TestApp::reset();
             $app = TestApp::inst();
 
             // register service provider in services

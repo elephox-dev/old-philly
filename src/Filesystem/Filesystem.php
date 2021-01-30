@@ -66,7 +66,7 @@ class Filesystem implements FilesystemContract
     {
         if ($this->exists($path) && !$overwrite) {
             throw new FileExistsException(path: $this->root . $path);
-        } elseif (!$overwrite) {
+        } elseif ($overwrite) {
             $this->makeDirs($path);
         }
 

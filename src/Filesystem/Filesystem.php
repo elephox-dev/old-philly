@@ -92,7 +92,7 @@ class Filesystem implements FilesystemContract
     {
         $dirs = dirname($this->root . $path);
 
-        if (file_exists($dirs)) {
+        if (is_dir($dirs)) {
             return true;
         }
 

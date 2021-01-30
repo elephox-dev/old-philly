@@ -106,7 +106,7 @@ class FilesystemTest extends TestCase
     {
         $f = new Filesystem("test", "C:\\www\\test.com");
 
-        static::assertSame("C:\\www\\test.com\\", $f->getRoot());
+        static::assertSame("C:\\www\\test.com" . DIRECTORY_SEPARATOR, $f->getRoot());
     }
 
     public function testNoFileCreated()

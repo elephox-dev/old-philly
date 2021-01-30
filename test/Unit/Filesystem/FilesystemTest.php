@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class FilesystemTest extends TestCase
 {
-
     public function testGetName()
     {
         $f = new Filesystem("test", "C:\\www\\test.com");

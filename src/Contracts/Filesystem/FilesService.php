@@ -6,7 +6,8 @@ namespace Philly\Contracts\Filesystem;
 
 use ArrayAccess;
 use InvalidArgumentException;
-use Philly\Contracts\Container\Container;
+use Philly\Contracts\Filesystem\Filesystem as FilesystemContract;
+use Philly\Contracts\Filesystem\FilesystemContainer as FilesystemContainerContract;
 use Philly\Contracts\ServiceProvider\ServiceProvider;
 
 /**
@@ -17,9 +18,9 @@ interface FilesService extends ServiceProvider, ArrayAccess
     /**
      * Returns all registered filesystems.
      *
-     * @return Container A container with filesystems.
+     * @return FilesystemContainerContract A container with filesystems.
      */
-    public function getAll(): Container;
+    public function getAll(): FilesystemContainerContract;
 
     /**
      * Gets a specific filesystem by name.
@@ -35,8 +36,8 @@ interface FilesService extends ServiceProvider, ArrayAccess
     /**
      * Adds a new filesystem under a specific name.
      *
-     * @param string $name The name of the filesystem
-     * @param Filesystem|string $filesystem The filesystem instance or the root of a filesystem.
+     * @param Filesystem|string $filesystem The name of the filesystem or an existing filesystem.
+     * @param string|null $root The root of a filesystem or null if the first parameter is a filesystem instance.
      */
-    public function add(string $name, Filesystem|string $filesystem): void;
+    public function add(string|FilesystemContract $filesystem, ?string $root = null): void;
 }

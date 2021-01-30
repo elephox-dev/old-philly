@@ -4,20 +4,27 @@ declare(strict_types=1);
 
 namespace Philly\Filesystem;
 
-use Philly\Container\Container;
-use Philly\Contracts\Container\Container as ContainerContract;
+use InvalidArgumentException;
 use Philly\Contracts\Filesystem\FilesService as FilesServiceContract;
 use Philly\Contracts\Filesystem\Filesystem as FilesystemContract;
+use Philly\Contracts\Filesystem\FilesystemContainer as FilesystemContainerContract;
+use Philly\Exceptions\NullReferenceException;
 use Philly\ServiceProvider\ServiceProvider;
 use ricardoboss\Console;
 
+/**
+ * Class FilesService.
+ */
 class FilesService extends ServiceProvider implements FilesServiceContract
 {
-    protected ContainerContract $storage;
+    protected FilesystemContainerContract $storage;
 
+    /**
+     * FilesService constructor.
+     */
     public function __construct()
     {
-        $this->storage = new Container();
+        $this->storage = new FilesystemContainer();
     }
 
     /**
@@ -33,9 +40,9 @@ class FilesService extends ServiceProvider implements FilesServiceContract
     /**
      * @inheritDoc
      */
-    public function getAll(): ContainerContract
+    public function getAll(): FilesystemContainerContract
     {
-        return $this->storage->copy();
+        return $this->storage->copy(deep: true);
     }
 
     /**
@@ -49,15 +56,27 @@ class FilesService extends ServiceProvider implements FilesServiceContract
     /**
      * @inheritDoc
      */
-    public function add(string $name, string|FilesystemContract $filesystem): void
+    public function add(string|FilesystemContract $filesystem, ?string $root = null): void
     {
         if ($filesystem instanceof FilesystemContract) {
-            $this->storage[$name] = $filesystem;
+            if ($root !== null) {
+                throw new InvalidArgumentException("Cannot add filesystem instance with different root!");
+            }
+
+            $name = $filesystem->getName();
+            $fs = $filesystem;
         } else {
-            $this->storage[$name] = new Filesystem($name, $filesystem);
+            if ($root === null) {
+                throw new NullReferenceException(var_name: 'root');
+            }
+
+            $name = $filesystem;
+            $fs = new Filesystem($name, $root);
         }
 
-        Console::debug("Added filesystem '$name' with root '{$this->storage[$name]->getRoot()}'");
+        $this->storage[$name] = $fs;
+
+        Console::debug("Added filesystem '$name' with root '{$fs->getRoot()}'");
     }
 
     /**

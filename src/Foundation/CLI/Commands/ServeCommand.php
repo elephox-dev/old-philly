@@ -53,10 +53,14 @@ class ServeCommand extends Command
         $host = $args->getValue('host');
 
         $root = $this->filesService->get('app-root')->real('public', false);
+        if ($root !== null) {
+            Console::info("Using " . Console::link($root) . " as document root.");
+        }
 
         $command = $this->buildCommand($root, $host, $port);
-
         $process = new Process($command, timeout: null);
+
+        Console::info("Use CTRL+C to stop the server.");
         $process->start();
 
         $exitCode = $process->wait(function ($type, $buffer) {

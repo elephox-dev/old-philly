@@ -92,23 +92,21 @@ class Filesystem implements FilesystemContract
 
     /**
      * @param string $path
-     * @return bool
+     * @return void
      * @throws FileNotCreatedException
      */
-    private function makeDirs(string $path, bool $throw = true): bool
+    private function makeDirs(string $path): void
     {
         $dirs = dirname($this->root . $path);
 
         if (is_dir($dirs)) {
-            return true;
+            return;
         }
 
         $success = @mkdir($dirs, recursive: true);
-        if (!$success && $throw) {
+        if (!$success) {
             throw new FileNotCreatedException("Unable to create directories: $dirs");
         }
-
-        return $success;
     }
 
     /**

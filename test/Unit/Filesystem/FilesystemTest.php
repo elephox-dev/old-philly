@@ -24,6 +24,7 @@ class FilesystemTest extends TestCase
         $f = new Filesystem("test", __DIR__);
 
         static::assertNotNull($f->real(basename(__FILE__)));
+        static::assertNotNull($f->real(basename(__FILE__), false));
     }
 
     public function testExists()

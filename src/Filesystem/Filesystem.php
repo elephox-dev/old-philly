@@ -120,7 +120,7 @@ class Filesystem implements FilesystemContract
 
         if ($real === false && $throw) {
             throw new FileNotFoundException(path: $path);
-        } elseif (!$throw) {
+        } elseif ($real === false && !$throw) {
             return null;
         }
 

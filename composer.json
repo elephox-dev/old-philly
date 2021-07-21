@@ -36,12 +36,12 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "Philly\\": "src"
+      "Philly\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "test\\Philly\\": "test"
+      "test\\Philly\\": "test/"
     }
   },
   "bin": [

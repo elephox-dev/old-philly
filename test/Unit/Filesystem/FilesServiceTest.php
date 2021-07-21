@@ -19,7 +19,7 @@ use test\Philly\TestClass;
  *
  * @psalm-suppress PossiblyNullReference
  */
-class FileServiceTest extends TestCase
+class FilesServiceTest extends TestCase
 {
     private ?FilesService $files;
 

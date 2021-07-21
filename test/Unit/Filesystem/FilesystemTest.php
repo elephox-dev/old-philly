@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace test\Philly\Unit\Filesystem;
 
+use Exception;
 use Philly\Filesystem\FileExistsException;
 use Philly\Filesystem\FileNotCreatedException;
 use Philly\Filesystem\FileNotFoundException;
@@ -34,6 +35,12 @@ class FilesystemTest extends TestCase
         static::assertTrue($f->exists(basename(__FILE__)));
     }
 
+    /**
+     * @throws FileNotCreatedException
+     * @throws FileExistsException
+     * @throws FileNotFoundException
+     * @throws Exception
+     */
     public function testContents()
     {
         $root = sys_get_temp_dir();
@@ -64,11 +71,59 @@ class FilesystemTest extends TestCase
             }
         }
 
+        try {
+            $f->getContents($filename);
+
+            // fail if we reach this point
+            static::assertTrue(false);
+        } catch (FileNotFoundException $fnfe) {
+            static::assertEquals($root . DIRECTORY_SEPARATOR . $filename, $fnfe->getPath());
+        }
+
         static::expectException(FileNotFoundException::class);
 
         $f->getContents($filename);
     }
 
+    /**
+     * @throws FileExistsException
+     * @throws FileNotCreatedException
+     * @throws FileNotFoundException
+     */
+    public function testOverwriteContents()
+    {
+        $root = sys_get_temp_dir();
+        $f = new Filesystem("temp", $root);
+        $filename = "testfile" . random_int(0, 99);
+
+        $f->putContents($filename, "test1");
+
+        $this->assertSame("test1", $f->getContents($filename));
+
+        $f->putContents($filename, "test2", true);
+
+        $this->assertSame("test2", $f->getContents($filename));
+
+        try {
+            $f->putContents($filename, "test3", false);
+        } catch (FileExistsException $fee) {
+            static::assertEquals($root . DIRECTORY_SEPARATOR . $filename, $fee->getPath());
+        }
+
+        try {
+            $this->expectException(FileExistsException::class);
+
+            $f->putContents($filename, "test3", false);
+        } finally {
+            $this->assertSame("test2", $f->getContents($filename));
+        }
+    }
+
+    /**
+     * @throws FileNotCreatedException
+     * @throws FileExistsException
+     * @throws Exception
+     */
     public function testNoOverwriteContents()
     {
         $root = sys_get_temp_dir();
@@ -92,6 +147,9 @@ class FilesystemTest extends TestCase
         }
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     public function testNotReal()
     {
         $f = new Filesystem("temp", sys_get_temp_dir());
@@ -110,6 +168,9 @@ class FilesystemTest extends TestCase
         static::assertSame("C:\\www\\test.com" . DIRECTORY_SEPARATOR, $f->getRoot());
     }
 
+    /**
+     * @throws FileExistsException
+     */
     public function testNoFileCreated()
     {
         $f = new Filesystem("temp", sys_get_temp_dir());

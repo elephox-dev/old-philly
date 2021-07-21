@@ -69,6 +69,7 @@ class FilesServiceTest extends TestCase
 
         static::assertInstanceOf(FilesystemContract::class, $root);
         static::assertSame($root, $root2);
+        static::assertTrue($root->exists('composer.json'));
     }
 
     /**

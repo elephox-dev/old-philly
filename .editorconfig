@@ -14,6 +14,9 @@ ij_formatter_tags_enabled = false
 ij_smart_tabs = false
 ij_wrap_on_typing = false
 
+[bin/philly]
+end_of_line = lf
+
 [{*.xml,*.xml.dist,*.xsd,*.xsl,*.xslt}]
 ij_xml_align_attributes = true
 ij_xml_align_text = false

@@ -24,6 +24,8 @@ class FileNotFoundException extends FilesystemException
             }
         }
 
+        $this->path = $path;
+
         parent::__construct($message, $code, $previous);
     }
 

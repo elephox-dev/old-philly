@@ -13,7 +13,7 @@ class CommandArgumentTemplateCollectionTest extends TestCase
 {
     public function testConstruct()
     {
-        $template = new CommandArgumentTemplate("test");
+        $template = new CommandArgumentTemplate("test", "string");
         $collection = new CommandArgumentTemplateCollection([$template]);
 
         static::assertCount(1, $collection);
@@ -24,7 +24,7 @@ class CommandArgumentTemplateCollectionTest extends TestCase
 
     public function testFirstKey()
     {
-        $template = new CommandArgumentTemplate("test");
+        $template = new CommandArgumentTemplate("test", "string");
         $collection = new CommandArgumentTemplateCollection([$template]);
 
         static::assertSame($template, $collection->firstKey('test'));

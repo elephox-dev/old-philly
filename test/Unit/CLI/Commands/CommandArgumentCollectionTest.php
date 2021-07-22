@@ -17,7 +17,7 @@ class CommandArgumentCollectionTest extends TestCase
 {
     public function testConstruct()
     {
-        $template = new CommandArgumentTemplate("test");
+        $template = new CommandArgumentTemplate("test", "string");
         $collection = new CommandArgumentCollection([
             new CommandArgument($template, "val")
         ]);

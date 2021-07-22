@@ -20,8 +20,8 @@ class TestCommand extends Command
         return new CommandSignature(
             "test",
             [
-                new CommandArgumentTemplate("fail"),
-                new CommandArgumentTemplate("val")
+                new CommandArgumentTemplate("fail", "bool"),
+                new CommandArgumentTemplate("val", "string")
             ]
         );
     }

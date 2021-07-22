@@ -7,7 +7,6 @@ namespace test\Philly\Unit\CLI\Commands;
 use Philly\CLI\Commands\CommandArgumentCollection;
 use Philly\CLI\Commands\CommandArgumentTemplate;
 use PHPUnit\Framework\TestCase;
-use test\Philly\TestClass;
 use test\Philly\TestCommand;
 use Throwable;
 
@@ -40,7 +39,7 @@ class CommandTest extends TestCase
         $s = TestCommand::makeSignature();
         $c = new TestCommand($s);
 
-        $val = new TestClass();
+        $val = "test";
         $success_args = CommandArgumentCollection::fromArray(
             $s->getArguments(),
             [

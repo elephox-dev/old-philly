@@ -32,10 +32,6 @@ class CommandArgument extends CommandArgumentTemplate implements CommandArgument
         );
 
         $actualType = strtolower(gettype($value));
-        if (!is_scalar($value)) {
-            throw new TypeError("Expected value to be a scalar, got: $actualType");
-        }
-
         $expectedType = $template->getType();
         $checker = "is_" . $expectedType;
         if (!function_exists($checker)) {

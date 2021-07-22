@@ -35,13 +35,13 @@ class CreateCommandCommand extends Command
         parent::__construct(new CommandSignature(
             "create:command",
             [
-                new CommandArgumentTemplate("name"),
-                new CommandArgumentTemplate("short", optional: true),
-                new CommandArgumentTemplate("args", optional: true),
-                new CommandArgumentTemplate("namespace", optional: true, default: "CLI\\Commands"),
-                new CommandArgumentTemplate("classname", optional: true),
-                new CommandArgumentTemplate("stub", optional: true),
-                new CommandArgumentTemplate("dest", optional: true, default: "app/CLI/Commands/")
+                new CommandArgumentTemplate("name", "string"),
+                new CommandArgumentTemplate("short", "string", optional: true),
+                new CommandArgumentTemplate("args", "string", optional: true),
+                new CommandArgumentTemplate("namespace", "string", optional: true, default: "CLI\\Commands"),
+                new CommandArgumentTemplate("classname", "string", optional: true),
+                new CommandArgumentTemplate("stub", "string", optional: true),
+                new CommandArgumentTemplate("dest", "string", optional: true, default: "app/CLI/Commands/")
             ]
         ));
     }

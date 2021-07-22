@@ -32,8 +32,8 @@ class ServeCommand extends Command
         parent::__construct(new CommandSignature(
             "serve",
             [
-                new CommandArgumentTemplate("port", optional: true, default: 8000),
-                new CommandArgumentTemplate("host", optional: true, default: "127.0.0.1")
+                new CommandArgumentTemplate("port", "int", optional: true, default: 8000),
+                new CommandArgumentTemplate("host", "string", optional: true, default: "127.0.0.1")
             ]
         ));
 

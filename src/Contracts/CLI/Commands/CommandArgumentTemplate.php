@@ -16,9 +16,14 @@ interface CommandArgumentTemplate
     public function isOptional(): bool;
 
     /**
-     * @return mixed|null If this argument is optional, then this method returns the default value.
+     * @return bool|int|float|string|null If this argument is optional, then this method returns the default value.
      */
-    public function getDefaultValue();
+    public function getDefaultValue(): bool|int|float|string|null;
+
+    /**
+     * @return string The data type of this argument. Can only be a scalar type (bool|int|float|string|null).
+     */
+    public function getType(): string;
 
     /**
      * @return string The short name for this argument (e.g. "v" or "ver").

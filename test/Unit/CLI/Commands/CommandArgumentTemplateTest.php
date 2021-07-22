@@ -11,7 +11,7 @@ class CommandArgumentTemplateTest extends TestCase
 {
     public function testConstruct()
     {
-        $template = new CommandArgumentTemplate('test', 'te');
+        $template = new CommandArgumentTemplate('test', "string", 'te');
 
         static::assertEquals('test', $template->getName());
         static::assertEquals('te', $template->getShortName());

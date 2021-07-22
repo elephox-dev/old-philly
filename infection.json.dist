@@ -8,6 +8,18 @@
 			"Exceptions/ExceptionHandler.php"
 		]
 	},
+	"mutators": {
+	    "@default": true,
+	    "@unwrap": false,
+	    "@extensions": false,
+	    "global-ignore": [
+            "Philly\\Support\\Str::random",
+            "Philly\\Foundation\\CLI\\Commands\\*"
+        ],
+        "global-ignoreSourceCodeByRegex": [
+	        "Console::.*"
+	    ]
+	},
 	"logs": {
 		"text": "php:\/\/stdout",
 		"badge": {
@@ -15,5 +27,5 @@
 		}
 	},
 	"minMsi": 90,
-	"minCoveredMsi": 100
+	"minCoveredMsi": 95
 }

@@ -10,7 +10,7 @@ namespace Philly\Contracts\CLI\Commands;
 interface CommandArgument extends CommandArgumentTemplate
 {
     /**
-     * @return mixed|null When used to invoke a command, this function returns the value held by this argument.
+     * @return bool|int|float|string|null When used to invoke a command, this function returns the value held by this argument.
      */
-    public function getValue();
+    public function getValue(): bool|int|float|string|null;
 }

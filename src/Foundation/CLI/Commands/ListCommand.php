@@ -33,7 +33,7 @@ class ListCommand extends Command
         Console::info("Available commands:");
         Console::info("%s\t\t\t%s", Console::reverse(Console::green("Name")), Console::reverse(Console::yellow("Arguments")));
 
-        usort($commands, fn(CommandContract $a, CommandContract $b) => strcmp($a->getSignature()->getName(), $b->getSignature()->getName()));
+        usort($commands, fn (CommandContract $a, CommandContract $b) => strcmp($a->getSignature()->getName(), $b->getSignature()->getName()));
         foreach ($commands as $command) {
             $signature = $command->getSignature();
             /** @var CommandArgumentTemplateCollectionContract|CommandArgumentTemplateContract[] $args */

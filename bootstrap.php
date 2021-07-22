@@ -18,11 +18,19 @@ require $autoload;
 
 /******************************************************************************/
 
+use Dotenv\Dotenv;
 use Philly\App;
 use Philly\Contracts\Filesystem\FilesService;
 use ricardoboss\Console;
 
-// open console for logging
+$cwd = getcwd();
+
+// load .env file
+$dotenv = Dotenv::createImmutable($cwd);
+$dotenv->safeLoad();
+
+// configure console for logging
+Console::logLevel(intval($_ENV['LOG_LEVEL'] ?? 1));
 Console::open();
 Console::debug("Bootstrapping application...");
 
@@ -30,6 +38,6 @@ Console::debug("Bootstrapping application...");
 $app = App::inst();
 
 // store current dir as app root
-$app[FilesService::class]->add('app-root', getcwd());
+$app[FilesService::class]->add('app-root', $cwd);
 
 Console::debug("Bootstrapped application");

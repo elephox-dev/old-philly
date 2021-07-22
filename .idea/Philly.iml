@@ -27,6 +27,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/asika/cross-env" />
       <excludeFolder url="file://$MODULE_DIR$/docs/_site" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ocramius/package-versions" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpoption/phpoption" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/graham-campbell/result-type" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

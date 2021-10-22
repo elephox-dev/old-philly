@@ -18,13 +18,7 @@
     "vimeo/psalm": "dev-master",
     "infection/infection": "^0.23",
     "roave/security-advisories": "dev-latest",
-    "asika/cross-env": "dev-develop"
-  },
-  "repositories": {
-    "asika/cross-env": {
-      "type": "git",
-      "url": "https://github.com/ricardoboss/php-cross-env.git"
-    }
+    "asika/cross-env": "^1.0.7"
   },
   "license": "MIT",
   "authors": [

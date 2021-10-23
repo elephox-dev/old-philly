@@ -45,6 +45,9 @@ The documentation for this framework can be seen at [philly.ricardoboss.de](http
     </tr>
     <tr>
         <th scope="row" align="right"><a href="https://shepherd.dev/github/ricardoboss/philly">Static Analysis</a></th>
-        <td align="center" colspan=2><img alt="Type Coverage" src="https://shepherd.dev/github/ricardoboss/philly/coverage.svg"></td>
+        <td align="center" colspan=2>
+            <img alt="Type Coverage" src="https://shepherd.dev/github/ricardoboss/philly/coverage.svg">
+            <img alt="Psalm Level" src="https://shepherd.dev/github/ricardoboss/philly/level.svg">
+        </td>
     </tr>
 </table>
